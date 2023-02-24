@@ -3,45 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/24 15:39:51 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/02/24 19:41:57 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static	init_data(data)
+static t_data	*init_data(t_data *data)
 {
-	mlx = NULL;
-	img = NULL;
-	width = 860;
-	height = 640;
-	infile = ;
-	items = NULL;
+	t_data	*data;
+
+	data = malloc(sizeof(t_data));
+	if (data == NULL)
+		return (NULL);
+	// infile = ;
+	// items = NULL;
+	data->mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
+	if (data->mlx == NULL)
+		return (NULL);			//needs freeing
+	data->img = mlx_new_image(data->mlx, data->mlx->width, data->mlx->height);
+	if (data->img == NULL)
+		return (NULL);			//needs freeing
+	// ft_memset(data->img->pixels, 255, data->width * data->height * sizeof(int32_t));
+	mlx_image_to_window(data->mlx, data->img, 0, 0);
+	return (data);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	data = malloc(sizeof(t_data));
-	if (data == NULL)
-		ft_error(data, 1);
-	init_data(data);
+	data = init_data(data);
 	parse_scene(data, argc, argv);
-	data->mlx = mlx_init(data->width, data->height, "miniRT", false);
-	if (data->mlx == NULL)
-		ft_error(data, 2);
-	data->img = mlx_new_image(data->mlx, data->width, data->height);
-	ft_memset(data->img->pixels, 255, data->width * data->height * sizeof(int32_t));
+	draw_image();
 	// draw_grid(data);
-	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	// print_keys();
 	// mlx_key_hook(data->mlx, &keyhook, data);
 	// mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
-	ft_error(data, 0);
 	return (0);
 }
