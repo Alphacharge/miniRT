@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
+#    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/02/24 10:51:33 by rbetz            ###   ########.fr        #
+#    Updated: 2023/02/25 19:39:38 by fkernbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,24 +44,24 @@ else
 endif
 
 ###			###			SOURCES			###			###
-VPATH	:=	src/ src/parsing/
+VPATH	:=	src/ src/parsing/ src/utils
 
 SRC_F	:=	miniRT.c
 SRC_F	+=	parsing.c
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
-SRC_F	+=	
+SRC_F	+=	pixels.c
+SRC_F	+=	ray.c
+SRC_F	+=	vector.c
+SRC_F	+=	free.c
+SRC_F	+=	color.c
+SRC_F	+=	camera.c
+SRC_F	+=
+SRC_F	+=
+SRC_F	+=
+SRC_F	+=
+SRC_F	+=
+SRC_F	+=
+SRC_F	+=
+SRC_F	+=
 
 ###			###			OBJECTS			###			###
 OBJ_D	:=	./obj

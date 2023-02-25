@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_utils.c                                     :+:      :+:    :+:   */
+/*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:19:27 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/02/24 18:31:13 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:59:55 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_vec	*add_vector(t_vec *v1, t_vec *v2)
 {
 	t_vec	*vector;
 
-	vector = new_vector;
+	vector = new_vector(0, 0, 0);
 	if (vector == NULL)
 		return (NULL);
 	vector->x = v1->x + v2->x;
@@ -47,7 +47,7 @@ t_vec	*subtract_vector(t_vec *v1, t_vec *v2)
 {
 	t_vec	*vector;
 
-	vector = new_vector;
+	vector = new_vector(0, 0, 0);
 	if (vector == NULL)
 		return (NULL);
 	vector->x = v1->x - v2->x;
@@ -60,7 +60,7 @@ t_vec	*multiply_vector(t_vec *v1, t_vec *v2)
 {
 	t_vec	*vector;
 
-	vector = new_vector;
+	vector = new_vector(0, 0, 0);
 	if (vector == NULL)
 		return (NULL);
 	vector->x = v1->x * v2->x;
@@ -73,7 +73,7 @@ t_vec	*factor_mult_vector(t_vec *v1, float f)
 {
 	t_vec	*vector;
 
-	vector = new_vector;
+	vector = new_vector(0, 0, 0);
 	if (vector == NULL)
 		return (NULL);
 	vector->x = v1->x * f;
@@ -86,7 +86,7 @@ t_vec	*factor_div_vector(t_vec *v1, float f)
 {
 	t_vec	*vector;
 
-	vector = new_vector;
+	vector = new_vector(0, 0, 0);
 	if (vector == NULL)
 		return (NULL);
 	vector->x = v1->x / f;
@@ -104,16 +104,17 @@ float	scalar_vector(t_vec *v1, t_vec *v2)
 
 /*Cross product of two vectors returns normal vector. The absolute value of this
 vector is also the surface area of the two vectors.*/
-float	cross_vector(t_vec *v1, t_vec *v2)
+t_vec	*cross_vector(t_vec *v1, t_vec *v2)
 {
 	t_vec	*vector;
 
-	vector = new_vector;
+	vector = new_vector(0, 0, 0);
 	if (vector == NULL)
 		return (NULL);
 	vector->x = v1->y * v2->z - v1->z * v2->y;
 	vector->y = v1->z * v2->x - v1->x * v2->z;
 	vector->z = v1->x * v2->y - v1->y * v2->x;
+	return (vector);
 }
 
 float	length_vector(t_vec *v1)
