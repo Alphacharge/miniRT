@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:19:27 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/02/25 16:59:55 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/02/27 14:39:03 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+/*creates a new allocated vector*/
 t_vec	*new_vector(float x, float y, float z)
 {
 	t_vec	*vector;
@@ -25,11 +26,13 @@ t_vec	*new_vector(float x, float y, float z)
 	return (vector);
 }
 
+/*prints the vector values as XYZ*/
 void	print_vector(t_vec *vector)
 {
 	printf("(%f|%f|%f)", vector->x, vector->y, vector->z);
 }
 
+/*allocates a new vector with the result of vec1 + vec2*/
 t_vec	*add_vector(t_vec *v1, t_vec *v2)
 {
 	t_vec	*vector;
@@ -43,6 +46,7 @@ t_vec	*add_vector(t_vec *v1, t_vec *v2)
 	return (vector);
 }
 
+/*allocates a new vector with the result of vec1 - vec2*/
 t_vec	*subtract_vector(t_vec *v1, t_vec *v2)
 {
 	t_vec	*vector;
@@ -56,6 +60,7 @@ t_vec	*subtract_vector(t_vec *v1, t_vec *v2)
 	return (vector);
 }
 
+/*allocates a new vector with the result of vec1 * vec2*/
 t_vec	*multiply_vector(t_vec *v1, t_vec *v2)
 {
 	t_vec	*vector;
@@ -69,6 +74,7 @@ t_vec	*multiply_vector(t_vec *v1, t_vec *v2)
 	return (vector);
 }
 
+/*allocates a new vector with the result of vec1 * factor*/
 t_vec	*factor_mult_vector(t_vec *v1, float f)
 {
 	t_vec	*vector;
@@ -82,6 +88,7 @@ t_vec	*factor_mult_vector(t_vec *v1, float f)
 	return (vector);
 }
 
+/*allocates a new vector with the result of vec1 / factor*/
 t_vec	*factor_div_vector(t_vec *v1, float f)
 {
 	t_vec	*vector;

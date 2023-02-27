@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/02/27 14:06:35 by rbetz            ###   ########.fr        #
+#    Updated: 2023/02/27 15:02:24 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ else
 endif
 
 ###			###			SOURCES			###			###
-VPATH	:=	src/ src/parsing/ src/utils
+VPATH	:=	src/ src/parsing/ src/utils src/camera src/error src/image
 
 SRC_F	:=	miniRT.c
 SRC_F	+=	parsing.c print_map.c realloc_map.c
