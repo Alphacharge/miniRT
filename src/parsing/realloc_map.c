@@ -6,12 +6,13 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:00:19 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 14:08:50 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/02/27 14:33:25 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+/*allocates a new array with the double size as before*/
 int	realloc_map(t_map *map)
 {
 	char	***new;

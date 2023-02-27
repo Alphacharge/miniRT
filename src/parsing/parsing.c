@@ -6,18 +6,20 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:03:38 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 14:04:58 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/02/27 14:31:55 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+/*set error and return map for 1 liner*/
 static t_map	*set_error(t_map *map, int error)
 {
 	map->error = error;
 	return (map);
 }
 
+/*remove [space][tab][nl] form beginning and end of each field*/
 static void	parse_line(t_map *map)
 {
 	int		i;
@@ -41,6 +43,7 @@ static void	parse_line(t_map *map)
 	}
 }
 
+/*Read the input file line by line and realloc pointer if not big enough*/
 static void	parse_file(t_map *map)
 {
 	int		i;
@@ -70,6 +73,7 @@ static void	parse_file(t_map *map)
 	}
 }
 
+/*Validate the input and call parsing*/
 t_map	*parse_scene(int argc, char **argv)
 {
 	t_map	*map;
