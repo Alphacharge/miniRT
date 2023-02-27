@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
+#    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/02/27 15:02:24 by rbetz            ###   ########.fr        #
+#    Updated: 2023/02/27 18:02:04 by fkernbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ MLX_D	:=	./lib/MLX42/
 MLX_L	:=	$(MLX_D)build/
 MLX 	:=	$(MLX_D)/build/libmlx42.a
 LIB_MAC	:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -L ~/.brew/opt/glfw/lib -l glfw
-LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -l glfw
+LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -l glfw -lm
 
 ###			###			HEADER			###			###
 INC_D	:=	./inc
@@ -76,6 +76,10 @@ WHITE	=	\033[0m
 
 ###			###			RULES			###			###
 all: $(LIBFT) $(MLX)
+	@$(MAKE) $(NAME) -j
+
+rt:
+	$(RM) -rf $(OBJ_D);
 	@$(MAKE) $(NAME) -j
 
 ifeq ($(OS), Darwin)

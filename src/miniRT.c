@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 14:08:23 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/02/27 18:04:07 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,20 @@ int	main(int argc, char **argv)
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_cam		*cam;
-	t_map		*map;
+	// t_map		*map;
 
+	(void)argc;
+	(void)argv;
 	// data = init_data();
-	map = parse_scene(argc, argv);
+	// map = parse_scene(argc, argv);
 	// exit(0);
+printf("parsing done\n");
 	mlx = mlx_setup();
+	printf("%p\n", mlx);
 	img = img_setup(mlx);
+printf("mlx setup done\n");
 	cam = setup_camera(mlx->width, mlx->height);
+printf("scene setup done\n");
 	if (mlx == NULL || img == NULL || cam == NULL)
 		return (EXIT_FAILURE);	//needs freeing
 	draw_image(img, cam);

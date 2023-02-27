@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:32:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/02/25 19:29:17 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:02:51 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	float_to_color(float r, float g, float b)
 	return (char_red << 24 | char_green << 16 | char_blue << 8 | 255);
 }
 
-int	multiply_color(int rgba, int factor)
+int	factor_color(int rgba, float factor)
 {
 	unsigned char	r;
 	unsigned char	g;

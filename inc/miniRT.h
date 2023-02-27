@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 14:03:40 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/02/27 20:40:17 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include "MLX42.h"
 # include "libft.h"
 
-# define WIDTH 50
-# define HEIGHT 30
+# define WIDTH 400
+# define HEIGHT 320
 
 typedef struct s_vector
 {
@@ -61,6 +61,12 @@ typedef struct s_color
 // 	struct s_item next;
 // }				t_item;
 
+typedef struct s_sphere
+{
+	t_vec	*center;
+	float	radius;
+}	t_sphere;
+
 typedef struct s_ray
 {
 	t_vec	*origin;
@@ -73,7 +79,7 @@ typedef struct s_camera
 	t_vec	*origin;
 	t_vec	*horizontal;
 	t_vec	*vertical;
-	t_vec	*lower_left_corner;
+	t_vec	*upper_left_corner;
 }	t_cam;
 
 typedef struct s_map
@@ -108,6 +114,7 @@ void	ft_error(t_data *data, int ecase);
 //RAY UTILS
 t_ray	*new_ray(t_vec *origin, t_vec *direction);
 int		ray_color(t_ray *ray);
+t_ray	*delete_ray(t_ray *ray);
 
 //VECTOR UTILS
 t_vec	*new_vector(float x, float y, float z);
@@ -124,10 +131,11 @@ t_vec	*unit_vector(t_vec *v1);
 
 //CAMERA
 t_cam	*setup_camera(int width, int height);
+t_cam	*delete_camera(t_cam *cam);
 
 //COLOR UTILS
 int	float_to_color(float r, float g, float b);
-int	multiply_color(int rgba, int factor);
+int	factor_color(int rgba, float factor);
 int	add_color(int c1, int c2);
 
 //UTILS

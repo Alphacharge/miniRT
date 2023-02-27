@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/02/25 19:55:03 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/02/27 21:02:49 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,32 @@
 
 int	draw_image(mlx_image_t *img, t_cam *cam)
 {
-	uint32_t	col;
-	uint32_t	row;
-	uint32_t	color;
+	int			col;
+	int			row;
 	t_ray		*ray;
 
 	col = 0;
 	row = 0;
-	color = 0xFF000000 | 0x00FF0000 | 0x00001100 | 0x000000FF;
+	ray = new_ray(cam->origin, NULL);
 	printf("Image size: %ix%i\n", img->width, img->height);
-	while (row < img->height)
+
+	//shoot a ray through camera origin and every pixel (image plane)
+	while (row < (int)img->height)
 	{
-		while (col < img->width)
+		while (col < (int)img->width)
 		{
-			//problem: u and v are relative while col and row are absolute pixels
-			ray = new_ray(cam->origin, subtract_vector(add_vector(add_vector(cam->lower_left_corner, factor_mult_vector(cam->horizontal, row)), factor_mult_vector(cam->vertical, col)), cam->origin));
+			ray->direction = new_vector(cam->upper_left_corner->x + col, cam->upper_left_corner->y + row, cam->focal_length * -1);
+			//find the nearest object that ray hits (t closest to 0)
+			//determine direction
+			//determine shading
 			mlx_put_pixel(img, col, row, ray_color(ray));
+			ray->direction = ft_free(ray->direction);
 			col++;
 		}
 		col = 0;
 		row++;
 	}
+	ft_free(ray);
 	printf("Image rendered.\n");
 	return (0);
 }
