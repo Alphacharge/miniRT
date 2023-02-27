@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 13:50:59 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/02/27 14:08:23 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ int	main(int argc, char **argv)
 
 	// data = init_data();
 	map = parse_scene(argc, argv);
-	ft_printf("------------------------\n");
-	print_map(map);
-	exit(0);
+	// exit(0);
 	mlx = mlx_setup();
 	img = img_setup(mlx);
 	cam = setup_camera(mlx->width, mlx->height);

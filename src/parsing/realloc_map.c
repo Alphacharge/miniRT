@@ -6,13 +6,13 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:00:19 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 14:00:34 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/02/27 14:08:50 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	realloc_file(t_map *map)
+int	realloc_map(t_map *map)
 {
 	char	***new;
 	int		i;
