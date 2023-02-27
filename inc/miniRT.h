@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/25 19:49:40 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/02/27 14:03:40 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,14 @@ typedef struct s_camera
 	t_vec	*lower_left_corner;
 }	t_cam;
 
+typedef struct s_map
+{
+	int		fd;
+	char	**lines;
+	char	***file;
+	int		error;
+	int		size;
+}	t_map;
 
 typedef struct s_data
 {
@@ -87,6 +95,10 @@ typedef struct s_data
 	// typedef struct s_item	*items;
 }							t_data;
 
+//PARSING
+t_map	*parse_scene(int argc, char **argv);
+void	print_map(t_map *map);
+int		realloc_map(t_map *map);
 //IMAGE
 int	draw_image(mlx_image_t *img, t_cam *cam);
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
+#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/02/25 19:39:38 by fkernbac         ###   ########.fr        #
+#    Updated: 2023/02/27 14:06:35 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ endif
 VPATH	:=	src/ src/parsing/ src/utils
 
 SRC_F	:=	miniRT.c
-SRC_F	+=	parsing.c
+SRC_F	+=	parsing.c print_map.c realloc_map.c
 SRC_F	+=	pixels.c
 SRC_F	+=	ray.c
 SRC_F	+=	vector.c
