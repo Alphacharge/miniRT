@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 20:40:17 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:59:15 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@
 # include "MLX42.h"
 # include "libft.h"
 
-# define WIDTH 400
-# define HEIGHT 320
+# define WIDTH 800
+# define HEIGHT 480
+// # define WIDTH 1280
+// # define HEIGHT 720
+// # define WIDTH 1680
+// # define HEIGHT 1050
 
 typedef struct s_vector
 {
