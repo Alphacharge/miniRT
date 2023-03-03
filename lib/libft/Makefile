@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 14:21:20 by rbetz             #+#    #+#              #
-#    Updated: 2023/02/24 10:44:00 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/03 13:16:23 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,14 +62,11 @@ $(OBJ_D):
 	@mkdir $@
 
 clean:
-	@echo "$(YELL)--->$(RED)Cleaning Objects .....$(WHITE)"
 	@/bin/rm -rf $(OBJ_D) libft.h.gch
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \
 		/bin/rm -f $(NAME); \
-		echo "$(GREEN)--->$(YELL)Cleaning Lib .....$(WHITE)";else \
-		echo "No $(NAME) to remove."; \
 	fi;
 
 re: fclean all

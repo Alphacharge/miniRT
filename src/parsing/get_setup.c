@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   realloc_map.c                                      :+:      :+:    :+:   */
+/*   get_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 14:00:19 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 14:33:25 by rbetz            ###   ########.fr       */
+/*   Created: 2023/03/03 10:44:55 by rbetz             #+#    #+#             */
+/*   Updated: 2023/03/03 13:44:28 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-/*allocates a new array with the double size as before*/
-int	realloc_map(t_map *map)
+void	get_reso(t_obj *obj, char **split)
 {
-	char	***new;
-	int		i;
+	if (obj && split && split[1] && split[2])
+	{
+		obj->type = RES;
+		obj->dia_rat = ft_atof(split[1]);
+		obj->hei_fov = ft_atof(split[2]);
+	}
+	else
+		obj->type = -1;
+}
 
-	i = 0;
-	new = ft_calloc(2 * map->size, sizeof(char **));
-	if (new == NULL)
-	{
-		map->error = 9;
-		return (map->size);
-	}
-	while (i < map->size)
-	{
-		new[i] = map->file[i];
-		i++;
-	}
-	free(map->file);
-	map->file = new;
-	return (2 * map->size);
+void	get_cam(t_obj *obj, char **split)
+{
+	
+}
+
+void	get_ambi(t_obj *obj, char **split)
+{
+	
+}
+
+void	get_light(t_obj *obj, char **split)
+{
+	
 }
