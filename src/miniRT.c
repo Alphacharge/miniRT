@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 18:04:07 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:41:56 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	main(int argc, char **argv)
 	// exit(0);
 printf("parsing done\n");
 	mlx = mlx_setup();
-	printf("%p\n", mlx);
 	img = img_setup(mlx);
 printf("mlx setup done\n");
 	cam = setup_camera(mlx->width, mlx->height);
