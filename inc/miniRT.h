@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 09:19:48 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 09:41:46 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,16 @@ typedef struct s_color
 	float	b;
 }	t_color;
 
-typedef struct s_item
+typedef struct s_obj
 {
-	char	*type;
+	int		type;
 	float	dia_rat;
 	float	hei_fov;
 	t_vec	coord;
 	t_vec	vector;
-	t_vec	color;
+	t_color	color;
 	struct s_item *next;
-}				t_item;
-
-typedef struct s_sphere
-{
-	t_vec	*center;
-	float	radius;
-}	t_sphere;
+}				t_obj;
 
 typedef struct s_ray
 {
@@ -77,16 +71,12 @@ typedef struct s_map
 {
 	int		fd;
 	char	**file;
-	int		size;
 }	t_map;
 
 typedef struct s_data
 {
 	mlx_t					*mlx;
 	mlx_image_t				*img;
-	// int						height;
-	// int						width;
-	// int						infile;
 	// typedef struct s_item	*items;
 }							t_data;
 

@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:03:38 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 09:22:08 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 09:40:12 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static void	count_lines(t_map *map)
 		if (line != NULL)
 			ft_free(line);
 	}
-	map->size = i;
 	map->file = ft_calloc(i + 1, sizeof(char *));
 	if (map->file != NULL)
 		map->file[i] = NULL;
@@ -110,7 +109,6 @@ t_map	*check_input(int argc, char **argv)
 	if (map == NULL)
 		return (NULL);
 	map->fd = -1;
-	map->size = 10;
 	if (argc < 2)
 		return (map);
 	if (argc > 2)
