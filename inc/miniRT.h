@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 11:12:52 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 14:11:20 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	get_sphere(t_obj *obj, char **split);
 void	get_pln(t_obj *obj, char **split);
 void	get_cyl(t_obj *obj, char **split);
 void	get_rect(t_obj *obj, char **split);
-float	ft_atof(char *nbr);
+double	ft_atof(char *nbr);
 
 //IMAGE
 int		draw_image(mlx_image_t *img, t_cam *cam);
