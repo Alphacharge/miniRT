@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:03:38 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 09:46:13 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 18:01:06 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_map	*check_input(int argc, char **argv)
 {
 	t_map	*map;
 
-	map = ft_calloc(1, sizeof(t_map *));
+	map = ft_calloc(1, sizeof(t_map));
 	if (map == NULL)
 		return (NULL);
 	map->fd = -1;

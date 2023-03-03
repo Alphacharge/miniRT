@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 17:23:35 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:38:20 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef enum e_type
 	AMBI,
 	SPHERE,
 	CYL,
-	RECT,
 	PLN,
 	RES
 }	t_type;
@@ -117,12 +116,11 @@ t_obj	*create_obj(t_map *map);
 char	**ft_split_p(char *s, char c);
 void	get_reso(t_obj *obj, char **split);
 void	get_cam(t_obj *obj, char **split);
-// void	get_ambi(t_obj *obj, char **split);
-// void	get_light(t_obj *obj, char **split);
+void	get_ambi(t_obj *obj, char **split);
+void	get_light(t_obj *obj, char **split);
 void	get_sphere(t_obj *obj, char **split);
 void	get_pln(t_obj *obj, char **split);
 void	get_cyl(t_obj *obj, char **split);
-// void	get_rect(t_obj *obj, char **split);
 double	ft_atof(char *nbr);
 
 //IMAGE
