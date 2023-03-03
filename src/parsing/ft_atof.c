@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_map.c                                        :+:      :+:    :+:   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 13:59:51 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 11:13:22 by rbetz            ###   ########.fr       */
+/*   Created: 2023/03/03 10:53:25 by rbetz             #+#    #+#             */
+/*   Updated: 2023/03/03 10:54:15 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-/*prints the map seperated with | symbols*/
-void	print_map(t_map *map)
+float	ft_atof(char *nbr)
 {
-	int	i;
+	float res;
 
-	i = 0;
-	while (map && map->file && map->file[i])
-	{
-		ft_putstr_fd(map->file[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
-	}
+
+	return (res);
 }

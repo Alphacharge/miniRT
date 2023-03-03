@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 09:41:46 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 11:12:52 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@
 // # define HEIGHT 720
 // # define WIDTH 1680
 // # define HEIGHT 1050
+
+typedef enum e_type
+{
+	CAM,
+	LIGHT,
+	AMBI,
+	SPHERE,
+	CYL,
+	RECT,
+	PLN,
+	RES
+}	t_type;
 
 typedef struct s_vector
 {
@@ -49,7 +61,7 @@ typedef struct s_obj
 	t_vec	coord;
 	t_vec	vector;
 	t_color	color;
-	struct s_item *next;
+	struct s_obj *next;
 }				t_obj;
 
 typedef struct s_ray
@@ -88,9 +100,20 @@ int		ft_isspace(int c);
 int		theend(char *s);
 char	*kill_nltb(char *line);
 int		first_iscomment(char *line);
+t_obj	*create_obj(t_map *map);
+char	**ft_split_p(char *s, char c);
+void	get_reso(t_obj *obj, char **split);
+void	get_cam(t_obj *obj, char **split);
+void	get_ambi(t_obj *obj, char **split);
+void	get_light(t_obj *obj, char **split);
+void	get_sphere(t_obj *obj, char **split);
+void	get_pln(t_obj *obj, char **split);
+void	get_cyl(t_obj *obj, char **split);
+void	get_rect(t_obj *obj, char **split);
+float	ft_atof(char *nbr);
 
 //IMAGE
-int	draw_image(mlx_image_t *img, t_cam *cam);
+int		draw_image(mlx_image_t *img, t_cam *cam);
 
 //ERROR
 void	ft_error(t_data *data, int ecase);
@@ -118,9 +141,9 @@ t_cam	*setup_camera(int width, int height);
 t_cam	*delete_camera(t_cam *cam);
 
 //COLOR UTILS
-int	float_to_color(float r, float g, float b);
-int	factor_color(int rgba, float factor);
-int	add_color(int c1, int c2);
+int		float_to_color(float r, float g, float b);
+int		factor_color(int rgba, float factor);
+int		add_color(int c1, int c2);
 
 //UTILS
 void	*ft_free(void *pointer);

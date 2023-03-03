@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/03 09:20:13 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/03 11:35:09 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 
 ###			###			COMPILER		###			###
 CC		:=	cc
-CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	:=	#-Wall -Wextra -Werror
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
 CFLAGS	+=	-g #-fsanitize=address
 
@@ -48,13 +48,13 @@ VPATH	:=	src/ src/parsing/ src/utils src/camera src/error src/image
 
 SRC_F	:=	miniRT.c
 SRC_F	+=	file_parsing.c print_map.c file_utils.c
+SRC_F	+=	line_parsing.c ft_split_p.c get_modells.c get_setup.c ft_atof.c
 SRC_F	+=	pixels.c
 SRC_F	+=	ray.c
 SRC_F	+=	vector.c
 SRC_F	+=	free.c
 SRC_F	+=	color.c
 SRC_F	+=	camera.c
-SRC_F	+=
 SRC_F	+=
 SRC_F	+=
 SRC_F	+=
@@ -75,7 +75,7 @@ BLUE	=	\033[1;34m
 WHITE	=	\033[0m
 
 ###			###			RULES			###			###
-all: $(LIBFT) $(MLX)
+all: message $(LIBFT) $(MLX)
 	@$(MAKE) $(NAME) -j
 
 rt:
@@ -97,7 +97,19 @@ $(OBJ_D)/%.o: %.c
 
 $(OBJ_D):
 	mkdir $@
+	
+message:
+	@echo "$(BLUE)---------------------------------------------------------"
+	@echo "$(BLUE)|$(RED)\t\t\t\t\t   _ _ _\t$(BLUE)|"
+	@echo "$(BLUE)|$(RED)\t\t\t\t\t  /_/_/_/$(YELL)\\ \t$(BLUE)|"
+	@echo "$(BLUE)|$(RED)\t\t\t\t\t /_/_/_/$(YELL)\/\\ \t$(BLUE)|"
+	@echo "$(BLUE)|$(RED)\t\tmini$(YELL)R$(GREEN)T$(RED)\t\t\t/_/_/_/$(YELL)\/\/\\ \t$(BLUE)|"
+	@echo "$(BLUE)|$(GREEN)\tby $(RED)fkernbac $(GREEN)and $(YELL)rbetz$(GREEN)\t\t\_\_\_\$(YELL)/\/\/\t$(BLUE)|"
+	@echo "$(BLUE)|$(GREEN)\t\t\t\t\t \_\_\_\$(YELL)/\/\t$(BLUE)|"
+	@echo "$(BLUE)|$(GREEN)\t\t\t\t\t  \_\_\_\$(YELL)/\t$(BLUE)|"
+	@echo "$(BLUE)---------------------------------------------------------$(WHITE)"
 
+	
 $(LIBFT):
 	make -j -C $(LIBFT_D)
 
@@ -124,16 +136,16 @@ clean:
 			$(RM) -rf $(OBJ_D); \
 			make fclean -C $(LIBFT_D); \
 			make clean -C $(MLX_L); \
-			echo "$(YELL)>>>$(RED)Cleaning Objects .....$(WHITE)";else \
-			echo "$(YELL)>>>$(GREEN)No Objects to remove.$(WHITE)"; \
 	fi;
+#			echo "$(YELL)>>>$(RED)Cleaning Objects .....$(WHITE)";else \
+#			echo "$(YELL)>>>$(GREEN)No Objects to remove.$(WHITE)";
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \
 			$(RM) -f $(NAME); \
-			echo "$(GREEN)>>>$(YELL)Cleaning Exec .....$(WHITE)";else \
-			echo "No $(NAME) to remove."; \
 	fi;
+#			echo "$(GREEN)>>>$(YELL)Cleaning Exec .....$(WHITE)";else \
+#			echo "No $(NAME) to remove."; 
 
 re: fclean all
 

@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_map.c                                        :+:      :+:    :+:   */
+/*   get_modells.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 13:59:51 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 11:13:22 by rbetz            ###   ########.fr       */
+/*   Created: 2023/03/03 10:47:50 by rbetz             #+#    #+#             */
+/*   Updated: 2023/03/03 10:50:23 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-/*prints the map seperated with | symbols*/
-void	print_map(t_map *map)
+void	get_sphere(t_obj *obj, char **split)
 {
-	int	i;
+	
+}
 
-	i = 0;
-	while (map && map->file && map->file[i])
-	{
-		ft_putstr_fd(map->file[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
-	}
+void	get_pln(t_obj *obj, char **split)
+{
+	
+}
+
+void	get_cyl(t_obj *obj, char **split)
+{
+	
+}
+
+void	get_rect(t_obj *obj, char **split)
+{
+	
 }
