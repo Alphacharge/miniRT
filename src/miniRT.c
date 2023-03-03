@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 18:04:07 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/02 10:08:25 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ int	main(int argc, char **argv)
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_cam		*cam;
-	// t_map		*map;
+	t_map		*map;
 
-	(void)argc;
-	(void)argv;
+	// (void)argc;
+	// (void)argv;
 	// data = init_data();
-	// map = parse_scene(argc, argv);
-	// exit(0);
+	map = check_input(argc, argv);
 printf("parsing done\n");
+	exit(0);
 	mlx = mlx_setup();
 	printf("%p\n", mlx);
 	img = img_setup(mlx);

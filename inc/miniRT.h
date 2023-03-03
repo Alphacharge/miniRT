@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/28 17:59:15 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 09:19:48 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,16 @@ typedef struct s_color
 	float	b;
 }	t_color;
 
-// typedef enum e_type
-// {
-// 	CAM,
-// 	LIGHT,
-// 	AMBI,
-// 	SPHERE,
-// 	CYL,
-// 	RECT,
-// 	PLN
-// }	t_type;
-
-// typedef struct s_item
-// {
-// 	int		type;
-// 	double	ratio;
-// 	double	x;
-// 	double	y;
-// 	double	z;
-// 	int		red;
-// 	int		green;
-// 	int		blue;
-// 	struct s_item next;
-// }				t_item;
+typedef struct s_item
+{
+	char	*type;
+	float	dia_rat;
+	float	hei_fov;
+	t_vec	coord;
+	t_vec	vector;
+	t_vec	color;
+	struct s_item *next;
+}				t_item;
 
 typedef struct s_sphere
 {
@@ -89,9 +76,7 @@ typedef struct s_camera
 typedef struct s_map
 {
 	int		fd;
-	char	**lines;
-	char	***file;
-	int		error;
+	char	**file;
 	int		size;
 }	t_map;
 
@@ -106,9 +91,14 @@ typedef struct s_data
 }							t_data;
 
 //PARSING
-t_map	*parse_scene(int argc, char **argv);
+t_map	*check_input(int argc, char **argv);
 void	print_map(t_map *map);
-int		realloc_map(t_map *map);
+int		ft_isvalue(int c);
+int		ft_isspace(int c);
+int		theend(char *s);
+char	*kill_nltb(char *line);
+int		first_iscomment(char *line);
+
 //IMAGE
 int	draw_image(mlx_image_t *img, t_cam *cam);
 
