@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 14:53:33 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 17:14:48 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	fill_obj(t_obj	*obj, char **split)
 		get_pln(obj, split);
 	else if (!ft_strcmp(split[0], "CY"))
 		get_cyl(obj, split);
-	else if (!ft_strcmp(split[0], "RE"))
-		get_rect(obj, split);
 	else
 		obj->type = -1;
 }
