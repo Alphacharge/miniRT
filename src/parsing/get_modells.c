@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:47:50 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 15:18:47 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:44:37 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	get_sphere(t_obj *obj, char **split)
 		obj->type = SPHERE;
 		obj->coord = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), ft_atof(tmp[2]));
 		free(tmp);
-		obj->dia_rat = ft_atof(split[2]);
+		obj->rad_rat = ft_atof(split[2]) / 2;
 		tmp = ft_split_p(split[3], ',');
 		obj->color = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), ft_atof(tmp[2]));
 		free(tmp);

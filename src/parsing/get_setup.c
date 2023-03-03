@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:44:55 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 15:19:14 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:44:04 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_reso(t_obj *obj, char **split)
 	if (obj && split && split[1] && split[2])
 	{
 		obj->type = RES;
-		obj->dia_rat = ft_atof(split[1]);
+		obj->rad_rat = ft_atof(split[1]);
 		obj->hei_fov = ft_atof(split[2]);
 	}
 	else

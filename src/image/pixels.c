@@ -6,13 +6,13 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/03 17:01:55 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:56:37 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	draw_image(mlx_image_t *img, t_cam *cam)
+int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 {
 	int			col;
 	int			row;
@@ -33,7 +33,7 @@ int	draw_image(mlx_image_t *img, t_cam *cam)
 			ray.direction.y = cam->upper_left_corner->y + row;
 			ray.direction.z = cam->focal_length * -1;
 			ray.closest_t = T_MAX;
-			mlx_put_pixel(img, col, row, ray_color(&ray));
+			mlx_put_pixel(img, col, row, ray_color(&ray, obj));
 			col++;
 		}
 		col = 0;

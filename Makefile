@@ -6,7 +6,7 @@
 #    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/03 14:48:25 by fkernbac         ###   ########.fr        #
+#    Updated: 2023/03/03 17:51:21 by fkernbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS	+=	-g -fsanitize=address
+CFLAGS	+=	-g #-fsanitize=address
 
 ###			###			LIBRARIES		###			###
 LIBFT_D	:=	./lib/libft
