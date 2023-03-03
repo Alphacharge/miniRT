@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/03 14:15:31 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:26:43 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
 //this might be only a temporary struct
-t_sphere	*new_sphere(float x, float y, float z, float radius)
+t_sphere	*new_sphere(double x, double y, double z, double radius)
 {
 	t_sphere	*sphere;
 
@@ -33,12 +33,12 @@ t_sphere	*new_sphere(float x, float y, float z, float radius)
 bool	hit_sphere(t_ray *ray, t_sphere *sphere)
 {
 	t_vec	origin_center;
-	float	a;
-	float	b;
-	float	c;
-	float	discriminant;
-	float	t;
-	float	length;
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+	double	t;
+	double	length;
 
 	origin_center = subtract_vector(ray->origin, *sphere->center);
 	length = length_vector(ray->direction);

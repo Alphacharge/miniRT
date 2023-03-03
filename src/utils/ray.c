@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/03 14:11:05 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:26:43 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 // 	return (NULL);
 // }
 
-t_vec	point_at(t_ray *ray, float t)
+t_vec	point_at(t_ray *ray, double t)
 {
 	t_vec	product;
 	t_vec	point;
@@ -56,7 +56,7 @@ int	ray_color(t_ray *ray)
 	t_vec			unit;
 	unsigned int	color1;
 	unsigned int	color2;
-	float			t;
+	double			t;
 
 	// unit = unit_vector(ray->direction);
 	unit = ray->normal;
@@ -64,7 +64,7 @@ int	ray_color(t_ray *ray)
 	{
 		printf("unit.x: %f ", unit.x);
 		if (front_facing(ray) == true)
-			return (float_to_color(unit.x, 0, 0));
+			return (double_to_color(unit.x, 0, 0));
 		// else
 		// 	return (0x000000FF);
 	}

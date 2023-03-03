@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:19:27 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/02/28 18:43:47 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:26:43 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
 /*creates a new allocated vector*/
-t_vec	*new_vector(float x, float y, float z)
+t_vec	*new_vector(double x, double y, double z)
 {
 	t_vec	*vector;
 
@@ -66,7 +66,7 @@ t_vec	multiply_vector(t_vec v1, t_vec v2)
 }
 
 /*allocates a new vector with the result of vec1 * factor*/
-t_vec	factor_mult_vector(t_vec v1, float f)
+t_vec	factor_mult_vector(t_vec v1, double f)
 {
 	t_vec	vector;
 
@@ -77,7 +77,7 @@ t_vec	factor_mult_vector(t_vec v1, float f)
 }
 
 /*allocates a new vector with the result of vec1 / factor*/
-t_vec	factor_div_vector(t_vec v1, float f)
+t_vec	factor_div_vector(t_vec v1, double f)
 {
 	t_vec	vector;
 
@@ -89,7 +89,7 @@ t_vec	factor_div_vector(t_vec v1, float f)
 
 /*Scalar product of two vectors returns the angle between two vectors. A value
 of 0 means they are orthogonal.*/
-float	scalar_vector(t_vec v1, t_vec v2)
+double	scalar_vector(t_vec v1, t_vec v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
@@ -106,7 +106,7 @@ t_vec	cross_vector(t_vec v1, t_vec v2)
 	return (vector);
 }
 
-float	length_vector(t_vec v1)
+double	length_vector(t_vec v1)
 {
 	return (sqrt(v1.x * v1.x + v1.y * v1.y + v1.z * v1.z));
 }

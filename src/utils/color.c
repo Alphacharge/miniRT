@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:32:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/02/27 17:02:51 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:26:43 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	float_to_color(float r, float g, float b)
+int	double_to_color(double r, double g, double b)
 {
 	unsigned char	char_red;
 	unsigned char	char_green;
@@ -24,7 +24,7 @@ int	float_to_color(float r, float g, float b)
 	return (char_red << 24 | char_green << 16 | char_blue << 8 | 255);
 }
 
-int	factor_color(int rgba, float factor)
+int	factor_color(int rgba, double factor)
 {
 	unsigned char	r;
 	unsigned char	g;
