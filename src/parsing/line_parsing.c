@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 14:53:33 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 15:25:15 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 static void	fill_obj(t_obj	*obj, char **split)
 {
-	if (!ft_strcmp(split[0], "R"))
-		get_reso(obj, split);
-	else if (!ft_strcmp(split[0], "C"))
+	// if (!ft_strcmp(split[0], "R"))
+		// get_reso(obj, split);
+	// else
+	if (!ft_strcmp(split[0], "C"))
 		get_cam(obj, split);
-	else if (!ft_strcmp(split[0], "A"))
-		get_ambi(obj, split);
-	else if (!ft_strcmp(split[0], "L"))
-		get_light(obj, split);
+	// else if (!ft_strcmp(split[0], "A"))
+		// get_ambi(obj, split);
+	// else if (!ft_strcmp(split[0], "L"))
+		// get_light(obj, split);
 	else if (!ft_strcmp(split[0], "SP"))
 		get_sphere(obj, split);
-	else if (!ft_strcmp(split[0], "PL"))
-		get_pln(obj, split);
-	else if (!ft_strcmp(split[0], "CY"))
-		get_cyl(obj, split);
-	else if (!ft_strcmp(split[0], "RE"))
-		get_rect(obj, split);
+	// else if (!ft_strcmp(split[0], "PL"))
+		// get_pln(obj, split);
+	// else if (!ft_strcmp(split[0], "CY"))
+		// get_cyl(obj, split);
+	// else if (!ft_strcmp(split[0], "RE"))
+		// get_rect(obj, split);
 	else
 		obj->type = -1;
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
+#    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/03 13:40:27 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/03 14:48:25 by fkernbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS	+=	-g #-fsanitize=address
+CFLAGS	+=	-g -fsanitize=address
 
 ###			###			LIBRARIES		###			###
 LIBFT_D	:=	./lib/libft
@@ -97,7 +97,7 @@ $(OBJ_D)/%.o: %.c
 
 $(OBJ_D):
 	mkdir $@
-	
+
 message:
 	@echo "$(BLUE)---------------------------------------------------------"
 	@echo "$(BLUE)|$(RED)\t\t\t\t\t   _ _ _\t$(BLUE)|"
@@ -109,7 +109,7 @@ message:
 	@echo "$(BLUE)|$(GREEN)\t\t\t\t\t  \_\_\_\$(YELL)/\t$(BLUE)|"
 	@echo "$(BLUE)---------------------------------------------------------$(WHITE)"
 
-	
+
 $(LIBFT):
 	make -j -C $(LIBFT_D)
 

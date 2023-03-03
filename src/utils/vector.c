@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:19:27 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/03 14:26:43 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 14:50:48 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_vec	*new_vector(double x, double y, double z)
 {
 	t_vec	*vector;
 
-	vector = ft_calloc(1, sizeof(vector));
+	vector = ft_calloc(1, sizeof(t_vec));
 	if (vector == NULL)
 		return (NULL);
 	vector->x = x;

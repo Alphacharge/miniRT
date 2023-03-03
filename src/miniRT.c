@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 15:11:47 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 15:16:54 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,10 @@ int	main(int argc, char **argv)
 	t_map		*map;
 	t_obj		*obj;
 
-	// (void)argc;
-	// (void)argv;
 	// data = init_data();
 	map = check_input(argc, argv);
 	obj = create_obj(map);
 printf("parsing done\n");
-	exit(0);
 	mlx = mlx_setup();
 	img = img_setup(mlx);
 printf("mlx setup done\n");
@@ -69,6 +66,8 @@ printf("scene setup done\n");
 	if (mlx == NULL || img == NULL || cam == NULL)
 		return (EXIT_FAILURE);	//needs freeing
 	draw_image(img, cam);
+// printf("henlo\n");
+// perror("   ");
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);

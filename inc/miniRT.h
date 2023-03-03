@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 14:30:08 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/03 17:23:35 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 // # define WIDTH 1680
 // # define HEIGHT 1050
 
-# define T_MIN 0
+# define T_MIN 0.1
 # define T_MAX __DBL_MAX__
 
 typedef enum e_type
@@ -68,9 +68,9 @@ typedef struct s_obj
 	int		type;
 	double	dia_rat;
 	double	hei_fov;
-	t_vec	coord;
-	t_vec	vector;
-	t_color	color;
+	t_vec	*coord;
+	t_vec	*vector;
+	t_vec	*color;
 	struct s_obj *next;
 }				t_obj;
 
@@ -117,12 +117,12 @@ t_obj	*create_obj(t_map *map);
 char	**ft_split_p(char *s, char c);
 void	get_reso(t_obj *obj, char **split);
 void	get_cam(t_obj *obj, char **split);
-void	get_ambi(t_obj *obj, char **split);
-void	get_light(t_obj *obj, char **split);
+// void	get_ambi(t_obj *obj, char **split);
+// void	get_light(t_obj *obj, char **split);
 void	get_sphere(t_obj *obj, char **split);
 void	get_pln(t_obj *obj, char **split);
 void	get_cyl(t_obj *obj, char **split);
-void	get_rect(t_obj *obj, char **split);
+// void	get_rect(t_obj *obj, char **split);
 double	ft_atof(char *nbr);
 
 //IMAGE
