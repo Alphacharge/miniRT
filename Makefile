@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/03 11:35:09 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/03 13:40:27 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 
 ###			###			COMPILER		###			###
 CC		:=	cc
-CFLAGS	:=	#-Wall -Wextra -Werror
+CFLAGS	:=	-Wall -Wextra -Werror
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
 CFLAGS	+=	-g #-fsanitize=address
 
@@ -137,15 +137,11 @@ clean:
 			make fclean -C $(LIBFT_D); \
 			make clean -C $(MLX_L); \
 	fi;
-#			echo "$(YELL)>>>$(RED)Cleaning Objects .....$(WHITE)";else \
-#			echo "$(YELL)>>>$(GREEN)No Objects to remove.$(WHITE)";
 
 fclean: clean
 	@if [ -f "$(NAME)" ]; then \
 			$(RM) -f $(NAME); \
 	fi;
-#			echo "$(GREEN)>>>$(YELL)Cleaning Exec .....$(WHITE)";else \
-#			echo "No $(NAME) to remove."; 
 
 re: fclean all
 
