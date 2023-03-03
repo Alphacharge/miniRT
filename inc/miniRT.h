@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/27 20:40:17 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/03 13:50:49 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 # define WIDTH 400
 # define HEIGHT 320
+
+# define T_MIN 0
+# define T_MAX MAXFLOAT
 
 typedef struct s_vector
 {
@@ -69,8 +72,11 @@ typedef struct s_sphere
 
 typedef struct s_ray
 {
-	t_vec	*origin;
-	t_vec	*direction;
+	t_vec		origin;
+	t_vec		direction;
+	float		closest_t;
+	t_sphere	*closest_object;
+	t_vec		normal;
 }		t_ray;
 
 typedef struct s_camera
@@ -115,19 +121,20 @@ void	ft_error(t_data *data, int ecase);
 t_ray	*new_ray(t_vec *origin, t_vec *direction);
 int		ray_color(t_ray *ray);
 t_ray	*delete_ray(t_ray *ray);
+t_vec	point_at(t_ray *ray, float t);
 
 //VECTOR UTILS
 t_vec	*new_vector(float x, float y, float z);
-void	print_vector(t_vec *vector);
-t_vec	*add_vector(t_vec *v1, t_vec *v2);
-t_vec	*subtract_vector(t_vec *v1, t_vec *v2);
-t_vec	*multiply_vector(t_vec *v1, t_vec *v2);
-t_vec	*factor_mult_vector(t_vec *v1, float f);
-t_vec	*factor_div_vector(t_vec *v1, float f);
-float	scalar_vector(t_vec *v1, t_vec *v2);
-t_vec	*cross_vector(t_vec *v1, t_vec *v2);
-float	length_vector(t_vec *v1);
-t_vec	*unit_vector(t_vec *v1);
+void	print_vector(t_vec vector);
+t_vec	add_vector(t_vec v1, t_vec v2);
+t_vec	subtract_vector(t_vec v1, t_vec v2);
+t_vec	multiply_vector(t_vec v1, t_vec v2);
+t_vec	factor_mult_vector(t_vec v1, float f);
+t_vec	factor_div_vector(t_vec v1, float f);
+float	scalar_vector(t_vec v1, t_vec v2);
+t_vec	cross_vector(t_vec v1, t_vec v2);
+float	length_vector(t_vec v1);
+t_vec	unit_vector(t_vec v1);
 
 //CAMERA
 t_cam	*setup_camera(int width, int height);
