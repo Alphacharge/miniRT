@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 12:41:59 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/04 13:22:43 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ typedef struct s_color
 	double	r;
 	double	g;
 	double	b;
-}	t_color;
+}			t_color;
 
 typedef struct s_sphere
 {
 	t_vec	*center;
 	double	radius;
-}	t_sphere;
+}			t_sphere;
 
 typedef struct s_obj
 {
@@ -71,7 +71,7 @@ typedef struct s_obj
 	t_vec	*vector;
 	t_vec	*color;
 	struct s_obj *next;
-}				t_obj;
+}			t_obj;
 
 typedef struct s_ray
 {
@@ -80,7 +80,7 @@ typedef struct s_ray
 	double		closest_t;
 	t_sphere	*closest_object;
 	t_vec		normal;
-}		t_ray;
+}				t_ray;
 
 typedef struct s_camera
 {
@@ -89,7 +89,7 @@ typedef struct s_camera
 	t_vec	*horizontal;
 	t_vec	*vertical;
 	t_vec	*upper_left_corner;
-}	t_cam;
+}			t_cam;
 
 typedef struct s_map
 {
