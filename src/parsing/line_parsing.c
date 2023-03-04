@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 17:35:06 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/04 12:23:26 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ static t_obj	*line_interpreter(char *line)
 	return (free(split), obj);
 }
 
+static void free_obj(t_obj *obj)
+{
+	if (obj)
+	{
+		if (obj->coord)
+			free(obj->coord);
+		if (obj->color)
+			free(obj->color);
+		if (obj->vector)
+			free(obj->vector);
+		free(obj);
+	}
+}
+
 t_obj	*create_obj(t_map *map)
 {
 	t_obj	*obj;
@@ -60,6 +74,8 @@ t_obj	*create_obj(t_map *map)
 	{
 		line = map->file[i];
 		new = line_interpreter(line);
+		if (new != NULL && new->type == -1)
+			free_obj(new);
 		if (new != NULL)
 		{
 			if (obj != NULL)
