@@ -6,7 +6,7 @@
 #    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/03 17:51:21 by fkernbac         ###   ########.fr        #
+#    Updated: 2023/03/04 17:41:26 by fkernbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRC_F	+=	vector.c
 SRC_F	+=	free.c
 SRC_F	+=	color.c
 SRC_F	+=	camera.c
-SRC_F	+=
+SRC_F	+=	random.c
 SRC_F	+=
 SRC_F	+=
 SRC_F	+=

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/04 14:43:22 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/04 16:17:43 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 	{
 		ray.origin.x = 0;
 		ray.origin.y = 0;
-		ray.origin.z = 0;	
+		ray.origin.z = 0;
 	}
 	ray.closest_object = NULL;
 	ray.direction.z = cam->focal_length * -1;
@@ -39,6 +39,7 @@ int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 	{
 		while (col < (int)img->width)
 		{
+			//if camera can have different position from origin, these formulas need to be updated
 			ray.direction.x = cam->upper_left_corner->x + col;
 			ray.direction.y = cam->upper_left_corner->y + row;
 			ray.closest_t = T_MAX;

@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/04 14:14:37 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:36:26 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,29 +91,28 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 
 bool	hit_object(t_ray *ray, t_obj *obj)
 {
+	bool	hit_anything;
+
+	hit_anything = false;
 	while (obj != NULL)
 	{
 		if (obj->type == SPHERE && hit_sphere(ray, obj) == true)
-		{
-printf("true ");
-			return (true);
-		}
+			hit_anything = true;
 		obj = obj->next;
 	}
-	return (false);
+	return (hit_anything);
 }
 
 int	ray_color(t_ray *ray, t_obj *obj)
 {
-	double			t;
+	double	t;
 
 	if (hit_object(ray, obj) == true)
 	{
-		// if (front_facing(ray) == true)
-			// return (double_to_color(fabs(ray->normal.x), fabs(ray->normal.y), fabs(ray->normal.z)));
-			return (double_to_color(0.1, 0.1, fabs(ray->normal.z)));
-		// else
-		// 	return (0xBB3333FF);
+		if (front_facing(ray) == true)
+			return (double_to_color(fabs(ray->normal.x), fabs(ray->normal.y), fabs(ray->normal.z)));
+		else
+			return (0xBB3333FF);
 	}
 	t = 0.5 * (unit_vector(ray->direction).y + 1.0);
 	return (add_color \
