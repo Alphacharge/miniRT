@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 13:22:43 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/04 14:43:38 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,10 @@ typedef struct s_color
 	double	b;
 }			t_color;
 
-typedef struct s_sphere
-{
-	t_vec	*center;
-	double	radius;
-}			t_sphere;
-
 typedef struct s_obj
 {
 	int		type;
-	double	dia_rat;
+	double	rad_rat;
 	double	hei_fov;
 	t_vec	*coord;
 	t_vec	*vector;
@@ -78,7 +72,7 @@ typedef struct s_ray
 	t_vec		origin;
 	t_vec		direction;
 	double		closest_t;
-	t_sphere	*closest_object;
+	t_obj	*closest_object;
 	t_vec		normal;
 }				t_ray;
 
@@ -124,15 +118,15 @@ void	get_cyl(t_obj *obj, char **split);
 double	ft_atof(char *nbr);
 
 //IMAGE
-int		draw_image(mlx_image_t *img, t_cam *cam);
+int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);
 
 //ERROR
 void	ft_error(t_data *data, int ecase);
 
 //RAY UTILS
 t_ray	*new_ray(t_vec *origin, t_vec *direction);
-int		ray_color(t_ray *ray);
 t_ray	*delete_ray(t_ray *ray);
+int		ray_color(t_ray *ray, t_obj *obj);
 t_vec	point_at(t_ray *ray, double t);
 
 //VECTOR UTILS
