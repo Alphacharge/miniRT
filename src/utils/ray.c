@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/03 17:54:31 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/04 14:14:37 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,10 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 	while (obj != NULL)
 	{
 		if (obj->type == SPHERE && hit_sphere(ray, obj) == true)
+		{
+printf("true ");
 			return (true);
+		}
 		obj = obj->next;
 	}
 	return (false);
@@ -102,22 +105,17 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 
 int	ray_color(t_ray *ray, t_obj *obj)
 {
-	t_vec			unit;
-	unsigned int	color1;
-	unsigned int	color2;
 	double			t;
 
 	if (hit_object(ray, obj) == true)
 	{
-		if (front_facing(ray) == true)
+		// if (front_facing(ray) == true)
 			// return (double_to_color(fabs(ray->normal.x), fabs(ray->normal.y), fabs(ray->normal.z)));
 			return (double_to_color(0.1, 0.1, fabs(ray->normal.z)));
-		else
-			return (0xBB3333FF);
+		// else
+		// 	return (0xBB3333FF);
 	}
-	unit = unit_vector(ray->direction);
-	t = 0.5 * (unit.y + 1.0);
-	color1 = factor_color(0x5588FFFF, 1 - t);
-	color2 = factor_color(0xFFFFFFFF, t);
-	return (add_color(color1, color2));
+	t = 0.5 * (unit_vector(ray->direction).y + 1.0);
+	return (add_color \
+		(factor_color(0x5588FFFF, 1 - t), factor_color(0xFFFFFFFF, t)));
 }
