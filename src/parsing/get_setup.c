@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:44:55 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 14:41:19 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/04 14:44:58 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	get_ambi(t_obj *obj, char **split)
 	if (obj && split && split[1] && split[2] && split[3])
 	{
 		obj->type = AMBI;
-		obj->dia_rat = ft_atof(split[1]);
+		obj->rad_rat = ft_atof(split[1]);
 		tmp = ft_split_p(split[2], ',');
 		obj->coord = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), ft_atof(tmp[2]));
 		free(tmp);
@@ -69,7 +69,7 @@ void	get_light(t_obj *obj, char **split)
 		obj->type = LIGHT;
 		obj->coord = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), ft_atof(tmp[2]));
 		free(tmp);
-		obj->dia_rat = ft_atof(split[2]);
+		obj->rad_rat = ft_atof(split[2]);
 		tmp = ft_split_p(split[3], ',');
 		obj->color = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), ft_atof(tmp[2]));
 		free(tmp);

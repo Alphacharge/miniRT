@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 14:43:15 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/04 14:44:31 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static	mlx_t	*mlx_setup(t_obj *obj)
 	if (obj == NULL)
 		mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
 	else
-		mlx = mlx_init((int32_t)obj->dia_rat, (int32_t)obj->hei_fov, "miniRT", true);
+		mlx = mlx_init((int32_t)obj->rad_rat, (int32_t)obj->hei_fov, "miniRT", true);
 	if (mlx == NULL)
 		return (NULL);	//needs freeing
 	return (mlx);
