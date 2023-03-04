@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 17:38:20 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/04 12:41:59 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ double	length_vector(t_vec v1);
 t_vec	unit_vector(t_vec v1);
 
 //CAMERA
-t_cam	*setup_camera(int width, int height);
+t_cam	*setup_camera(t_obj *obj, int width, int height);
 t_cam	*delete_camera(t_cam *cam);
 
 //COLOR UTILS

@@ -3,24 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:28:38 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/02/28 18:44:34 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/04 12:44:49 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_cam	*setup_camera(int width, int height)
+t_cam	*setup_camera(t_obj	*obj, int width, int height)
 {
 	t_cam	*cam;
 
 	cam = ft_calloc(1, sizeof(t_cam));
 	if (cam == NULL)
-		return (0);
+		return (NULL);
+	while (obj && obj->type != CAM)
+		obj = obj->next;
+	if (obj == NULL)
+		return (NULL); //no cam
+	else
+		cam->origin = obj->coord;
+	print_vector(*cam->origin);
 	cam->focal_length = 200;
-	cam->origin = new_vector(0, 0, 0);
 	cam->horizontal = new_vector(width, 0, 0);
 	cam->vertical = new_vector(0, height, 0);
 	cam->upper_left_corner = new_vector(width / 2 * -1, height / 2 * -1, cam->focal_length * -1);

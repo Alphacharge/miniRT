@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/03 17:01:55 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/04 12:49:55 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,18 @@ int	draw_image(mlx_image_t *img, t_cam *cam)
 	col = 0;
 	row = 0;
 	printf("Image size: %ix%i\n", img->width, img->height);
-	ray.origin.x = 0;
-	ray.origin.y = 0;
-	ray.origin.z = 0;
+	if (cam && cam->origin)
+	{
+		ray.origin.x = cam->origin->x;
+		ray.origin.y = cam->origin->y;
+		ray.origin.z = cam->origin->z;
+	}
+	else
+	{
+		ray.origin.x = 0;
+		ray.origin.y = 0;
+		ray.origin.z = 0;	
+	}
 	ray.closest_object = NULL;
 	while (row < (int)img->height)
 	{

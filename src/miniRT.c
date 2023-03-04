@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 17:37:46 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/04 12:35:10 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@
 // 	return (data);
 // }
 
-static	mlx_t	*mlx_setup()
+static	mlx_t	*mlx_setup(t_obj *obj)
 {
 	mlx_t		*mlx;
 
-	mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+	while (obj && obj->type != RES)
+		obj = obj->next;
+	if (obj == NULL)
+		mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+	else
+		mlx = mlx_init((int32_t)obj->dia_rat, (int32_t)obj->hei_fov, "miniRT", true);
 	if (mlx == NULL)
 		return (NULL);	//needs freeing
 	return (mlx);
@@ -58,10 +63,10 @@ int	main(int argc, char **argv)
 	map = check_input(argc, argv);
 	obj = create_obj(map);
 printf("parsing done\n");
-	mlx = mlx_setup();
+	mlx = mlx_setup(obj);
 	img = img_setup(mlx);
 printf("mlx setup done\n");
-	cam = setup_camera(mlx->width, mlx->height);
+	cam = setup_camera(obj, mlx->width, mlx->height);
 printf("scene setup done\n");
 	if (mlx == NULL || img == NULL || cam == NULL)
 		return (EXIT_FAILURE);	//needs freeing
