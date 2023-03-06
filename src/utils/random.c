@@ -6,40 +6,45 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:14:24 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/04 18:01:17 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/06 17:32:13 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-unsigned int	random_lcg(int seed)
-{
-	const unsigned int	a = (unsigned int)-563244923;
-	const unsigned int	c = (unsigned int)-3364176919;
-	const unsigned int	m = 259831419;
-	unsigned int		random;
+#include <stdio.h>
 
-	random = (a * seed + c) % m;
-	return (random);
+int	xorshift_random(int seed)
+{
+	seed ^= seed >> 17;
+	seed ^= seed << 5;
+	seed ^= seed << 13;
+	return (seed);
 }
 
-unsigned	random_xorshift(unsigned int seed)
+int	lcg_random(unsigned int seed)
 {
-	unsigned	random;
+	const unsigned int	a = (unsigned int)1664525;
+	const unsigned int	c = (unsigned int)1013904227;
 
-	random = seed;
-	random ^= random << 13;
-	random ^= random >> 17;
-	random ^= random << 5;
-	return (random);
+	return ((int)(a * seed + c));
 }
 
-double	random_XSLCG(unsigned int seed)
+int	xslcg_random(unsigned int seed)
 {
-	double			random;
+	return (xorshift_random(seed) ^ lcg_random((unsigned int)&seed));
+}
 
-	seed = seed % 100000000;
-	random = random_xorshift(seed) ^ random_lcg(seed);
-printf("random 1: %u ", (unsigned int) random);
+/*This function expects a seed of about 1.000.000.000 length.*/
+int	three_digits(unsigned int seed)
+{
+	unsigned int	random;
+	unsigned int	sign;
+
+	sign = (seed >> (sizeof(int) - 1) & 1);
+	random = seed / 1000;
+	random = random % 1000;
+	if (sign == 1)
+	random *= -1;
 	return (random);
 }

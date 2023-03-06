@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 18:00:40 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:20:24 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@
 // # define WIDTH 1680
 // # define HEIGHT 1050
 
-# define T_MIN 0.1
+# define MAX_DEPTH 50
+
+# define T_MIN 0.001
 # define T_MAX __DBL_MAX__
 
 typedef enum e_type
@@ -69,12 +71,12 @@ typedef struct s_obj
 
 typedef struct s_ray
 {
-	t_vec		origin;
-	t_vec		direction;
-	double		closest_t;
+	t_vec	origin;
+	t_vec	direction;
+	double	closest_t;
 	t_obj	*closest_object;
-	t_vec		normal;
-}				t_ray;
+	t_vec	normal;
+}			t_ray;
 
 typedef struct s_camera
 {
@@ -124,10 +126,9 @@ int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);
 void	ft_error(t_data *data, int ecase);
 
 //RAY UTILS
-t_ray	*new_ray(t_vec *origin, t_vec *direction);
-t_ray	*delete_ray(t_ray *ray);
-int		ray_color(t_ray *ray, t_obj *obj);
-t_vec	point_at(t_ray *ray, double t);
+t_ray	new_ray();
+int		ray_color(t_ray ray, t_obj *obj, int depth);
+t_vec	point_at(t_ray ray, double t);
 
 //VECTOR UTILS
 t_vec	*new_vector(double x, double y, double z);
@@ -141,6 +142,9 @@ double	scalar_vector(t_vec v1, t_vec v2);
 t_vec	cross_vector(t_vec v1, t_vec v2);
 double	length_vector(t_vec v1);
 t_vec	unit_vector(t_vec v1);
+t_vec	random_vector(unsigned int max);
+t_vec	rand_in_unit_sphere(int seed);
+t_vec	rand_in_hemisphere(int seed, t_vec normal);
 
 //CAMERA
 t_cam	*setup_camera(t_obj *obj, int width, int height);
@@ -150,9 +154,13 @@ t_cam	*delete_camera(t_cam *cam);
 int		double_to_color(double r, double g, double b);
 int		factor_color(int rgba, double factor);
 int		add_color(int c1, int c2);
+int		gamma_correction(uint32_t rgba);
 
 //UTILS
 void	*ft_free(void *pointer);
-double	random_XSLCG(unsigned int seed);
+int xorshift_random(int seed);
+int lcg_random(unsigned int seed);
+int	xslcg_random(unsigned int seed);
+int three_digits(unsigned int seed);
 
 #endif

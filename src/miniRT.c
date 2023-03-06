@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 18:02:00 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:38:52 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ printf("parsing done\n");
 	img = img_setup(mlx);
 printf("mlx setup done\n");
 	cam = setup_camera(obj, mlx->width, mlx->height);
-	random_XSLCG((unsigned int)cam);
-exit(0);
 printf("scene setup done\n");
 	if (mlx == NULL || img == NULL || cam == NULL)
 		return (EXIT_FAILURE);	//needs freeing

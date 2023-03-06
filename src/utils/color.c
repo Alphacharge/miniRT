@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:32:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/03 15:22:21 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:00:44 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,3 +47,49 @@ int	add_color(int c1, int c2)
 	b = ((c1 >> 8) & 0xFF) + ((c2 >> 8) & 0xFF);
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
+
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+int	get_r(int rgba)
+{
+	return ((rgba >> 24) & 0xFF);
+}
+
+// Get the green channel.
+int get_g(int rgba)
+{
+	return ((rgba >> 16) & 0xFF);
+}
+
+// Get the blue channel.
+int get_b(int rgba)
+{
+	return ((rgba >> 8) & 0xFF);
+}
+
+// Get the alpha channel.
+int	get_a(int rgba)
+{
+	return (rgba & 0xFF);
+}
+int	gamma_correction(uint32_t rgba)
+{
+	double			r;
+	double			g;
+	double			b;
+	const double	gamma = 2.2;
+
+	r = (double)get_r(rgba) / 255.0;
+	g = (double)get_g(rgba) / 255.0;
+	b = (double)get_b(rgba) / 255.0;
+	r = pow(r, 1 / gamma);
+	g = pow(g, 1 / gamma);
+	b = pow(b, 1 / gamma);
+	r *= 255.0;
+	g *= 255.0;
+	b *= 255.0;
+	return (get_rgba(r, g, b, 0xFF));
+}
+

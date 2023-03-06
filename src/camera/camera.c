@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:28:38 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/04 17:05:45 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/06 13:16:00 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_cam	*setup_camera(t_obj	*obj, int width, int height)
 	// print_vector(*cam->origin);
 	cam->focal_length = width / (2 * tan(obj->hei_fov / 2));
 printf("focal length: %f\n", cam->focal_length);
-cam->focal_length = 200;
+cam->focal_length = 800;
 	cam->horizontal = new_vector(width, 0, 0);
 	cam->vertical = new_vector(0, height, 0);
 	cam->upper_left_corner = new_vector(width / 2 * -1, height / 2 * -1, cam->focal_length * -1);
