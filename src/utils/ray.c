@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/06 19:28:39 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:06:34 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,12 @@ int	ray_color(t_ray ray, t_obj *obj, int depth)
 		seed = xslcg_random(seed);
 		target = add_vector(target, unit_vector(rand_in_unit_sphere(seed)));
 		bounce.direction = subtract_vector(target, bounce.origin);
-		return (factor_color(ray_color(bounce, obj, depth - 1), 0.5));
-		// if (front_facing(ray) == true)
-		// 	// return (double_to_color(fabs(ray.normal.x), fabs(ray.normal.y), fabs(ray.normal.z)));
-		// 	return (0.5 * ray_color(bounce, obj));
-		// else
-		// 	return (0xBB3333FF);
+		if (front_facing(ray) == true)
+			// return (double_to_color(fabs(ray.normal.x), fabs(ray.normal.y), fabs(ray.normal.z)));
+			// return (0.5 * ray_color(bounce, obj));
+			return (factor_color(ray_color(bounce, obj, depth - 1), 0.5));
+		else
+			return (0xBB3333FF);
 	}
 	t = 0.5 * (unit_vector(ray.direction).y + 1.0);
 	return (add_color \

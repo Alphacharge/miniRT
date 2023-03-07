@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/06 19:01:27 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/07 18:08:08 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,21 @@ int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 	int			col;
 	int			row;
 	t_ray		ray;
+	t_vec		image_plane;
 
 	col = 0;
 	row = 0;
 	printf("Image size: %ix%i\n", img->width, img->height);
 	ray = new_ray();
-	if (cam && cam->origin)
-	{
-		ray.origin.x = cam->origin->x;
-		ray.origin.y = cam->origin->y;
-		ray.origin.z = cam->origin->z;
-	}
-	else
-	{
-		ray.origin.x = 0;
-		ray.origin.y = 0;
-		ray.origin.z = 0;
-	}
-	ray.direction.z = cam->focal_length * -1;
+	ray.origin = cam->origin;
+	image_plane = add_vector(cam->origin, cam->upper_left_corner);
 	while (row < (int)img->height)
 	{
 		while (col < (int)img->width)
 		{
-			//if camera can have different position from origin, these formulas need to be updated
-			ray.direction.x = cam->upper_left_corner->x + col;
-			ray.direction.y = cam->upper_left_corner->y + row;
+			ray.direction = add_vector(image_plane, factor_mult_vector(cam->horizontal, col));
+			ray.direction = add_vector(ray.direction, factor_mult_vector(cam->vertical, row));
+			ray.direction = subtract_vector(ray.direction, cam->origin);
 			ray.closest_t = T_MAX;
 			put_pixel(img, col, row, ray_color(ray, obj, MAX_DEPTH));
 			col++;

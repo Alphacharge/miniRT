@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 14:12:30 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 16:17:39 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,11 @@ typedef struct s_ray
 typedef struct s_camera
 {
 	double	focal_length;
-	t_vec	*origin;
-	t_vec	*horizontal;
-	t_vec	*vertical;
-	t_vec	*upper_left_corner;
+	t_vec	origin;
+	t_vec	direction;
+	t_vec	horizontal;
+	t_vec	vertical;
+	t_vec	upper_left_corner;
 }			t_cam;
 
 typedef struct s_map
