@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 16:17:39 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:06:41 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	ft_error(t_data *data, int ecase);
 
 //RAY UTILS
 t_ray	new_ray();
-int		ray_color(t_ray ray, t_obj *obj, int depth);
+t_vec	ray_color(t_ray ray, t_obj *obj, int depth);
 t_vec	point_at(t_ray ray, double t);
 
 //VECTOR UTILS
@@ -166,7 +166,9 @@ t_cam	*delete_camera(t_cam *cam);
 int		double_to_color(double r, double g, double b);
 int		factor_color(int rgba, double factor);
 int		add_color(int c1, int c2);
-int		gamma_correction(uint32_t rgba);
+int		gamma_correction(t_vec color);
+t_vec	color_to_vector(uint32_t rgba);
+int		vector_to_color(t_vec color);
 
 //UTILS
 void	*ft_free(void *pointer);

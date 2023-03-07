@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:14 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 12:54:03 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 19:17:58 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	get_sphere(t_obj *obj, char **split)
 		obj->rad_rat = ft_atof(split[2]) / 2;
 		tmp = ft_split_p(split[3], ',');
 		if (vector_check(COL, tmp, obj->type))
-			obj->color = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
-			ft_atof(tmp[2]));
+			obj->color = new_vector(ft_atof(tmp[0]) / 255.0, ft_atof(tmp[1]) / 255.0, ft_atof(tmp[2]) / 255.0);
 		free(tmp);
 	}
 	else

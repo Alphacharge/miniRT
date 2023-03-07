@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/07 18:06:34 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:23:23 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,15 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 	return (hit_anything);
 }
 
+t_vec	combine_colors(t_vec bounce, t_vec local)
+{
+	t_vec	color;
+
+	color = add_vector(bounce, local);
+	color = factor_mult_vector(color, 0.5);
+	return (color);
+}
+
 /*Sphere sampling:
 		bounce.origin = point_at(ray, ray.closest_t);
 		target = add_vector(bounce.origin, ray.normal);
@@ -113,16 +122,16 @@ Hemisphere sampling:
 		bounce.direction = subtract_vector(target, bounce.origin);
 		return (factor_color(ray_color(bounce, obj, depth - 1), 0.5));
 */
-int	ray_color(t_ray ray, t_obj *obj, int depth)
+t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 {
-	t_vec	target;
-	double	t;
-	t_ray	bounce;
+	t_vec		target;
+	double		t;
+	t_ray		bounce;
 	static int	seed = (int)883082594;
 
 	bounce = new_ray();
 	if (depth <= 0)
-		return (0xFF0000FF);
+		return (color_to_vector(0xFF0000FF));
 	if (hit_object(&ray, obj) == true)
 	{
 		bounce.origin = point_at(ray, ray.closest_t);
@@ -131,13 +140,15 @@ int	ray_color(t_ray ray, t_obj *obj, int depth)
 		target = add_vector(target, unit_vector(rand_in_unit_sphere(seed)));
 		bounce.direction = subtract_vector(target, bounce.origin);
 		if (front_facing(ray) == true)
+		{
 			// return (double_to_color(fabs(ray.normal.x), fabs(ray.normal.y), fabs(ray.normal.z)));
 			// return (0.5 * ray_color(bounce, obj));
-			return (factor_color(ray_color(bounce, obj, depth - 1), 0.5));
+			return (combine_colors(ray_color(bounce, obj, depth - 1), *ray.closest_object->color));
+		}
 		else
-			return (0xBB3333FF);
+			return (color_to_vector(0xBB3333FF));
 	}
 	t = 0.5 * (unit_vector(ray.direction).y + 1.0);
-	return (add_color \
-		(factor_color(0x5588FFFF, 1 - t), factor_color(0xFFFFFFFF, t)));
+	return (add_vector(factor_mult_vector(color_to_vector(0x5588FFFF), 1 - t), \
+		factor_mult_vector(color_to_vector(0xFFFFFFFF), t)));
 }

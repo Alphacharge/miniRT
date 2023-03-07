@@ -6,16 +6,15 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/07 18:08:08 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:20:34 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	put_pixel(mlx_image_t *img, int x, int y, uint32_t rgba)
+void	put_pixel(mlx_image_t *img, int x, int y, t_vec color)
 {
-	mlx_put_pixel(img, x, y, gamma_correction(rgba));
-	// mlx_put_pixel(img, x, y, rgba);
+	mlx_put_pixel(img, x, y, gamma_correction(color));
 }
 
 int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)

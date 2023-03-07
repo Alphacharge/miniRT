@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:32:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/06 19:00:44 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:23:02 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,28 @@ int	get_a(int rgba)
 {
 	return (rgba & 0xFF);
 }
-int	gamma_correction(uint32_t rgba)
-{
-	double			r;
-	double			g;
-	double			b;
-	const double	gamma = 2.2;
 
-	r = (double)get_r(rgba) / 255.0;
-	g = (double)get_g(rgba) / 255.0;
-	b = (double)get_b(rgba) / 255.0;
-	r = pow(r, 1 / gamma);
-	g = pow(g, 1 / gamma);
-	b = pow(b, 1 / gamma);
-	r *= 255.0;
-	g *= 255.0;
-	b *= 255.0;
-	return (get_rgba(r, g, b, 0xFF));
+int	vector_to_color(t_vec color)
+{
+	return (get_rgba(color.x * 255, color.y * 255, color.z * 255, 255));
 }
 
+t_vec	color_to_vector(uint32_t rgba)
+{
+	t_vec	color;
+
+	color.x = (double)get_r(rgba) / 255.0;
+	color.y = (double)get_g(rgba) / 255.0;
+	color.z = (double)get_b(rgba) / 255.0;
+	return (color);
+}
+
+int	gamma_correction(t_vec color)
+{
+	const double	gamma = 2.2;
+
+	color.x = pow(color.x, 1 / gamma);
+	color.y = pow(color.y, 1 / gamma);
+	color.z = pow(color.z, 1 / gamma);
+	return (vector_to_color(color));
+}
