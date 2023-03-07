@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/07 11:12:27 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/07 14:12:54 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRC_F	+=	vector.c
 SRC_F	+=	free.c
 SRC_F	+=	color.c
 SRC_F	+=	camera.c
-SRC_F	+=
+SRC_F	+=	random.c
 SRC_F	+=
 SRC_F	+=
 SRC_F	+=

@@ -6,47 +6,43 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/04 14:14:37 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:28:39 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-// t_ray	*new_ray(t_vec *origin, t_vec *direction)
-// {
-// 	t_ray	*ray;
-
-// 	ray = ft_calloc(1, sizeof(t_ray));
-// 	if (ray == NULL)
-// 		return (NULL);
-// 	ray->origin = origin;
-// 	ray->direction = direction;
-// 	return (ray);
-// }
-
-// t_ray	*delete_ray(t_ray *ray)
-// {
-// 	if (ray == NULL)
-// 		return (NULL);
-// 	ft_free(ray->direction);
-// 	ft_free(ray->origin);
-// 	ft_free(ray);
-// 	return (NULL);
-// }
-
-t_vec	point_at(t_ray *ray, double t)
+t_ray	new_ray()
 {
-	t_vec	product;
-	t_vec	point;
+	t_ray	ray;
 
-	product = factor_mult_vector(ray->direction, t);
-	point = add_vector(ray->origin, product);
-	return (point);
+	ray.closest_object = NULL;
+	ray.closest_t = T_MAX;
+	ray.direction.x = 0;
+	ray.direction.y = 0;
+	ray.direction.z = 0;
+	ray.origin.x = 0;
+	ray.origin.y = 0;
+	ray.origin.z = 0;
+	ray.normal.x = 0;
+	ray.normal.y = 0;
+	ray.normal.z = 0;
+	return (ray);
 }
 
-bool	front_facing(t_ray *ray)
+t_vec	point_at(t_ray ray, double t)
 {
-	if (scalar_vector(ray->direction, ray->normal) >= 0)
+	t_vec	product;
+	t_vec	target;
+
+	product = factor_mult_vector(ray.direction, t);
+	target = add_vector(ray.origin, product);
+	return (target);
+}
+
+bool	front_facing(t_ray ray)
+{
+	if (scalar_vector(ray.direction, ray.normal) >= 0)
 		return (false);
 	return (true);
 }
@@ -82,7 +78,7 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 	{
 		ray->closest_t = t;
 		ray->closest_object = obj;
-		ray->normal = point_at(ray, t);
+		ray->normal = point_at(*ray, t);
 		ray->normal = subtract_vector(ray->normal, *obj->coord);
 		ray->normal = factor_div_vector(ray->normal, obj->rad_rat);
 	}
@@ -91,31 +87,57 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 
 bool	hit_object(t_ray *ray, t_obj *obj)
 {
+	bool	hit_anything;
+
+	hit_anything = false;
 	while (obj != NULL)
 	{
 		if (obj->type == SPHERE && hit_sphere(ray, obj) == true)
-		{
-printf("true ");
-			return (true);
-		}
+			hit_anything = true;
 		obj = obj->next;
 	}
-	return (false);
+	return (hit_anything);
 }
 
-int	ray_color(t_ray *ray, t_obj *obj)
+/*Sphere sampling:
+		bounce.origin = point_at(ray, ray.closest_t);
+		target = add_vector(bounce.origin, ray.normal);
+		seed = xslcg_random(seed);
+		target = add_vector(target, unit_vector(rand_in_unit_sphere(seed)));
+		bounce.direction = subtract_vector(target, bounce.origin);
+		return (factor_color(ray_color(bounce, obj, depth - 1), 0.5));
+Hemisphere sampling:
+		bounce.origin = point_at(ray, ray.closest_t);
+		target = add_vector(bounce.origin, rand_in_hemisphere(seed, ray.normal));
+		seed = xslcg_random(seed);
+		bounce.direction = subtract_vector(target, bounce.origin);
+		return (factor_color(ray_color(bounce, obj, depth - 1), 0.5));
+*/
+int	ray_color(t_ray ray, t_obj *obj, int depth)
 {
-	double			t;
+	t_vec	target;
+	double	t;
+	t_ray	bounce;
+	static int	seed = (int)883082594;
 
-	if (hit_object(ray, obj) == true)
+	bounce = new_ray();
+	if (depth <= 0)
+		return (0xFF0000FF);
+	if (hit_object(&ray, obj) == true)
 	{
+		bounce.origin = point_at(ray, ray.closest_t);
+		target = add_vector(bounce.origin, ray.normal);
+		seed = xslcg_random(seed);
+		target = add_vector(target, unit_vector(rand_in_unit_sphere(seed)));
+		bounce.direction = subtract_vector(target, bounce.origin);
+		return (factor_color(ray_color(bounce, obj, depth - 1), 0.5));
 		// if (front_facing(ray) == true)
-			// return (double_to_color(fabs(ray->normal.x), fabs(ray->normal.y), fabs(ray->normal.z)));
-			return (double_to_color(0.1, 0.1, fabs(ray->normal.z)));
+		// 	// return (double_to_color(fabs(ray.normal.x), fabs(ray.normal.y), fabs(ray.normal.z)));
+		// 	return (0.5 * ray_color(bounce, obj));
 		// else
 		// 	return (0xBB3333FF);
 	}
-	t = 0.5 * (unit_vector(ray->direction).y + 1.0);
+	t = 0.5 * (unit_vector(ray.direction).y + 1.0);
 	return (add_color \
 		(factor_color(0x5588FFFF, 1 - t), factor_color(0xFFFFFFFF, t)));
 }
