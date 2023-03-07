@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 14:43:38 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/06 17:43:14 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 
 # define T_MIN 0.1
 # define T_MAX __DBL_MAX__
+
+# define COL "Color"
+# define POS "Position"
+# define ORI "Orientation"
 
 typedef enum e_type
 {
@@ -116,6 +120,11 @@ void	get_sphere(t_obj *obj, char **split);
 void	get_pln(t_obj *obj, char **split);
 void	get_cyl(t_obj *obj, char **split);
 double	ft_atof(char *nbr);
+int		pre_field_check(char *line);
+int		value_check(char *line);
+int		ft_strisdigit(char *str);
+int	vector_check(char *str, char **fields, int type);
+void print_error(char *str, int type, int i, char *field);
 
 //IMAGE
 int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);

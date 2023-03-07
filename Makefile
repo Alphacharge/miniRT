@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
+#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/03 17:51:21 by fkernbac         ###   ########.fr        #
+#    Updated: 2023/03/06 13:01:14 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,13 +49,13 @@ VPATH	:=	src/ src/parsing/ src/utils src/camera src/error src/image
 SRC_F	:=	miniRT.c
 SRC_F	+=	file_parsing.c print_map.c file_utils.c
 SRC_F	+=	line_parsing.c ft_split_p.c get_modells.c get_setup.c ft_atof.c
+SRC_F	+=	pre_field_check.c
 SRC_F	+=	pixels.c
 SRC_F	+=	ray.c
 SRC_F	+=	vector.c
 SRC_F	+=	free.c
 SRC_F	+=	color.c
 SRC_F	+=	camera.c
-SRC_F	+=
 SRC_F	+=
 SRC_F	+=
 SRC_F	+=
