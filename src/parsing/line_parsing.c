@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 10:19:39 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 11:00:39 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_obj	*line_interpreter(char *line)
 	return (free(split), obj);
 }
 
-static void free_obj(t_obj *obj)
+static void	free_obj(t_obj *obj)
 {
 	if (obj)
 	{

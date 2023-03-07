@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/07 10:24:31 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/07 11:12:27 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,16 +48,16 @@ VPATH	:=	src/ src/parsing/ src/utils src/camera src/error src/image
 
 SRC_F	:=	miniRT.c
 SRC_F	+=	file_parsing.c print_map.c file_utils.c
-SRC_F	+=	line_parsing.c ft_split_p.c get_modells.c get_setup.c ft_atof.c
+SRC_F	+=	line_parsing.c ft_split_p.c ft_atof.c
 SRC_F	+=	pre_field_check.c line_utils.c pars_error.c
+SRC_F	+=	get_resolution.c get_camera.c get_ambient.c get_light.c
+SRC_F	+=	get_sphere.c get_plane.c get_cylinder.c
 SRC_F	+=	pixels.c
 SRC_F	+=	ray.c
 SRC_F	+=	vector.c
 SRC_F	+=	free.c
 SRC_F	+=	color.c
 SRC_F	+=	camera.c
-SRC_F	+=
-SRC_F	+=
 SRC_F	+=
 SRC_F	+=
 SRC_F	+=

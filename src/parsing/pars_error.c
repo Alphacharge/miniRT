@@ -6,15 +6,21 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:24:12 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 10:24:45 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 11:23:03 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void print_error(char *str, int type, int i, char *field)
+void	print_syntax_error(t_obj *obj, char *str)
 {
-	char **color;
+	obj->type = -1;
+	printf("%s Syntax Error\n", str);
+}
+
+void	print_error(char *str, int type, int i, char *field)
+{
+	char	**color;
 
 	color = def_color();
 	if (type == CAM)

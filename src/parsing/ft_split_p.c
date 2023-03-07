@@ -6,11 +6,17 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:19:47 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 12:20:15 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 11:09:23 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+static char	*set_null(char *s, int i, int j)
+{
+	s[i + 1] = '\0';
+	return (&s[i - j + 1]);
+}
 
 /* this split allocates a new **pointer and expect a allocated input string*/
 /* it return pointer to the inputstring*/
@@ -33,8 +39,7 @@ char	**ft_split_p(char *s, char c)
 			j = 1;
 			while (j <= i && s[i - j] != c)
 				j++;
-			s[i + 1] = '\0';
-			ptr[--words] = &s[i - j + 1];
+			ptr[--words] = set_null(s, i, j);
 			if (ptr[words] == NULL)
 				return (free(ptr), NULL);
 			i = i - j + 1;

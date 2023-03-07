@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_utils.c                                       :+:      :+:    :+:   */
+/*   get_resolution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/07 10:22:45 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 11:00:25 by rbetz            ###   ########.fr       */
+/*   Created: 2023/03/07 11:13:09 by rbetz             #+#    #+#             */
+/*   Updated: 2023/03/07 11:20:04 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	ft_strisdigit(char *str)
+void	get_reso(t_obj *obj, char **split)
 {
-	while (str && *str)
+	if (split[1] && !ft_strisdigit(split[1]))
+		printf("Resolution Width (%s) is not valid\n", split[1]);
+	if (split[2] && !ft_strisdigit(split[2]))
+		printf("Resolution Height (%s) is not valid\n", split[2]);
+	if (obj && split && split[1] && split[2])
 	{
-		if (!ft_isdigit(*str))
-			return (0);
-		str++;
+		obj->type = RES;
+		obj->rad_rat = ft_atof(split[1]);
+		obj->hei_fov = ft_atof(split[2]);
 	}
-	return (1);
-}
-
-char	**def_color(void)
-{
-	static char	*color[3];
-
-	color[0] = "Red";
-	color[1] = "Green";
-	color[2] = "Blue";
-	return (color);
+	else
+		print_syntax_error(obj, "Resolution");
 }

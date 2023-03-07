@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:01:08 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 10:25:38 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 10:59:55 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ int	value_check(char *line)
 	return (1);
 }
 
-
 int	vector_check(char *str, char **fields, int type)
 {
 	int	i;
-	
+
 	i = 0;
 	while (fields && fields[i] && i < 3)
 	{

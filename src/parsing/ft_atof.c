@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:53:25 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 10:17:51 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 11:04:47 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /*converts a string to a double*/
 double	ft_atof(char *nbr)
 {
-	double res;
-	int i;
-	int j;
+	double	res;
+	int		i;
+	int		j;
 
 	j = 1;
 	if (!nbr)
