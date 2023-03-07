@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/06 17:43:14 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 10:28:16 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,9 @@ double	ft_atof(char *nbr);
 int		pre_field_check(char *line);
 int		value_check(char *line);
 int		ft_strisdigit(char *str);
-int	vector_check(char *str, char **fields, int type);
-void print_error(char *str, int type, int i, char *field);
+int		vector_check(char *str, char **fields, int type);
+void	print_error(char *str, int type, int i, char *field);
+char	**def_color(void);
 
 //IMAGE
 int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);

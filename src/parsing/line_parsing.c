@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 12:23:26 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 10:19:39 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void free_obj(t_obj *obj)
 	}
 }
 
+/* creates a obj list from a preparsed map list*/
 t_obj	*create_obj(t_map *map)
 {
 	t_obj	*obj;

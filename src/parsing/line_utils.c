@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*   line_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/03 10:53:25 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 10:17:51 by rbetz            ###   ########.fr       */
+/*   Created: 2023/03/07 10:22:45 by rbetz             #+#    #+#             */
+/*   Updated: 2023/03/07 10:22:59 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-/*converts a string to a double*/
-double	ft_atof(char *nbr)
+int	ft_strisdigit(char *str)
 {
-	double res;
-	int i;
-	int j;
+	while (str && *str)
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
 
-	j = 1;
-	if (!nbr)
-		return (0);
-	res = ft_atoi(nbr);
-	while (*nbr && *nbr != '.')
-		nbr++;
-	if (*nbr == '.')
-		nbr++;
-	i = ft_strlen(nbr);
-	while (i-- > 0)
-		j *= 10;
-	res += (double)ft_atoi(nbr) / j;
-	return (res);
+char **def_color(void)
+{
+	static char *color[3];
+	
+	color[0] = "Red";
+	color[1] = "Green";
+	color[2] = "Blue";
+	return (color);
 }

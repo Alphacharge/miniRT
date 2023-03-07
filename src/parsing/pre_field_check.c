@@ -6,23 +6,11 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:01:08 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/06 18:23:17 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 10:25:38 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-int	ft_strisdigit(char *str)
-{
-	while (str && *str)
-	{
-		if (!ft_isdigit(*str))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
 
 int	value_check(char *line)
 {
@@ -50,46 +38,8 @@ int	value_check(char *line)
 	}
 	return (1);
 }
-static char **def_color(void)
-{
-	static char *color[3];
-	
-	color[0] = "Red";
-	color[1] = "Green";
-	color[2] = "Blue";
-	return (color);
-}
-void print_error(char *str, int type, int i, char *field)
-{
-	char **color;
 
-	color = def_color();
-	if (type == CAM)
-		printf("Camera %s %c (%s) is not valid\n", str, i + 88, field);
-	if (type == AMBI)
-		printf("Ambientlight %s %s (%s) is not valid\n", str, color[i], field);
-	if (type == LIGHT && ft_strcmp(str, POS))
-		printf("Light %s %c (%s) is not valid\n", str, i + 88, field);
-	else if (type == LIGHT && ft_strcmp(str, COL))
-		printf("Light %s %s (%s) is not valid\n", str, color[i], field);
-	if (type == SPHERE && ft_strcmp(str, POS))
-		printf("Light %s %c (%s) is not valid\n", str, i + 88, field);
-	else if (type == SPHERE && ft_strcmp(str, COL))
-		printf("Light %s %s (%s) is not valid\n", str, color[i], field);
-	if (type == PLN && ft_strcmp(str, POS))
-		printf("Plane %s %d (%s) is not valid\n", str, i + 88, field);
-	else if (type == PLN && ft_strcmp(str, ORI))
-		printf("Plane %s %d (%s) is not valid\n", str, i + 88, field);
-	else if (type == PLN && ft_strcmp(str, COL))
-		printf("Plane %s %s (%s) is not valid\n", str, color[i], field);
-	//maybe one else can be removed
-	if (type == CYL && ft_strcmp(str, POS))
-		printf("Cylinder %s %c (%s) is not valid\n", str, i + 88, field);
-	else if (type == CYL && ft_strcmp(str, ORI))
-		printf("Cylinder %s %d (%s) is not valid\n", str, i + 88, field);
-	else if (type == CYL && ft_strcmp(str, COL))
-		printf("Cylinder %s %s (%s) is not valid\n", str, color[i], field);
-}
+
 int	vector_check(char *str, char **fields, int type)
 {
 	int	i;
@@ -106,6 +56,7 @@ int	vector_check(char *str, char **fields, int type)
 	}
 	return (1);
 }
+
 int	pre_field_check(char *line)
 {
 	int	c;
