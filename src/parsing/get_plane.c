@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:05 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 11:19:52 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 12:54:56 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,19 @@ void	get_pln(t_obj *obj, char **split)
 		obj->type = PLN;
 		tmp = ft_split_p(split[1], ',');
 		if (vector_check(POS, tmp, obj->type))
-			obj->coord = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), ft_atof(tmp[2]));
+			obj->coord = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
+			ft_atof(tmp[2]));
 		free(tmp);
 		tmp = ft_split_p(split[2], ',');
 		if (vector_check(ORI, tmp, obj->type))
-			obj->vector = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), ft_atof(tmp[2]));
+			obj->vector = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
+			ft_atof(tmp[2]));
 		free(tmp);
 		obj->rad_rat = ft_atof(split[2]);
 		tmp = ft_split_p(split[3], ',');
 		if (vector_check(COL, tmp, obj->type))
-			obj->color = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), ft_atof(tmp[2]));
+			obj->color = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
+			ft_atof(tmp[2]));
 		free(tmp);
 	}
 	else

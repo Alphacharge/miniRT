@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 11:00:39 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 13:20:50 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,25 @@ static void	fill_obj(t_obj	*obj, char **split)
 		obj->type = -1;
 }
 
+// static void	print_obj(t_obj *obj)
+// {
+// 	if (obj->type == -1)
+// 		printf("Object is invalid\n");
+// 	else if (obj->type == RES)
+// 		printf("Resolution: %f x %f\n", obj->rad_rat, obj->hei_fov);
+// 	else if (obj->type == CAM)
+// 		printf("Camera: %f %f %f %f %f %f %f\n", obj->coord->x, obj->coord->y, obj->coord->z, obj->vector->x, obj->vector->y, obj->vector->z, obj->hei_fov);
+// 	else if (obj->type == AMBI)
+// 		printf("Ambient: %f %f %f %f\n", obj->rad_rat, obj->color->x, obj->color->y, obj->color->z);
+// 	else if (obj->type == LIGHT)
+// 		printf("Light: %f %f %f %f %f %f %f\n", obj->coord->x, obj->coord->y, obj->coord->z, obj->rad_rat, obj->color->x, obj->color->y, obj->color->z);
+// 	else if (obj->type == SPHERE)
+// 		printf("Sphere: %f %f %f %f %f %f %f\n", obj->coord->x, obj->coord->y, obj->coord->z, obj->rad_rat, obj->color->x, obj->color->y, obj->color->z);
+// 	else if (obj->type == PLN)
+// 		printf("Plane: %f %f %f %f %f %f %f %f %f\n", obj->coord->x, obj->coord->y, obj->coord->z, obj->vector->x, obj->vector->y, obj->vector->z, obj->color->x, obj->color->y, obj->color->z);
+// 	else if (obj->type == CYL)
+// 		printf("Cylinder: %f %f %f %f %f %f %f %f %f %f %f\n", obj->coord->x, obj->coord->y, obj->coord->z, obj->vector->x, obj->vector->y, obj->vector->z, obj->rad_rat, obj->hei_fov, obj->color->x, obj->color->y, obj->color->z);
+// }
 static t_obj	*line_interpreter(char *line)
 {
 	t_obj	*obj;
@@ -44,6 +63,7 @@ static t_obj	*line_interpreter(char *line)
 	if (split == NULL)
 		return (obj);
 	fill_obj(obj, split);
+	print_obj(obj);
 	return (free(split), obj);
 }
 
