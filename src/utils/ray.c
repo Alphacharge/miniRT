@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/07 19:23:23 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:24:08 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,11 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 	double	c;
 	double	discriminant;
 	double	t;
-	double	length;
 
 	origin_center = subtract_vector(ray->origin, *obj->coord);
-	length = length_vector(ray->direction);
-	a = pow(length, 2);
+	a = length_squared(ray->direction);
 	b = scalar_vector(origin_center, ray->direction);
-	length = length_vector(origin_center);
-	c = pow(length, 2) - pow(obj->rad_rat, 2);
+	c = length_squared(origin_center) - pow(obj->radius, 2);
 	discriminant = b * b - a * c;
 	if (discriminant < 0)
 		return (false);
@@ -80,9 +77,17 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 		ray->closest_object = obj;
 		ray->normal = point_at(*ray, t);
 		ray->normal = subtract_vector(ray->normal, *obj->coord);
-		ray->normal = factor_div_vector(ray->normal, obj->rad_rat);
+		ray->normal = factor_div_vector(ray->normal, obj->radius);
 	}
 	return (true);
+}
+
+/*I pretend the light is a small sphere.
+Could also calculate it as plane intersection
+within radius of light coordinates.*/
+bool	hit_light(t_ray *ray, t_obj *obj)
+{
+	return (hit_sphere(ray, obj));
 }
 
 bool	hit_object(t_ray *ray, t_obj *obj)
@@ -93,6 +98,8 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 	while (obj != NULL)
 	{
 		if (obj->type == SPHERE && hit_sphere(ray, obj) == true)
+			hit_anything = true;
+		if (obj->type == LIGHT && hit_light(ray, obj) == true)
 			hit_anything = true;
 		obj = obj->next;
 	}
@@ -125,7 +132,7 @@ Hemisphere sampling:
 t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 {
 	t_vec		target;
-	double		t;
+	// double		t;
 	t_ray		bounce;
 	static int	seed = (int)883082594;
 
@@ -134,21 +141,20 @@ t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 		return (color_to_vector(0xFF0000FF));
 	if (hit_object(&ray, obj) == true)
 	{
+		if (ray.closest_object->type == LIGHT)
+			return (*ray.closest_object->color);
 		bounce.origin = point_at(ray, ray.closest_t);
 		target = add_vector(bounce.origin, ray.normal);
 		seed = xslcg_random(seed);
 		target = add_vector(target, unit_vector(rand_in_unit_sphere(seed)));
 		bounce.direction = subtract_vector(target, bounce.origin);
 		if (front_facing(ray) == true)
-		{
-			// return (double_to_color(fabs(ray.normal.x), fabs(ray.normal.y), fabs(ray.normal.z)));
-			// return (0.5 * ray_color(bounce, obj));
 			return (combine_colors(ray_color(bounce, obj, depth - 1), *ray.closest_object->color));
-		}
 		else
 			return (color_to_vector(0xBB3333FF));
 	}
-	t = 0.5 * (unit_vector(ray.direction).y + 1.0);
-	return (add_vector(factor_mult_vector(color_to_vector(0x5588FFFF), 1 - t), \
-		factor_mult_vector(color_to_vector(0xFFFFFFFF), t)));
+	// t = 0.5 * (unit_vector(ray.direction).y + 1.0);
+	// return (add_vector(factor_mult_vector(color_to_vector(0x5588FFFF), 1 - t), \
+	// 	factor_mult_vector(color_to_vector(0xFFFFFFFF), t)));
+	return (color_to_vector(0x000000FF));
 }

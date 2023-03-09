@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 13:21:56 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/09 17:04:00 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_cyl(t_obj *obj, char **split)
 			obj->vector = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
 			ft_atof(tmp[2]));
 		free(tmp);
-		obj->rad_rat = ft_atof(split[3]);
+		obj->radius = ft_atof(split[3]);
 		obj->hei_fov = ft_atof(split[4]);
 		tmp = ft_split_p(split[5], ',');
 		if (vector_check(COL, tmp, obj->type))

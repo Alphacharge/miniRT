@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_resolution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:09 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 11:20:04 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/09 17:04:00 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_reso(t_obj *obj, char **split)
 	if (obj && split && split[1] && split[2])
 	{
 		obj->type = RES;
-		obj->rad_rat = ft_atof(split[1]);
+		obj->radius = ft_atof(split[1]);
 		obj->hei_fov = ft_atof(split[2]);
 	}
 	else

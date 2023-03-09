@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 19:06:41 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:18:02 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
+
+# define LIGHT_RADIUS 100
 
 # define COL "Color"
 # define POS "Position"
@@ -65,7 +67,8 @@ typedef struct s_color
 typedef struct s_obj
 {
 	int		type;
-	double	rad_rat;
+	double	radius;
+	double	intensity;
 	double	hei_fov;
 	t_vec	*coord;
 	t_vec	*vector;
@@ -153,6 +156,7 @@ t_vec	factor_div_vector(t_vec v1, double f);
 double	scalar_vector(t_vec v1, t_vec v2);
 t_vec	cross_vector(t_vec v1, t_vec v2);
 double	length_vector(t_vec v1);
+double	length_squared(t_vec vector);
 t_vec	unit_vector(t_vec v1);
 t_vec	random_vector(unsigned int max);
 t_vec	rand_in_unit_sphere(int seed);

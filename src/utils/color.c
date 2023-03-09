@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:32:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/07 19:23:02 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:27:04 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ t_vec	color_to_vector(uint32_t rgba)
 
 int	gamma_correction(t_vec color)
 {
-	const double	gamma = 2.2;
+	// const double	gamma = 2.2;
 
-	color.x = pow(color.x, 1 / gamma);
-	color.y = pow(color.y, 1 / gamma);
-	color.z = pow(color.z, 1 / gamma);
+	// color.x = pow(color.x, 1 / gamma);
+	// color.y = pow(color.y, 1 / gamma);
+	// color.z = pow(color.z, 1 / gamma);
 	return (vector_to_color(color));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:05 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 12:54:56 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/09 17:04:00 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	get_pln(t_obj *obj, char **split)
 			obj->vector = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
 			ft_atof(tmp[2]));
 		free(tmp);
-		obj->rad_rat = ft_atof(split[2]);
+		obj->radius = ft_atof(split[2]);
 		tmp = ft_split_p(split[3], ',');
 		if (vector_check(COL, tmp, obj->type))
 			obj->color = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \

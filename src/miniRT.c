@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 14:12:03 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/09 17:04:00 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static	mlx_t	*mlx_setup(t_obj *obj)
 	if (obj == NULL)
 		mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
 	else
-		mlx = mlx_init((int32_t)obj->rad_rat, (int32_t)obj->hei_fov, "miniRT", true);
+		mlx = mlx_init((int32_t)obj->radius, (int32_t)obj->hei_fov, "miniRT", true);
 	if (mlx == NULL)
 		return (NULL);	//needs freeing
 	mlx_set_window_limit(mlx, 100, 100, 2000, 2000);
@@ -65,7 +65,6 @@ int	main(int argc, char **argv)
 	map = check_input(argc, argv);
 	obj = create_obj(map);
 printf("parsing done\n");
-// exit(0);
 	mlx = mlx_setup(obj);
 	img = img_setup(mlx);
 printf("mlx setup done\n");
@@ -74,7 +73,6 @@ printf("scene setup done\n");
 	if (mlx == NULL || img == NULL || cam == NULL)
 		return (EXIT_FAILURE);	//needs freeing
 	draw_image(img, cam, obj);
-	// mlx_loop_hook(mlx, draw_image, cam);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
