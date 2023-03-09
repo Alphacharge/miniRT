@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/09 17:24:08 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:34:15 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,41 +47,6 @@ bool	front_facing(t_ray ray)
 	return (true);
 }
 
-bool	hit_sphere(t_ray *ray, t_obj *obj)
-{
-	t_vec	origin_center;
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-	double	t;
-
-	origin_center = subtract_vector(ray->origin, *obj->coord);
-	a = length_squared(ray->direction);
-	b = scalar_vector(origin_center, ray->direction);
-	c = length_squared(origin_center) - pow(obj->radius, 2);
-	discriminant = b * b - a * c;
-	if (discriminant < 0)
-		return (false);
-	discriminant = sqrt(discriminant);
-	t = (-b - discriminant) / a;
-	if (t < T_MIN || T_MAX < t)
-	{
-		t = (-b + discriminant) / a;
-		if (t < T_MIN || T_MAX < t)
-			return (false);
-	}
-	if (t < ray->closest_t)
-	{
-		ray->closest_t = t;
-		ray->closest_object = obj;
-		ray->normal = point_at(*ray, t);
-		ray->normal = subtract_vector(ray->normal, *obj->coord);
-		ray->normal = factor_div_vector(ray->normal, obj->radius);
-	}
-	return (true);
-}
-
 /*I pretend the light is a small sphere.
 Could also calculate it as plane intersection
 within radius of light coordinates.*/
@@ -99,7 +64,9 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 	{
 		if (obj->type == SPHERE && hit_sphere(ray, obj) == true)
 			hit_anything = true;
-		if (obj->type == LIGHT && hit_light(ray, obj) == true)
+		else if (obj->type == LIGHT && hit_light(ray, obj) == true)
+			hit_anything = true;
+		else if (obj->type == PLN && hit_plane(ray, obj) == true)
 			hit_anything = true;
 		obj = obj->next;
 	}
@@ -142,7 +109,7 @@ t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 	if (hit_object(&ray, obj) == true)
 	{
 		if (ray.closest_object->type == LIGHT)
-			return (*ray.closest_object->color);
+			return (light_color(ray));
 		bounce.origin = point_at(ray, ray.closest_t);
 		target = add_vector(bounce.origin, ray.normal);
 		seed = xslcg_random(seed);
@@ -151,10 +118,22 @@ t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 		if (front_facing(ray) == true)
 			return (combine_colors(ray_color(bounce, obj, depth - 1), *ray.closest_object->color));
 		else
-			return (color_to_vector(0xBB3333FF));
+			return (color_to_vector(0x00FF00FF));
 	}
 	// t = 0.5 * (unit_vector(ray.direction).y + 1.0);
 	// return (add_vector(factor_mult_vector(color_to_vector(0x5588FFFF), 1 - t), \
 	// 	factor_mult_vector(color_to_vector(0xFFFFFFFF), t)));
 	return (color_to_vector(0x000000FF));
+}
+
+t_vec	light_color(t_ray ray)
+{
+	t_vec			origin_light;
+	unsigned int	distance;
+	unsigned int	brightness;
+
+	brightness = 0;
+	origin_light = subtract_vector(point_at(ray, ray.closest_t), ray.origin);
+	distance = length_vector(origin_light);
+	origin_light = unit_vector(origin_light);
 }
