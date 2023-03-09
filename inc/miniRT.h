@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 14:12:30 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/09 17:25:04 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,10 @@ t_vec	unit_vector(t_vec v1);
 t_vec	random_vector(unsigned int max);
 t_vec	rand_in_unit_sphere(int seed);
 t_vec	rand_in_hemisphere(int seed, t_vec normal);
+
+//HIT_OBJECTS
+bool	hit_sphere(t_ray *ray, t_obj *obj);
+bool	hit_plane(t_ray *ray, t_obj *obj);
 
 //CAMERA
 t_cam	*setup_camera(t_obj *obj, int width, int height);

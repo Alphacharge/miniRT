@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/06 19:28:39 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:26:22 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,44 +47,6 @@ bool	front_facing(t_ray ray)
 	return (true);
 }
 
-bool	hit_sphere(t_ray *ray, t_obj *obj)
-{
-	t_vec	origin_center;
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-	double	t;
-	double	length;
-
-	origin_center = subtract_vector(ray->origin, *obj->coord);
-	length = length_vector(ray->direction);
-	a = pow(length, 2);
-	b = scalar_vector(origin_center, ray->direction);
-	length = length_vector(origin_center);
-	c = pow(length, 2) - pow(obj->rad_rat, 2);
-	discriminant = b * b - a * c;
-	if (discriminant < 0)
-		return (false);
-	discriminant = sqrt(discriminant);
-	t = (-b - discriminant) / a;
-	if (t < T_MIN || T_MAX < t)
-	{
-		t = (-b + discriminant) / a;
-		if (t < T_MIN || T_MAX < t)
-			return (false);
-	}
-	if (t < ray->closest_t)
-	{
-		ray->closest_t = t;
-		ray->closest_object = obj;
-		ray->normal = point_at(*ray, t);
-		ray->normal = subtract_vector(ray->normal, *obj->coord);
-		ray->normal = factor_div_vector(ray->normal, obj->rad_rat);
-	}
-	return (true);
-}
-
 bool	hit_object(t_ray *ray, t_obj *obj)
 {
 	bool	hit_anything;
@@ -93,6 +55,8 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 	while (obj != NULL)
 	{
 		if (obj->type == SPHERE && hit_sphere(ray, obj) == true)
+			hit_anything = true;
+		else if (obj->type == PLN && hit_plane(ray, obj) == true)
 			hit_anything = true;
 		obj = obj->next;
 	}
@@ -139,5 +103,5 @@ int	ray_color(t_ray ray, t_obj *obj, int depth)
 	}
 	t = 0.5 * (unit_vector(ray.direction).y + 1.0);
 	return (add_color \
-		(factor_color(0x5588FFFF, 1 - t), factor_color(0xFFFFFFFF, t)));
+		(factor_color(0xFF3311FF, 1 - t), factor_color(0xFFFFFFFF, t)));
 }

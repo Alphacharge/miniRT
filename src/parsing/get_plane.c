@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:05 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 12:54:56 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/07 17:06:13 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	get_pln(t_obj *obj, char **split)
 			obj->color = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
 			ft_atof(tmp[2]));
 		free(tmp);
+		//needs a check for normalized value
 	}
 	else
 		print_syntax_error(obj, "Plane");
