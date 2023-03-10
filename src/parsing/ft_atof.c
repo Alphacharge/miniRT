@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:53:25 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/10 11:11:13 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/10 11:17:32 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ double	ft_atof(char *nbr)
 	while (i-- > 0)
 		j *= 10;
 	res += (double)ft_atoi(nbr) * vz / j;
-	printf("res:%f\n",res);
 	return (res);
 }
