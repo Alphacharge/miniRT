@@ -3,26 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/09 17:04:00 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:38:29 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-// static t_data	*init_data()
-// {
-// 	t_data	*data;
-
-// 	data = malloc(sizeof(t_data));
-// 	if (data == NULL)
-// 		return (NULL);
-// 	infile = ;
-// 	items = NULL;
-// 	return (data);
-// }
 
 static	mlx_t	*mlx_setup(t_obj *obj)
 {
@@ -53,27 +42,38 @@ static mlx_image_t	*img_setup(mlx_t *mlx)
 	return (img);
 }
 
+static t_data	*init_data(void)
+{
+	t_data	*data;
+
+	data = malloc(sizeof(t_data));
+	if (data == NULL)
+		return (NULL);
+	data->map = NULL;
+	data->obj = NULL;
+	data->mlx = NULL;
+	data->img = NULL;
+	data->cam = NULL;
+	return (data);
+}
 int	main(int argc, char **argv)
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_cam		*cam;
-	t_map		*map;
-	t_obj		*obj;
-
-	// data = init_data();
-	map = check_input(argc, argv);
-	obj = create_obj(map);
+	t_data	*data;
+	
+	data = init_data();
+	data->map = check_input(argc, argv);
+	data->obj = create_obj(data->map);
 printf("parsing done\n");
-	mlx = mlx_setup(obj);
-	img = img_setup(mlx);
+	data->mlx = mlx_setup(data->obj);
+	data->img = img_setup(data->mlx);
 printf("mlx setup done\n");
-	cam = setup_camera(obj, mlx->width, mlx->height);
+	data->cam = setup_camera(data->obj, data->mlx->width, data->mlx->height);
 printf("scene setup done\n");
-	if (mlx == NULL || img == NULL || cam == NULL)
+	if (data->mlx == NULL || data->img == NULL || data->cam == NULL)
 		return (EXIT_FAILURE);	//needs freeing
-	draw_image(img, cam, obj);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	draw_image(data->img, data->cam, data->obj);
+	mlx_key_hook(data->mlx, &my_keyhook, data);
+	mlx_loop(data->mlx);
+	mlx_terminate(data->mlx);
 	return (EXIT_SUCCESS);
 }

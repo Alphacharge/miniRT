@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/09 17:38:12 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:40:58 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 // # define HEIGHT 1050
 
 # define MAX_DEPTH 50
+# define STEPSIZE 10
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
@@ -103,10 +104,12 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	mlx_t					*mlx;
-	mlx_image_t				*img;
-	// typedef struct s_item	*items;
-}							t_data;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_cam		*cam;
+	t_map		*map;
+	t_obj		*obj;
+}				t_data;
 
 //PARSING
 t_map	*check_input(int argc, char **argv);
@@ -136,6 +139,9 @@ void	print_syntax_error(t_obj *obj, char *str);
 
 //IMAGE
 int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);
+
+//KEYHOOK
+void	my_keyhook(mlx_key_data_t keydata, void* param);
 
 //ERROR
 void	ft_error(t_data *data, int ecase);

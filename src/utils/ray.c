@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/09 18:34:15 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/10 08:54:13 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,19 @@ within radius of light coordinates.*/
 bool	hit_light(t_ray *ray, t_obj *obj)
 {
 	return (hit_sphere(ray, obj));
+}
+
+t_vec	light_color(t_ray ray)
+{
+	t_vec			origin_light;
+	unsigned int	distance;
+	unsigned int	brightness;
+
+	brightness = 0;
+	origin_light = subtract_vector(point_at(ray, ray.closest_t), ray.origin);
+	distance = length_vector(origin_light);
+	origin_light = unit_vector(origin_light);
+	return(origin_light);
 }
 
 bool	hit_object(t_ray *ray, t_obj *obj)
@@ -126,14 +139,3 @@ t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 	return (color_to_vector(0x000000FF));
 }
 
-t_vec	light_color(t_ray ray)
-{
-	t_vec			origin_light;
-	unsigned int	distance;
-	unsigned int	brightness;
-
-	brightness = 0;
-	origin_light = subtract_vector(point_at(ray, ray.closest_t), ray.origin);
-	distance = length_vector(origin_light);
-	origin_light = unit_vector(origin_light);
-}
