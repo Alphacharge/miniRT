@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/10 13:44:24 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/10 19:09:25 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@
 // # define WIDTH 1680
 // # define HEIGHT 1050
 
-# define MAX_DEPTH 50
+# define MAX_DEPTH 10
 # define STEPSIZE 10
+# define SAMPLES 50
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
 
-# define LIGHT_RADIUS 100
+# define LIGHT_RADIUS 25
 
 # define COL "Color"
 # define POS "Position"
@@ -186,9 +187,10 @@ int		vector_to_color(t_vec color);
 
 //UTILS
 void	*ft_free(void *pointer);
-int xorshift_random(int seed);
-int lcg_random(unsigned int seed);
-int	xslcg_random(unsigned int seed);
-int three_digits(unsigned int seed);
+int		xorshift_random(int seed);
+int		lcg_random(unsigned int seed);
+int		xslcg_random(unsigned int seed);
+int		three_digits(unsigned int seed);
+double	random_double(void);
 
 #endif

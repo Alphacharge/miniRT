@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:41:17 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/09 17:38:35 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:35:52 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,11 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 		ray->normal = subtract_vector(ray->normal, *obj->coord);
 		ray->normal = factor_div_vector(ray->normal, obj->radius);
 	}
+// if (ray->closest_object == NULL)
+// {
+// 	printf("NULL:\n");
+// }
+// if (obj == NULL)
+// 	printf("obj NULL\n");
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/10 08:54:13 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/10 19:29:56 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ bool	hit_light(t_ray *ray, t_obj *obj)
 	return (hit_sphere(ray, obj));
 }
 
-t_vec	light_color(t_ray ray)
-{
-	t_vec			origin_light;
-	unsigned int	distance;
-	unsigned int	brightness;
+// t_vec	light_color(t_ray ray)
+// {
+// 	t_vec			origin_light;
+// 	unsigned int	distance;
+// 	unsigned int	brightness;
 
-	brightness = 0;
-	origin_light = subtract_vector(point_at(ray, ray.closest_t), ray.origin);
-	distance = length_vector(origin_light);
-	origin_light = unit_vector(origin_light);
-	return(origin_light);
-}
+// 	brightness = 0;
+// 	origin_light = subtract_vector(point_at(ray, ray.closest_t), ray.origin);
+// 	distance = length_vector(origin_light);
+// 	origin_light = unit_vector(origin_light);
+// 	return (origin_light);
+// }
 
 bool	hit_object(t_ray *ray, t_obj *obj)
 {
@@ -86,13 +86,13 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 	return (hit_anything);
 }
 
-t_vec	combine_colors(t_vec bounce, t_vec local)
+t_vec	combine_colors(t_vec bounce_color, t_vec object_color)
 {
-	t_vec	color;
+	const double	albedo = 0.9;
+	t_vec			attenuation;
 
-	color = add_vector(bounce, local);
-	color = factor_mult_vector(color, 0.5);
-	return (color);
+	attenuation = factor_mult_vector(object_color, albedo);
+	return (multiply_vector(attenuation, bounce_color));
 }
 
 /*Sphere sampling:
@@ -112,20 +112,20 @@ Hemisphere sampling:
 t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 {
 	t_vec		target;
-	// double		t;
+	double		t;
 	t_ray		bounce;
 	static int	seed = (int)883082594;
 
 	bounce = new_ray();
 	if (depth <= 0)
-		return (color_to_vector(0xFF0000FF));
+		return (color_to_vector(0x000000FF));
 	if (hit_object(&ray, obj) == true)
 	{
 		if (ray.closest_object->type == LIGHT)
-			return (light_color(ray));
+			return (*ray.closest_object->color);
 		bounce.origin = point_at(ray, ray.closest_t);
 		target = add_vector(bounce.origin, ray.normal);
-		seed = xslcg_random(seed);
+		seed = lcg_random(seed);
 		target = add_vector(target, unit_vector(rand_in_unit_sphere(seed)));
 		bounce.direction = subtract_vector(target, bounce.origin);
 		if (front_facing(ray) == true)
@@ -133,9 +133,8 @@ t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 		else
 			return (color_to_vector(0x00FF00FF));
 	}
-	// t = 0.5 * (unit_vector(ray.direction).y + 1.0);
-	// return (add_vector(factor_mult_vector(color_to_vector(0x5588FFFF), 1 - t), \
-	// 	factor_mult_vector(color_to_vector(0xFFFFFFFF), t)));
-	return (color_to_vector(0x000000FF));
+	t = 0.5 * (unit_vector(ray.direction).y + 1.0);
+	return (add_vector(factor_mult_vector(color_to_vector(0x5588FFFF), 1 - t),
+		factor_mult_vector(color_to_vector(0xFFFFFFFF), t)));
+	// return (color_to_vector(0x000000FF));
 }
-

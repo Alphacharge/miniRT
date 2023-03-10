@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:14:24 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/06 17:32:13 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:29:19 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	lcg_random(unsigned int seed)
 
 int	xslcg_random(unsigned int seed)
 {
-	return (xorshift_random(seed) ^ lcg_random((unsigned int)&seed));
+	return (xorshift_random(seed) ^ lcg_random(seed));
 }
 
 /*This function expects a seed of about 1.000.000.000 length.*/
@@ -46,5 +46,19 @@ int	three_digits(unsigned int seed)
 	random = random % 1000;
 	if (sign == 1)
 	random *= -1;
+	return (random);
+}
+
+/*Returns a random value between 0 and 1.*/
+double	random_double(void)
+{
+	static unsigned int	seed = 123456789;
+	double				random;
+
+	random = xorshift_random(seed);
+	seed = random;
+	random = (double)random / (double)(INT_MAX + 1);
+	if (random < 0)
+		random *= -1;
 	return (random);
 }
