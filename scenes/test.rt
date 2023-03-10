@@ -1,7 +1,7 @@
 ##	Resolution	WIDTH	HEIGHT
 R				800		480
 ##	Camera	VIEWPOINT(X,Y,Z)	ORIENTVECTOR(Normalized)	FOV
-C	0,0,0						0,0,1						70
+C	0,0,0						0.1,0.1,.8						70
 ##	AmbientLight	LIGHTING RATIO		RGB COLOR
 # A					0.2					255,255,255
 ##	Light	CENTERCOORDS(X,Y,Z)	LIGHTING RATIO	RGB COLOR
