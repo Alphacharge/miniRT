@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/10 09:39:16 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/10 16:38:28 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,15 @@ CFLAGS	+=	-g #-fsanitize=address
 LIBFT_D	:=	./lib/libft
 LIBFT	:=	./lib/libft/libft.a
 MLX_D	:=	./lib/MLX42/
-MLX_L	:=	$(MLX_D)build/
-MLX 	:=	$(MLX_D)/build/libmlx42.a
+ifeq ($(OS), Darwin)
+	MLX_SD :=	build
+else
+	MLX_SD :=	build_l
+endif
+MLX_L	:=	$(MLX_D)$(MLX_SD)
+MLX 	:=	$(MLX_D)/$(MLX_SD)/libmlx42.a
 LIB_MAC	:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -L ~/.brew/opt/glfw/lib -l glfw
-LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -l glfw -lm
+LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -l glfw -lm -ldl
 
 ###			###			HEADER			###			###
 INC_D	:=	./inc
