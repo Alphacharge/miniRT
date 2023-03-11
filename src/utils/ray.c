@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/11 12:31:50 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/11 14:09:08 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,14 @@ t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 		return (color_to_vector(0x000000FF));
 	if (hit_object(&ray, obj) == true)
 	{
-		if (ray.closest_object->type == LIGHT)
+		if (ray.closest_object && ray.closest_object->type == LIGHT)
 			return (*ray.closest_object->color);
 		bounce.origin = point_at(ray, ray.closest_t);
 		target = add_vector(bounce.origin, ray.normal);
 		seed = lcg_random(seed);
 		target = add_vector(target, unit_vector(rand_in_unit_sphere(seed)));
 		bounce.direction = subtract_vector(target, bounce.origin);
-		if (front_facing(ray) == true)
+		if (ray.closest_object && front_facing(ray) == true)
 			return (combine_colors(ray_color(bounce, obj, depth - 1), *ray.closest_object->color));
 		else
 			return (color_to_vector(0x00FF00FF));

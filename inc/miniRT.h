@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/11 13:40:40 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/11 15:00:33 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
 
-# define LIGHT_RADIUS 25
+# define LIGHT_RADIUS 30
 
 # define COL "Color"
 # define POS "Position"
