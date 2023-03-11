@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/10 13:44:24 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/11 10:50:01 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ t_vec	rand_in_hemisphere(int seed, t_vec normal);
 //HIT_OBJECTS
 bool	hit_sphere(t_ray *ray, t_obj *obj);
 bool	hit_plane(t_ray *ray, t_obj *obj);
+bool	hit_cylinder(t_ray *ray, t_obj *obj);
 
 //CAMERA
 t_cam	*setup_camera(t_obj *obj, int width, int height);

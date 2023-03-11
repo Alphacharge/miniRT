@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/10 16:38:28 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/11 12:19:57 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 
 ###			###			COMPILER		###			###
 CC		:=	cc
-CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	:=	-Wall -Wextra -Werror #-O3
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS	+=	-g #-fsanitize=address
+CFLAGS	+=	-g -fsanitize=address
 
 ###			###			LIBRARIES		###			###
 LIBFT_D	:=	./lib/libft
@@ -58,7 +58,7 @@ SRC_F	+=	line_parsing.c ft_split_p.c ft_atof.c
 SRC_F	+=	pre_field_check.c line_utils.c pars_error.c
 SRC_F	+=	get_resolution.c get_camera.c get_ambient.c get_light.c
 SRC_F	+=	get_sphere.c get_plane.c get_cylinder.c
-SRC_F	+=	hit_sphere.c hit_plane.c
+SRC_F	+=	hit_sphere.c hit_plane.c hit_cylinder.c
 SRC_F	+=	pixels.c
 SRC_F	+=	ray.c
 SRC_F	+=	vector.c
