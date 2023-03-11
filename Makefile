@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
+#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/10 19:32:42 by fkernbac         ###   ########.fr        #
+#    Updated: 2023/03/11 12:32:17 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 
 ###			###			COMPILER		###			###
 CC		:=	cc
-CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	:=	-Wall -Wextra -Werror -O3
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
 CFLAGS	+=	-g -fsanitize=address
 
@@ -26,8 +26,13 @@ CFLAGS	+=	-g -fsanitize=address
 LIBFT_D	:=	./lib/libft
 LIBFT	:=	./lib/libft/libft.a
 MLX_D	:=	./lib/MLX42/
-MLX_L	:=	$(MLX_D)build/
-MLX 	:=	$(MLX_D)/build/libmlx42.a
+ifeq ($(OS), Darwin)
+	MLX_SD :=	build
+else
+	MLX_SD :=	build_l
+endif
+MLX_L	:=	$(MLX_D)$(MLX_SD)
+MLX 	:=	$(MLX_D)/$(MLX_SD)/libmlx42.a
 LIB_MAC	:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -L ~/.brew/opt/glfw/lib -l glfw
 LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -l glfw -lm -ldl
 
@@ -53,7 +58,7 @@ SRC_F	+=	line_parsing.c ft_split_p.c ft_atof.c
 SRC_F	+=	pre_field_check.c line_utils.c pars_error.c
 SRC_F	+=	get_resolution.c get_camera.c get_ambient.c get_light.c
 SRC_F	+=	get_sphere.c get_plane.c get_cylinder.c
-SRC_F	+=	hit_sphere.c hit_plane.c
+SRC_F	+=	hit_sphere.c hit_plane.c hit_cylinder.c
 SRC_F	+=	pixels.c
 SRC_F	+=	ray.c
 SRC_F	+=	vector.c

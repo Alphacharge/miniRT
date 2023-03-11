@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/10 19:09:25 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/11 13:40:40 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 # define MAX_DEPTH 10
 # define STEPSIZE 10
-# define SAMPLES 50
+# define SAMPLES 10
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
@@ -172,6 +172,7 @@ t_vec	rand_in_hemisphere(int seed, t_vec normal);
 //HIT_OBJECTS
 bool	hit_sphere(t_ray *ray, t_obj *obj);
 bool	hit_plane(t_ray *ray, t_obj *obj);
+bool	hit_cylinder(t_ray *ray, t_obj *obj);
 
 //CAMERA
 t_cam	*setup_camera(t_obj *obj, int width, int height);
