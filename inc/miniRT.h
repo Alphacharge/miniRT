@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/11 15:00:33 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/13 19:47:51 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <limits.h>
 # include "MLX42.h"
 # include "libft.h"
+
+# define MLX 1
 
 # define WIDTH 800
 # define HEIGHT 480
@@ -84,6 +86,7 @@ typedef struct s_ray
 	t_vec	direction;
 	double	closest_t;
 	t_obj	*closest_object;
+	t_vec	*ambient_light;
 	t_vec	normal;
 }			t_ray;
 

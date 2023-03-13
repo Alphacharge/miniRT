@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:41:17 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/10 16:35:52 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:47:00 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 	length = length_vector(origin_center);
 	c = pow(length, 2) - pow(obj->radius, 2);
 	discriminant = b * b - a * c;
-	if (discriminant < 0)
+	if (discriminant <= 0)
 		return (false);
 	discriminant = sqrt(discriminant);
 	t = (-b - discriminant) / a;
@@ -47,11 +47,5 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 		ray->normal = subtract_vector(ray->normal, *obj->coord);
 		ray->normal = factor_div_vector(ray->normal, obj->radius);
 	}
-// if (ray->closest_object == NULL)
-// {
-// 	printf("NULL:\n");
-// }
-// if (obj == NULL)
-// 	printf("obj NULL\n");
 	return (true);
 }

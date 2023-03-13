@@ -1,18 +1,12 @@
 ##	Resolution	WIDTH	HEIGHT
 R				800		480
 ##	Camera	VIEWPOINT(X,Y,Z)	ORIENTVECTOR(Normalized)	FOV
-C	0,0,0						0.1,0.1,.8						70
+C	0,0,0						0,0,1						70
 ##	AmbientLight	LIGHTING RATIO		RGB COLOR
-# A					0.2					255,255,255
+A					0.2					0,0,255
 ##	Light	CENTERCOORDS(X,Y,Z)	LIGHTING RATIO	RGB COLOR
-L			-50,-40,250		1.0				255,255,255
+L			-50,-40,100		1.0				255,255,255
 ##	Sphere	CENTERCOORDS(X,Y,Z)	DIAMETER	RGB COLOR
-sp			-40,-20,100			30			0,100,100
-sp			50,-10,150			30			100,100,0
-sp			70,60,200			30			0,100,0
-sp			50,-10,400.0		30			100,0,100
-sp			-50,150,250			300.0		200,0,100
+sp			0,0,150				30			200,200,200
 ##	Plane	COORDS ON THE PLANE(X,Y,Z)	ORIENTVECTOR(Normalized)	RGB COLOR
-pl			200.0,0.0,300				-0.6,0.2,-0.2					0,0,180
 ##	Cylinder	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	DIAMETER	HEIGHT	RGB COLOR
-# cy				50,-40,250		0.3,0.5,0.2					30		120			0,150,0

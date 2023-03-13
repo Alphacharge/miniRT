@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/10 09:38:29 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/13 18:56:27 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,32 @@ static t_data	*init_data(void)
 	data->cam = NULL;
 	return (data);
 }
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
-	
+
 	data = init_data();
 	data->map = check_input(argc, argv);
 	data->obj = create_obj(data->map);
 printf("parsing done\n");
-	data->mlx = mlx_setup(data->obj);
-	data->img = img_setup(data->mlx);
+	if (MLX == true)
+	{
+		data->mlx = mlx_setup(data->obj);
+		data->img = img_setup(data->mlx);
 printf("mlx setup done\n");
-	data->cam = setup_camera(data->obj, data->mlx->width, data->mlx->height);
+		if (data->mlx == NULL || data->img == NULL)
+			return (EXIT_FAILURE);	//needs freeing
+	}
+	data->cam = setup_camera(data->obj, WIDTH, HEIGHT);
 printf("scene setup done\n");
-	if (data->mlx == NULL || data->img == NULL || data->cam == NULL)
-		return (EXIT_FAILURE);	//needs freeing
 	draw_image(data->img, data->cam, data->obj);
-	mlx_key_hook(data->mlx, &my_keyhook, data);
-	mlx_loop(data->mlx);
-	mlx_terminate(data->mlx);
+	if (MLX == 1)
+	{
+		mlx_key_hook(data->mlx, &my_keyhook, data);
+		mlx_loop(data->mlx);
+		mlx_terminate(data->mlx);
+	}
+	ft_free(data->cam);
 	return (EXIT_SUCCESS);
 }
