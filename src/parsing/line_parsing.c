@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 14:09:10 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/15 10:06:34 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static t_obj	*line_interpreter(char *line)
 	return (free(split), obj);
 }
 
-static void	free_obj(t_obj *obj)
+void	free_obj(t_obj *obj)
 {
 	if (obj)
 	{
@@ -86,6 +86,7 @@ t_obj	*create_obj(t_map *map)
 {
 	t_obj	*obj;
 	t_obj	*new;
+	t_obj	*tmp;
 	char	*line;
 	int		i;
 
@@ -99,8 +100,11 @@ t_obj	*create_obj(t_map *map)
 			free_obj(new);
 		if (new != NULL)
 		{
+			tmp = new;
+			while (tmp && tmp->next != NULL)
+				tmp = tmp->next;
 			if (obj != NULL)
-				new->next = obj;
+				tmp->next = obj;
 			obj = new;
 		}
 		i++;
