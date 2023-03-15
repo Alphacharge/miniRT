@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:44 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/09 17:04:00 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:33:48 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	get_ambi(t_obj *obj, char **split)
 	if (obj && split && split[1] && split[2])
 	{
 		obj->type = AMBI;
-		obj->radius = ft_atof(split[1]);
+		obj->intensity = ft_atof(split[1]);
 		tmp = ft_split_p(split[2], ',');
 		if (vector_check(COL, tmp, obj->type))
-			obj->coord = new_vector(ft_atof(tmp[0]), \
-				ft_atof(tmp[1]), ft_atof(tmp[2]));
+			obj->color = new_vector(ft_atof(tmp[0]) / 255.0, \
+				ft_atof(tmp[1]) / 255.0, ft_atof(tmp[2]) / 255.0);
 		free(tmp);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/11 15:00:33 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/15 12:32:46 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "MLX42.h"
 # include "libft.h"
 
+# define MLX 1
+
 # define WIDTH 800
 # define HEIGHT 480
 // # define WIDTH 1280
@@ -28,9 +30,9 @@
 // # define WIDTH 1680
 // # define HEIGHT 1050
 
-# define MAX_DEPTH 10
-# define STEPSIZE 10
-# define SAMPLES 10
+# define MAX_DEPTH 2
+# define STEPSIZE 50
+# define SAMPLES 1
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
@@ -49,7 +51,8 @@ typedef enum e_type
 	SPHERE,
 	CYL,
 	PLN,
-	RES
+	RES,
+	CIRCLE
 }	t_type;
 
 typedef struct s_vector
@@ -84,6 +87,7 @@ typedef struct s_ray
 	t_vec	direction;
 	double	closest_t;
 	t_obj	*closest_object;
+	t_vec	*ambient_light;
 	t_vec	normal;
 }			t_ray;
 
@@ -129,6 +133,7 @@ void	get_light(t_obj *obj, char **split);
 void	get_sphere(t_obj *obj, char **split);
 void	get_pln(t_obj *obj, char **split);
 void	get_cyl(t_obj *obj, char **split);
+void	get_circle(t_obj *obj, t_vec vec);
 double	ft_atof(char *nbr);
 int		pre_field_check(char *line);
 int		value_check(char *line);
@@ -137,6 +142,7 @@ int		vector_check(char *str, char **fields, int type);
 void	print_error(char *str, int type, int i, char *field);
 char	**def_color(void);
 void	print_syntax_error(t_obj *obj, char *str);
+void	free_obj(t_obj *obj);
 
 //IMAGE
 int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);
@@ -165,6 +171,7 @@ t_vec	cross_vector(t_vec v1, t_vec v2);
 double	length_vector(t_vec v1);
 double	length_squared(t_vec vector);
 t_vec	unit_vector(t_vec v1);
+t_vec	invert_vector(t_vec vec);
 t_vec	random_vector(unsigned int max);
 t_vec	rand_in_unit_sphere(int seed);
 t_vec	rand_in_hemisphere(int seed, t_vec normal);
@@ -173,6 +180,7 @@ t_vec	rand_in_hemisphere(int seed, t_vec normal);
 bool	hit_sphere(t_ray *ray, t_obj *obj);
 bool	hit_plane(t_ray *ray, t_obj *obj);
 bool	hit_cylinder(t_ray *ray, t_obj *obj);
+bool	hit_circle(t_ray *ray, t_obj *obj);
 
 //CAMERA
 t_cam	*setup_camera(t_obj *obj, int width, int height);

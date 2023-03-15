@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/10 18:58:49 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:47:04 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ray	*cam_ray(t_cam *cam)
 {
 	t_ray	*ray;
 
-	ray = calloc(1, sizeof(t_ray));
+	ray = ft_calloc(1, sizeof(t_ray));
 	if (ray == NULL)
 		return (NULL);
 	ray->origin = cam->origin;
@@ -43,6 +43,29 @@ t_ray	randomize_ray(t_ray *ray, t_cam *cam, int col, int row)
 	return (*ray);
 }
 
+t_vec	*get_ambient_lighting(t_obj *obj)
+{
+	t_vec	ambient;
+	t_vec	*allocate;
+
+	ambient.x = 0;
+	ambient.y = 0;
+	ambient.z = 0;
+	while (obj != NULL)
+	{
+		if (obj->type == AMBI)
+			ambient = add_vector(ambient, factor_mult_vector(*obj->color, obj->intensity));
+		obj = obj->next;
+	}
+	allocate = ft_calloc(1, sizeof(t_vec));
+	if (allocate == NULL)
+		return (NULL);
+	allocate->x = ambient.x;
+	allocate->y = ambient.y;
+	allocate->z = ambient.z;
+	return (allocate);
+}
+
 int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 {
 	int			col;
@@ -54,26 +77,32 @@ int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 
 	row = 0;
 	ray = cam_ray(cam);
-	printf("Image size: %ix%i\n", img->width, img->height);
-	while (row < (int)img->height)
+	ray->ambient_light = get_ambient_lighting(obj);
+	printf("Image size: %ix%i\n", HEIGHT, WIDTH);
+	while (row < HEIGHT)
 	{
 		col = 0;
-		while (col < (int)img->width)
+		while (col < WIDTH)
 		{
 			color = color_to_vector(0x000000FF);
 			i = 0;
 			while (i < SAMPLES)
 			{
+				ray->closest_t = T_MAX;
+				ray->closest_object = NULL;
 				color_new = ray_color(randomize_ray(ray, cam, col, row), obj, MAX_DEPTH);
 				color = add_vector(color, color_new);
 				i++;
 			}
 			color = factor_mult_vector(color, 1 / (double)SAMPLES);
-			put_pixel(img, col, row, color);
+			if (MLX == true)
+				put_pixel(img, col, row, color);
 			col++;
 		}
 		row++;
 	}
+	ft_free(ray->ambient_light);
+	ft_free(ray);
 	printf("Image rendered.\n");
 	return (0);
 }

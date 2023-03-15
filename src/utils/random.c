@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:14:24 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/10 19:29:19 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:38:13 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ double	random_double(void)
 
 	random = xorshift_random(seed);
 	seed = random;
-	random = (double)random / (double)(INT_MAX + 1);
+	random = (double)random / (double)((double)INT_MAX + (double)1.0);
 	if (random < 0)
 		random *= -1;
 	return (random);
