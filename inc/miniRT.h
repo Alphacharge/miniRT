@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/13 19:47:51 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:11:12 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_ray
 	t_vec	direction;
 	double	closest_t;
 	t_obj	*closest_object;
-	t_vec	*ambient_light;
 	t_vec	normal;
 }			t_ray;
 
@@ -152,7 +151,7 @@ void	ft_error(t_data *data, int ecase);
 
 //RAY UTILS
 t_ray	new_ray();
-t_vec	ray_color(t_ray ray, t_obj *obj, int depth);
+t_vec	ray_color(t_ray *ray, t_obj *obj, int depth);
 t_vec	point_at(t_ray ray, double t);
 
 //VECTOR UTILS

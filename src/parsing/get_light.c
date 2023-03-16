@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:00 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/10 15:46:32 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:28:05 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	get_light(t_obj *obj, char **split)
 		obj->intensity = ft_atof(split[2]);
 		tmp = ft_split_p(split[3], ',');
 		if (vector_check(COL, tmp, obj->type))
-			obj->color = new_vector(ft_atof(tmp[0]) / 255.0, ft_atof(tmp[1]) / 255.0, \
-			ft_atof(tmp[2]) / 255.0);
+			obj->color = new_vector(ft_atof(tmp[0]) / 255.0 * obj->intensity, ft_atof(tmp[1]) / 255.0 * obj->intensity, ft_atof(tmp[2]) / 255.0 * obj->intensity);
 		free(tmp);
 		obj->radius = LIGHT_RADIUS;
 	}
