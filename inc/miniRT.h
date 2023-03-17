@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 15:24:04 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 16:23:39 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 // # define WIDTH 1680
 // # define HEIGHT 1050
 
-# define MAX_DEPTH 10
+# define MAX_DEPTH 2
 # define STEPSIZE 10
-# define SAMPLES 10
+# define SAMPLES 3
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__

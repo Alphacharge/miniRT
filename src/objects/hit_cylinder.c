@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 15:13:12 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 17:07:44 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,43 +49,13 @@ bool	hit_cylinder(t_ray *ray, t_obj *obj)
 		ray->closest_object = obj;
 		ray->closest_t = val;
 		t_vec	s[2];
-		//here is the normal vector problem
 		s[0] = subtract_vector(subtract_vector(inter, obj->coord), factor_mult_vector(obj->vector, x));
-		// s[1] = subtract_vector(subtract_vector(inter, *obj->coord), factor_mult_vector(*obj->vector, x));
-		// if (length_vector(s[0]) < length_vector(s[1]))
+		s[1] = subtract_vector(subtract_vector(inter, obj->coord), factor_mult_vector(obj->vector, -x));
+		if (length_vector(s[0]) < length_vector(s[1]))
 			ray->normal = unit_vector(s[0]);
-		// else
-			// ray->normal = unit_vector(s[1]);
+		else
+			ray->normal = unit_vector(s[1]);
 		return (true);
 	}
 	return (false);
 }
-
-// bool	hit_cylinder(t_ray *ray, t_obj *obj)
-// {
-// 	double	abc[3];
-// 	double	d;
-// 	double	h;
-// 	double	t;
-// 	t_vec	ray_x_tube;
-// 	t_vec	dif_x_dir;
-// 	ray_x_tube = cross_vector(ray->direction, *obj->vector);
-// 	dif_x_dir = cross_vector(subtract_vector(ray->origin, *obj->coord), *obj->vector);
-// 	abc[0] = scalar_vector(ray_x_tube, ray_x_tube);
-// 	abc[1] = 2.0 * scalar_vector(ray_x_tube, dif_x_dir);
-// 	abc[2] = scalar_vector(dif_x_dir, dif_x_dir) - obj->radius * obj->radius;
-// 	d = abc[1] * abc[1] - 4.0 * abc[0] * abc[2];
-// 	if (d < 0 || abc[0] < 1e-6)
-// 		return (false);
-// 	d = sqrt(d);
-// 	t = (-abc[1] - d) / (2.0 * abc[0]);
-// 	h = scalar_vector(subtract_vector(add_vector(ray->origin, factor_mult_vector(ray->direction, t)), *obj->coord), *obj->vector);
-// 	if (t < T_MIN || t > T_MAX || fabs(h) > obj->hei_fov / 2.0)
-// 	{
-// 		t = (-abc[1] + d) / (2.0 * abc[0]);
-// 		h = scalar_vector(subtract_vector(add_vector(ray->origin,factor_mult_vector(ray->direction, t)), *obj->coord), *obj->vector);
-// 		if (t > T_MIN && t < T_MAX && fabs(h) < obj->hei_fov / 2.0)
-// 			return (true);
-// 	}
-// 	return (false);
-// }
