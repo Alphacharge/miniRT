@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyhooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:54:00 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/17 17:14:00 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 18:44:55 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,37 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 {
 	t_data	*data;
 	data = param;
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+printf("HOOK\n");
+	if (keydata.action != MLX_RELEASE)
+		return ;
+	if (keydata.key == MLX_KEY_D)
 		data->cam->origin.x += STEPSIZE;
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_A)
 		data->cam->origin.x -= STEPSIZE;
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_W)
 		data->cam->origin.y -= STEPSIZE;
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_S)
 		data->cam->origin.y += STEPSIZE;
-	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_E)
 		data->cam->origin.z += STEPSIZE;
-	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_Q)
 		data->cam->origin.z -= STEPSIZE;
-	// if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
+	// if (keydata.key == MLX_KEY_LEFT)
 	// 	turn_cam(data->mlx, data->cam, 0, 0);
-	// if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
+	// if (keydata.key == MLX_KEY_RIGHT)
 	// 	turn_cam(data->mlx, data->cam, 0, 1);
-	// if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
+	// if (keydata.key == MLX_KEY_UP)
 	// 	turn_cam(data->mlx, data->cam, 1, 0);
-	// if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
+	// if (keydata.key == MLX_KEY_DOWN)
 	// 	turn_cam(data->mlx, data->cam, 1, 1);
-	// if (keydata.key == MLX_KEY_PAGE_UP && keydata.action == MLX_PRESS)
+	// if (keydata.key == MLX_KEY_PAGE_UP)
 	// 	turn_cam(data->mlx, data->cam, 2, 0);
-	// if (keydata.key == MLX_KEY_PAGE_DOWN && keydata.action == MLX_PRESS)
+	// if (keydata.key == MLX_KEY_PAGE_DOWN)
 	// 	turn_cam(data->mlx, data->cam, 2, 1);
+printf("camera translated\n");
 	if (keydata.key != MLX_KEY_ESCAPE)
 		draw_image(data->img, data->cam, data->obj);
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+printf("image drawn\n");
+	if (keydata.key == MLX_KEY_ESCAPE)
 		mlx_close_window(data->mlx);
 }
