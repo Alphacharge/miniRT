@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_light.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:00 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 17:25:28 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 17:42:44 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	get_light(t_obj *obj, char **split)
 {
 	char	**tmp;
+	double	intensity;
 
 	if (split[1] && !pre_field_check(split[1]))
 		printf("Light Position (%s) Syntax Error\n", split[1]);
@@ -30,10 +31,13 @@ void	get_light(t_obj *obj, char **split)
 			obj->origin = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
 			ft_atof(tmp[2]));
 		free(tmp);
-		obj->intensity = ft_atof(split[2]);
+		intensity = ft_atof(split[2]);
 		tmp = ft_split_p(split[3], ',');
 		if (vector_check(COL, tmp, obj->type))
-			obj->color = new_vector(ft_atof(tmp[0]) / 255.0 * obj->intensity, ft_atof(tmp[1]) / 255.0 * obj->intensity, ft_atof(tmp[2]) / 255.0 * obj->intensity);
+			obj->color = new_vector(\
+				ft_atof(tmp[0]) / 255.0 * intensity, \
+				ft_atof(tmp[1]) / 255.0 * intensity, \
+				ft_atof(tmp[2]) / 255.0 * intensity);
 		free(tmp);
 		obj->radius = LIGHT_RADIUS;
 	}

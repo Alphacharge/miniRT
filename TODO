@@ -1,0 +1,7 @@
+- segfault on missing camera
+- fix leaks
+- check double renedring
+- check subject
+- multithreading
+- performance checks
+- norm

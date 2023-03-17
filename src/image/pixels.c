@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/17 17:19:52 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 17:58:13 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_vec	*get_ambient_lighting(t_obj *obj)
 	while (obj != NULL)
 	{
 		if (obj->type == AMBI)
-			ambient = add_vector(ambient, factor_mult_vector(obj->color, obj->intensity));
+			ambient = add_vector(ambient, obj->color);
 		obj = obj->next;
 	}
 	allocate = ft_calloc(1, sizeof(t_vec));
@@ -115,8 +115,6 @@ int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 				i++;
 			}
 			color = factor_mult_vector(color, 1 / (double)SAMPLES);
-			//condition if we hit background?
-			// if (ray->closest_object != NULL)
 			color = add_vector(color, *ambient);
 			if (MLX == true)
 				put_pixel(img, col, row, color);

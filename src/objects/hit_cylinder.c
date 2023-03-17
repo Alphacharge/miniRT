@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 17:25:28 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 18:14:04 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,20 @@ bool	hit_cylinder(t_ray *ray, t_obj *obj)
 		t[0] = (-abc[1] - sqrt(pow(abc[1], 2) - (4.0 * abc[0] * abc[2]))) / (2.0 * abc[0]);
 		t[1] = (-abc[1] + sqrt(pow(abc[1], 2) - (4.0 * abc[0] * abc[2]))) / (2.0 * abc[0]);
 	}
-	if (isnan(t[0]) && isnan(t[1]))
-		return (false);
-	else if (isnan(t[0]) && !isnan(t[1]))
+	if (t[0]< T_MIN || t[0] > T_MAX || isnan(t[0]))
+		t[0] = T_MAX;
+	if (t[1] < T_MIN || t[1] > T_MAX || isnan(t[1]))
+		t[1] = T_MAX;
+	val = t[0];
+	if (t[1] < t[0])
 		val = t[1];
-	else if (!isnan(t[0]) && isnan(t[1]))
-		val = t[0];
-	else if (!isnan(t[0]) && !isnan(t[1]))
-		val = fmin(t[0], t[1]);
+	if (val >= T_MAX)
+		return (false);
 	if (val > T_MIN && val < T_MAX && val < ray->closest_t)
 	{
-		inter = point_at(*ray, val );
+		inter = point_at(*ray, val);
 		x = sqrt(length_squared(subtract_vector(inter, obj->origin)) - pow(obj->radius ,2));
-		if (x > obj->hei_fov / 2.0 )
+		if (x > obj->hei_fov / 2.0)
 			return (false);
 		ray->closest_object = obj;
 		ray->closest_t = val;

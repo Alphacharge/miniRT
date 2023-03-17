@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 17:23:23 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 18:15:59 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 // # define WIDTH 1680
 // # define HEIGHT 1050
 
-# define MAX_DEPTH 2
+# define MAX_DEPTH 10
 # define STEPSIZE 10
-# define SAMPLES 3
+# define SAMPLES 5
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
@@ -73,7 +73,6 @@ typedef struct s_obj
 {
 	int		type;
 	double	radius;
-	double	intensity;
 	double	hei_fov;
 	t_vec	origin;
 	t_vec	vector;
