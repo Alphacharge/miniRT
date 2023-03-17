@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:28:38 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/10 18:18:38 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/17 15:21:42 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ t_cam	*setup_camera(t_obj	*obj, int width, int height)
 	if (obj == NULL)
 		return (NULL); //no cam
 	else
-		cam->origin = *obj->coord;
+		cam->origin = obj->coord;
 	cam->focal_length = width / (2 * tan(obj->hei_fov / 2));
-	cam->direction = *obj->vector;
+	cam->direction = obj->vector;
 	cam->horizontal = unit_vector(cross_vector(down, cam->direction));
 	cam->horizontal = factor_mult_vector(cam->horizontal, width);
 	cam->vertical = unit_vector(cross_vector(cam->direction, cam->horizontal));

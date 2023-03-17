@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 10:56:42 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 15:23:34 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,19 @@ static t_obj	*line_interpreter(char *line)
 	return (free(split), obj);
 }
 
-void	free_obj(t_obj *obj)
-{
-	if (obj)
-	{
-		if (obj->coord)
-			free(obj->coord);
-		if (obj->color)
-			free(obj->color);
-		if (obj->vector)
-			free(obj->vector);
-		free(obj);
-	}
-}
+// void	free_obj(t_obj *obj)
+// {
+// 	if (obj)
+// 	{
+// 		if (obj->coord)
+// 			free(obj->coord);
+// 		if (obj->color)
+// 			free(obj->color);
+// 		if (obj->vector)
+// 			free(obj->vector);
+// 		free(obj);
+// 	}
+// }
 
 /* creates a obj list from a preparsed map list*/
 t_obj	*create_obj(t_map *map)
@@ -96,8 +96,8 @@ t_obj	*create_obj(t_map *map)
 	{
 		line = map->file[i];
 		new = line_interpreter(line);
-		if (new != NULL && new->type == -1)
-			free_obj(new); //loosing 2 obj if cylinder fails
+		// if (new != NULL && new->type == -1)
+		// 	free_obj(new); //loosing 2 obj if cylinder fails
 		if (new != NULL)
 		{
 			tmp = new;

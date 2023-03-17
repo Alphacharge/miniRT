@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/16 19:11:13 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 15:24:04 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 // # define WIDTH 1680
 // # define HEIGHT 1050
 
-# define MAX_DEPTH 2
+# define MAX_DEPTH 10
 # define STEPSIZE 10
-# define SAMPLES 1
+# define SAMPLES 10
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
@@ -75,9 +75,9 @@ typedef struct s_obj
 	double	radius;
 	double	intensity;
 	double	hei_fov;
-	t_vec	*coord;
-	t_vec	*vector;
-	t_vec	*color;
+	t_vec	coord;
+	t_vec	vector;
+	t_vec	color;
 	struct s_obj *next;
 }			t_obj;
 
@@ -142,7 +142,7 @@ int		vector_check(char *str, char **fields, int type);
 void	print_error(char *str, int type, int i, char *field);
 char	**def_color(void);
 void	print_syntax_error(t_obj *obj, char *str);
-void	free_obj(t_obj *obj);
+// void	free_obj(t_obj *obj);
 
 //IMAGE
 int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);
@@ -159,7 +159,7 @@ t_vec	ray_color(t_ray ray, t_obj *obj, int depth);
 t_vec	point_at(t_ray ray, double t);
 
 //VECTOR UTILS
-t_vec	*new_vector(double x, double y, double z);
+t_vec	new_vector(double x, double y, double z);
 void	print_vector(t_vec vector);
 t_vec	add_vector(t_vec v1, t_vec v2);
 t_vec	subtract_vector(t_vec v1, t_vec v2);

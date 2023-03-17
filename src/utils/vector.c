@@ -6,23 +6,23 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:19:27 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/15 09:44:01 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 15:19:04 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
 /*creates a new allocated vector*/
-t_vec	*new_vector(double x, double y, double z)
+t_vec	new_vector(double x, double y, double z)
 {
-	t_vec	*vector;
+	t_vec	vector;
 
-	vector = ft_calloc(1, sizeof(t_vec));
-	if (vector == NULL)
-		return (NULL);
-	vector->x = x;
-	vector->y = y;
-	vector->z = z;
+	// vector = ft_calloc(1, sizeof(t_vec));
+	// if (vector == NULL)
+	// 	return (NULL);
+	vector.x = x;
+	vector.y = y;
+	vector.z = z;
 	return (vector);
 }
 

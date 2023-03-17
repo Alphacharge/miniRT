@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/16 16:47:42 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 15:15:42 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_vec	*get_ambient_lighting(t_obj *obj)
 	while (obj != NULL)
 	{
 		if (obj->type == AMBI)
-			ambient = add_vector(ambient, factor_mult_vector(*obj->color, obj->intensity));
+			ambient = add_vector(ambient, factor_mult_vector(obj->color, obj->intensity));
 		obj = obj->next;
 	}
 	allocate = ft_calloc(1, sizeof(t_vec));

@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:05 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/10 11:18:15 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 15:22:54 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	get_pln(t_obj *obj, char **split)
 		free(tmp);
 		tmp = ft_split_p(split[2], ',');
 		if (vector_check(ORI, tmp, obj->type))
-			obj->vector = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
-			ft_atof(tmp[2]));
+			obj->vector = unit_vector(new_vector(ft_atof(tmp[0]), \
+			ft_atof(tmp[1]), ft_atof(tmp[2])));
 		free(tmp);
 		obj->radius = ft_atof(split[2]);
 		tmp = ft_split_p(split[3], ',');
