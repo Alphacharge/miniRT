@@ -1,9 +1,10 @@
-- segfault on missing camera
+- segfault on missing camera (check all input and print error)
 - fix leaks
 - check subject
 - multithreading
 - performance checks
 - norm
+- spot light/hard shadow
 
 fixed:
 - cylinder backside

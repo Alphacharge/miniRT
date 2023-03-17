@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 18:14:04 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/17 19:30:50 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ bool	hit_cylinder(t_ray *ray, t_obj *obj)
 	abc[0] = length_squared(d);
 	abc[1] = 2.0 * scalar_vector(d, cross);
 	abc[2] = length_squared(cross) - pow(obj->radius, 2);
-	if (abc[0] != 0)
-	{
-		t[0] = (-abc[1] - sqrt(pow(abc[1], 2) - (4.0 * abc[0] * abc[2]))) / (2.0 * abc[0]);
-		t[1] = (-abc[1] + sqrt(pow(abc[1], 2) - (4.0 * abc[0] * abc[2]))) / (2.0 * abc[0]);
-	}
+	if (abc[0] == 0)
+		return (false);
+	t[0] = (-abc[1] - sqrt(pow(abc[1], 2) - (4.0 * abc[0] * abc[2]))) / (2.0 * abc[0]);
+	t[1] = (-abc[1] + sqrt(pow(abc[1], 2) - (4.0 * abc[0] * abc[2]))) / (2.0 * abc[0]);
 	if (t[0]< T_MIN || t[0] > T_MAX || isnan(t[0]))
 		t[0] = T_MAX;
 	if (t[1] < T_MIN || t[1] > T_MAX || isnan(t[1]))

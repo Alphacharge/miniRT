@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:54:00 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/17 18:44:55 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:50:45 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 {
 	t_data	*data;
 	data = param;
-printf("HOOK\n");
 	if (keydata.action != MLX_RELEASE)
 		return ;
 	if (keydata.key == MLX_KEY_D)
@@ -71,10 +70,8 @@ printf("HOOK\n");
 	// 	turn_cam(data->mlx, data->cam, 2, 0);
 	// if (keydata.key == MLX_KEY_PAGE_DOWN)
 	// 	turn_cam(data->mlx, data->cam, 2, 1);
-printf("camera translated\n");
 	if (keydata.key != MLX_KEY_ESCAPE)
 		draw_image(data->img, data->cam, data->obj);
-printf("image drawn\n");
 	if (keydata.key == MLX_KEY_ESCAPE)
 		mlx_close_window(data->mlx);
 }

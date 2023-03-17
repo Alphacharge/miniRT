@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 18:15:59 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:17:50 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@
 
 # define MAX_DEPTH 10
 # define STEPSIZE 10
-# define SAMPLES 5
+# define SAMPLES 50
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
 
-# define LIGHT_RADIUS 30
+# define LIGHT_RADIUS 5
+# define SOFT_SHADOWS 0
 
 # define COL "Color"
 # define POS "Position"
@@ -86,7 +87,6 @@ typedef struct s_ray
 	t_vec	direction;
 	double	closest_t;
 	t_obj	*closest_object;
-	t_vec	*ambient_light;
 	t_vec	normal;
 }			t_ray;
 
@@ -156,6 +156,7 @@ void	ft_error(t_data *data, int ecase);
 t_ray	new_ray();
 t_vec	ray_color(t_ray *ray, t_obj *obj, int depth);
 t_vec	point_at(t_ray ray, double t);
+t_vec	hard_shadows(t_ray *ray, t_obj *obj, int depth);
 
 //VECTOR UTILS
 t_vec	new_vector(double x, double y, double z);

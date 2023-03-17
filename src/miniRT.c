@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/13 18:56:27 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/17 19:40:18 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	main(int argc, char **argv)
 
 	data = init_data();
 	data->map = check_input(argc, argv);
+//this leaks
 	data->obj = create_obj(data->map);
 printf("parsing done\n");
 	if (MLX == true)
@@ -83,5 +84,9 @@ printf("scene setup done\n");
 		mlx_terminate(data->mlx);
 	}
 	ft_free(data->cam);
+	ft_free(data->map);
+	ft_free(data);
+	//free objs
+	//free map->files?
 	return (EXIT_SUCCESS);
 }

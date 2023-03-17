@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:03:38 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/04 14:42:59 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 19:39:24 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ static void	count_lines(t_map *map)
 		if (line != NULL)
 			ft_free(line);
 	}
+//this leaks
 	map->file = ft_calloc(i + 1, sizeof(char *));
 	if (map->file != NULL)
 		map->file[i] = NULL;
