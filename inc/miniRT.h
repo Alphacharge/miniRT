@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 16:23:39 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 17:23:23 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_obj
 	double	radius;
 	double	intensity;
 	double	hei_fov;
-	t_vec	coord;
+	t_vec	origin;
 	t_vec	vector;
 	t_vec	color;
 	struct s_obj *next;
@@ -155,7 +155,7 @@ void	ft_error(t_data *data, int ecase);
 
 //RAY UTILS
 t_ray	new_ray();
-t_vec	ray_color(t_ray ray, t_obj *obj, int depth);
+t_vec	ray_color(t_ray *ray, t_obj *obj, int depth);
 t_vec	point_at(t_ray ray, double t);
 
 //VECTOR UTILS

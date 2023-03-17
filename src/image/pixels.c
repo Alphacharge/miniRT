@@ -6,14 +6,32 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/17 15:15:42 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 17:19:52 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+t_vec	color_clamp(t_vec color)
+{
+	if (color.x > 1)
+		color.x = 1;
+	else if (color.x < 0)
+		color.x = 0;
+	if (color.y > 1)
+		color.y = 1;
+	else if (color.y < 0)
+		color.y = 0;
+	if (color.z > 1)
+		color.z = 1;
+	else if (color.z < 0)
+		color.z = 0;
+	return (color);
+}
+
 void	put_pixel(mlx_image_t *img, int x, int y, t_vec color)
 {
+	color = color_clamp(color);
 	mlx_put_pixel(img, x, y, gamma_correction(color));
 }
 
@@ -30,7 +48,7 @@ t_ray	*cam_ray(t_cam *cam)
 	return(ray);
 }
 
-t_ray	randomize_ray(t_ray *ray, t_cam *cam, int col, int row)
+t_ray	*randomize_ray(t_ray *ray, t_cam *cam, int col, int row)
 {
 	double	x;
 	double	y;
@@ -39,8 +57,9 @@ t_ray	randomize_ray(t_ray *ray, t_cam *cam, int col, int row)
 	y = (double)row + random_double();
 	ray->direction = factor_mult_vector(cam->horizontal, x);
 	ray->direction = add_vector(ray->direction, factor_mult_vector(cam->vertical, y));
-	ray->direction = unit_vector(add_vector(cam->upper_left_corner, ray->direction));
-	return (*ray);
+	ray->direction = add_vector(cam->upper_left_corner, ray->direction);
+	ray->direction = unit_vector(ray->direction);
+	return (ray);
 }
 
 t_vec	*get_ambient_lighting(t_obj *obj)
@@ -73,11 +92,12 @@ int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 	t_ray		*ray;
 	t_vec		color;
 	t_vec		color_new;
+	t_vec		*ambient;
 	int			i;
 
 	row = 0;
 	ray = cam_ray(cam);
-	ray->ambient_light = get_ambient_lighting(obj);
+	ambient = get_ambient_lighting(obj);
 	printf("Image size: %ix%i\n", HEIGHT, WIDTH);
 	while (row < HEIGHT)
 	{
@@ -95,13 +115,16 @@ int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 				i++;
 			}
 			color = factor_mult_vector(color, 1 / (double)SAMPLES);
+			//condition if we hit background?
+			// if (ray->closest_object != NULL)
+			color = add_vector(color, *ambient);
 			if (MLX == true)
 				put_pixel(img, col, row, color);
 			col++;
 		}
 		row++;
 	}
-	ft_free(ray->ambient_light);
+	ft_free(ambient);
 	ft_free(ray);
 	printf("Image rendered.\n");
 	return (0);

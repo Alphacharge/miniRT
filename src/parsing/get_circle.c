@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:15:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 15:23:21 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 17:25:45 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	get_circle(t_obj *obj, t_vec vec)
 	if (obj && obj_c)
 	{
 		obj_c->type = CIRCLE;
-		v = add_vector(obj->coord, factor_mult_vector(vec, obj->hei_fov / 2));
-		obj_c->coord = new_vector(v.x, v.y, v.z);
+		v = add_vector(obj->origin, factor_mult_vector(vec, obj->hei_fov / 2));
+		obj_c->origin = new_vector(v.x, v.y, v.z);
 		obj_c->vector = unit_vector(new_vector(vec.x, vec.y, vec.z));
 		obj_c->radius = obj->radius;
 		obj_c->color = new_vector(obj->color.x, obj->color.y, obj->color.z);

@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:41:17 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 15:14:01 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 17:25:28 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 	double	t;
 	double	length;
 
-	origin_center = subtract_vector(ray->origin, obj->coord);
+	origin_center = subtract_vector(ray->origin, obj->origin);
 	length = length_vector(ray->direction);
 	a = pow(length, 2);
 	b = scalar_vector(origin_center, ray->direction);
@@ -44,7 +44,7 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 		ray->closest_t = t;
 		ray->closest_object = obj;
 		ray->normal = point_at(*ray, t);
-		ray->normal = subtract_vector(ray->normal, obj->coord);
+		ray->normal = subtract_vector(ray->normal, obj->origin);
 		ray->normal = factor_div_vector(ray->normal, obj->radius);
 		return (true);
 	}

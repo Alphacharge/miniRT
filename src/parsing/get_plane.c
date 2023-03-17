@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:05 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 15:22:54 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 17:25:28 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_pln(t_obj *obj, char **split)
 		obj->type = PLN;
 		tmp = ft_split_p(split[1], ',');
 		if (vector_check(POS, tmp, obj->type))
-			obj->coord = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
+			obj->origin = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
 			ft_atof(tmp[2]));
 		free(tmp);
 		tmp = ft_split_p(split[2], ',');

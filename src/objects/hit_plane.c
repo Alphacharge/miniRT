@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:42:09 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 15:13:49 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 17:25:28 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	hit_plane(t_ray *ray, t_obj *obj)
 	ortho = scalar_vector(obj->vector, ray->direction);
 	if (ortho == 0)
 		return (false);
-	pln_d = scalar_vector(obj->coord, obj->vector);
+	pln_d = scalar_vector(obj->origin, obj->vector);
 	dis = scalar_vector(obj->vector, ray->origin);
 	t = (pln_d - dis) / ortho;
 	if (t < T_MIN || t > T_MAX)
