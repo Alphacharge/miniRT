@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/13 19:47:04 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:47:42 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_ray	randomize_ray(t_ray *ray, t_cam *cam, int col, int row)
 	y = (double)row + random_double();
 	ray->direction = factor_mult_vector(cam->horizontal, x);
 	ray->direction = add_vector(ray->direction, factor_mult_vector(cam->vertical, y));
-	ray->direction = add_vector(cam->upper_left_corner, ray->direction);
+	ray->direction = unit_vector(add_vector(cam->upper_left_corner, ray->direction));
 	return (*ray);
 }
 

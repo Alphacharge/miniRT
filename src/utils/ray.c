@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/15 12:31:26 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/16 17:49:24 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 			hit_anything = true;
 		else if (obj->type == PLN && hit_plane(ray, obj) == true)
 			hit_anything = true;
-		// else if (obj->type == CYL && hit_cylinder(ray, obj) == true)
-			// hit_anything = true;
+		else if (obj->type == CYL && hit_cylinder(ray, obj) == true)
+			hit_anything = true;
 		else if (obj->type == CIRCLE && hit_circle(ray, obj) == true)
 			hit_anything = true;
 		obj = obj->next;
@@ -135,13 +135,13 @@ t_vec	ray_color(t_ray ray, t_obj *obj, int depth)
 		target = add_vector(bounce.origin, ray.normal);
 		seed = lcg_random(seed);
 		target = add_vector(target, unit_vector(rand_in_unit_sphere(seed)));
-		bounce.direction = subtract_vector(target, bounce.origin);
+		bounce.direction = unit_vector(subtract_vector(target, bounce.origin));
 		if (front_facing(ray) == true)
 			return (combine_colors(ray_color(bounce, obj, depth - 1), *ray.closest_object->color, *ray.ambient_light));
 		else
 			return (color_to_vector(0x00FF00FF));
 	}
-	t = 0.5 * (unit_vector(ray.direction).y + 1.0);
+	t = 0.5 * (ray.direction.y + 1.0);
 	return (add_vector(factor_mult_vector(color_to_vector(0x5588FFFF), 1 - t),
 		factor_mult_vector(color_to_vector(0xFFFFFFFF), t)));
 	// return (color_to_vector(0x000000FF));

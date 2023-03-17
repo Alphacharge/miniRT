@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/15 10:06:34 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/17 10:56:42 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_obj	*create_obj(t_map *map)
 		line = map->file[i];
 		new = line_interpreter(line);
 		if (new != NULL && new->type == -1)
-			free_obj(new);
+			free_obj(new); //loosing 2 obj if cylinder fails
 		if (new != NULL)
 		{
 			tmp = new;

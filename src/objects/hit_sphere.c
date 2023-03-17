@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:41:17 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/13 18:47:00 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:29:56 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 		ray->normal = point_at(*ray, t);
 		ray->normal = subtract_vector(ray->normal, *obj->coord);
 		ray->normal = factor_div_vector(ray->normal, obj->radius);
+		return (true);
 	}
-	return (true);
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:15:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/15 12:09:34 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/16 17:05:35 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	get_circle(t_obj *obj, t_vec vec)
 	t_obj *obj_c;
 	t_obj *tmp;
 	t_vec v;
-
 	obj_c = ft_calloc(1, sizeof(t_obj));
 	if (obj && obj_c && obj->radius && obj->hei_fov && obj->color && obj->vector)
 	{

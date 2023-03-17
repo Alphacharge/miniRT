@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:42:09 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/09 18:03:39 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:29:41 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ bool	hit_plane(t_ray *ray, t_obj *obj)
 		ray->closest_object = obj;
 		ray->closest_t = t;
 		ray->normal = *obj->vector;
+		return (true);
 	}
-	return (true);
+	return (false);
 }
