@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:19:16 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/20 15:32:51 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/20 19:30:38 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	create_threads(t_data *data)
 		data->threads[i]->obj = data->obj;
 		data->threads[i]->mlx = data->mlx;
 		data->threads[i]->data = data;
-		if (pthread_create(&data->threads[i]->pid, NULL, &draw_image, (void *)data->threads[i]) != 0)
+		if (pthread_create(&data->threads[i]->pid, NULL, &thread_routine, (void *)data->threads[i]) != 0)
 			return (-1);
 		i++;
 	}
@@ -42,6 +42,7 @@ int	remove_threads(t_data *data)
 	{
 		if (pthread_join(data->threads[i]->pid, NULL) != 0)
 			return (-1);
+		ft_free(data->threads[i]);
 		i++;
 	}
 	return (0);

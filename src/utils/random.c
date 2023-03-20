@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:14:24 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/13 16:38:13 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:20:38 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ int	three_digits(unsigned int seed)
 }
 
 /*Returns a random value between 0 and 1.*/
-double	random_double(void)
+double	random_double(unsigned int seed)
 {
-	static unsigned int	seed = 123456789;
-	double				random;
+	double	random;
 
 	random = xorshift_random(seed);
 	seed = random;

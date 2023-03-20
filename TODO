@@ -1,11 +1,14 @@
 - segfault on missing camera (check all input and print error)
 - fix leaks
 - check subject
-- multithreading
 - performance checks
 - norm
-- spot light/hard shadow
+- race conditions
 
 fixed:
+- multithreading
 - cylinder backside
 - check double renedring
+
+no:
+- spot light/hard shadow

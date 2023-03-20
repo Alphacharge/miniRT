@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:19:27 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/17 15:19:04 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/20 20:06:21 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ t_vec	unit_vector(t_vec v1)
 t_vec	invert_vector(t_vec vec)
 {
 	t_vec	v;
-	
+
 	v.x = -vec.x;
 	v.y = -vec.y;
 	v.z = -vec.z;

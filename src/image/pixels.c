@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/20 16:34:14 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/20 20:26:46 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_vec	color_clamp(t_vec color)
 void	put_pixel(mlx_image_t *img, int x, int y, t_vec color)
 {
 	color = color_clamp(color);
+	if (img == NULL)
+		return ;
 	mlx_put_pixel(img, x, y, gamma_correction(color));
 }
 
@@ -45,16 +47,19 @@ t_ray	*cam_ray(t_cam *cam)
 	ray->origin = cam->origin;
 	ray->closest_t = T_MAX;
 	ray->closest_object = NULL;
-	return(ray);
+	ray->seed = 883082594;
+	return (ray);
 }
 
 t_ray	*random_ray(t_ray *ray, t_cam *cam, int col, int row)
 {
-	double	x;
-	double	y;
+	double				x;
+	double				y;
 
-	x = (double)col + random_double();
-	y = (double)row + random_double();
+	ray->seed = lcg_random(ray->seed);
+	x = (double)col + random_double(ray->seed);
+	ray->seed = xorshift_random(ray->seed);
+	y = (double)row + random_double(ray->seed);
 	ray->direction = factor_mult_vector(cam->horizontal, x);
 	ray->direction = add_vector(ray->direction, factor_mult_vector(cam->vertical, y));
 	ray->direction = add_vector(cam->upper_left_corner, ray->direction);
@@ -103,50 +108,54 @@ t_vec	*get_ambient_lighting(t_obj *obj)
 	return (allocate);
 }
 
-void	*draw_image(void *threads)
+t_obj	*first_light(t_obj *list)
 {
-	int			col;
-	int			row;
-	t_ray		*ray;
-	t_vec		color;
-	t_vec		color_new;
-	t_vec		*ambient;
-	int			i;
-	t_thread	*thread;
+	while (list != NULL && list->type != LIGHT)
+		list = list->next;
+	return (list);
+}
 
-	thread = (t_thread *)threads;
+void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
+{
+	int		col;
+	int		row;
+	int		i;
+	t_vec	color;
+
 	row = 0;
-	ray = cam_ray(thread->cam);
-	ambient = get_ambient_lighting(thread->obj);
-	// printf("Image size: %ix%i\n", HEIGHT, WIDTH);
-	while (row < HEIGHT )
+
+	while (row < thread->data->height)
 	{
 		col = thread->id;
-		while (col < WIDTH )//&& !(col % thread->id))
+		while (col < thread->data->width)
 		{
-			color = color_to_vector(0x000000FF);
+			color = new_vector(0, 0, 0);
 			i = 0;
-			// if (SOFT_SHADOWS == 0)
-			// 	color = hard_shadows(set_ray(ray, data->cam, col, row), data->obj, MAX_DEPTH);
-			// else
-			// {
-				while (i < SAMPLES)
-				{
-					color_new = ray_color(random_ray(ray, thread->cam, col, row), thread->obj, MAX_DEPTH);
-					color = add_vector(color, color_new);
-					i++;
-				}
-				color = factor_mult_vector(color, 1 / (double)SAMPLES);
-			// }
+			while (++i < SAMPLES)
+				color = add_vector(color, ray_color(random_ray(ray, thread->cam, col, row), thread->obj, MAX_DEPTH));
+//following line uses one sample to calculate hard shadow of first light
+			color = add_vector(color, factor_mult_vector(ray_at_light(set_ray(ray, thread->cam, col, row), thread->obj, first_light(thread->obj), MAX_DEPTH), SHADOW));
+			color = factor_mult_vector(color, 1.0 / (double)SAMPLES);
 			color = add_vector(color, *ambient);
-			if (MLX == true)
-				put_pixel(thread->img, col, row, color);
+			put_pixel(thread->img, col, row, color);
 			col += NOT;
 		}
 		row++;
 	}
+}
+
+void	*thread_routine(void *threads)
+{
+	t_ray			*ray;
+	t_vec			*ambient;
+	t_thread		*thread;
+
+	thread = (t_thread *)threads;
+	ray = cam_ray(thread->cam);
+	ray->seed = xorshift_random(ray->seed - thread->id);
+	ambient = get_ambient_lighting(thread->obj);
+	draw_image(thread, ray, ambient);
 	ft_free(ambient);
 	ft_free(ray);
-	// printf("Image rendered.\n");
 	return (NULL);
 }

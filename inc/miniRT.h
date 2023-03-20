@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/20 16:04:36 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/20 20:34:19 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,22 @@
 # include "MLX42.h"
 # include "libft.h"
 
-# define MLX 1
-
 # define WIDTH 800
-# define HEIGHT 480
-// # define WIDTH 1280
-// # define HEIGHT 720
-// # define WIDTH 1680
-// # define HEIGHT 1050
+# define HEIGHT 460
 
-# define MAX_DEPTH 100
+# define MAX_DEPTH 10
 # define STEPSIZE 10
 # define SAMPLES 100
+# define NOT 10
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
 
-# define LIGHT_RADIUS 5
-# define SOFT_SHADOWS 1
-# define NOT 20
+# define BACKGROUND 0
+# define LIGHT_RADIUS 10
+# define ALBEDO 0.7
+# define SHADOW 0.2
+# define REFLEXION 0.5
 
 # define COL "Color"
 # define POS "Position"
@@ -90,6 +87,7 @@ typedef struct s_ray
 	double	closest_t;
 	t_obj	*closest_object;
 	t_vec	normal;
+	int		seed;
 }			t_ray;
 
 typedef struct s_camera
@@ -115,6 +113,8 @@ typedef struct s_data
 	t_cam			*cam;
 	t_map			*map;
 	t_obj			*obj;
+	int				width;
+	int				height;
 	struct s_thread	*threads[NOT];
 	pthread_mutex_t	mutex[NOT];
 }					t_data;
@@ -160,7 +160,7 @@ void	print_syntax_error(t_obj *obj, char *str);
 
 //IMAGE
 // int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);
-void	*draw_image(void *threads);
+void	*thread_routine(void *threads);
 
 //KEYHOOK
 void	my_keyhook(mlx_key_data_t keydata, void* param);
@@ -175,10 +175,10 @@ int		remove_mutexes(t_data *data);
 void	ft_error(t_data *data, int ecase);
 
 //RAY UTILS
-t_ray	new_ray();
+t_ray	new_ray(void);
 t_vec	ray_color(t_ray *ray, t_obj *obj, int depth);
+t_vec	ray_at_light(t_ray *ray, t_obj *obj, t_obj *light, int depth);
 t_vec	point_at(t_ray ray, double t);
-t_vec	hard_shadows(t_ray *ray, t_obj *obj, int depth);
 
 //VECTOR UTILS
 t_vec	new_vector(double x, double y, double z);
@@ -206,7 +206,6 @@ bool	hit_circle(t_ray *ray, t_obj *obj);
 
 //CAMERA
 t_cam	*setup_camera(t_obj *obj, int width, int height);
-t_cam	*delete_camera(t_cam *cam);
 
 //COLOR UTILS
 int		double_to_color(double r, double g, double b);
@@ -222,6 +221,6 @@ int		xorshift_random(int seed);
 int		lcg_random(unsigned int seed);
 int		xslcg_random(unsigned int seed);
 int		three_digits(unsigned int seed);
-double	random_double(void);
+double	random_double(unsigned int seed);
 
 #endif
