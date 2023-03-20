@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/17 20:17:19 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:31:30 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 diffuse value.*/
 t_vec	combine_colors(t_vec bounce_color, t_vec object_color)
 {
-	const double	albedo = 0.9;
+	const double	albedo = 0.9999;
 	t_vec			attenuation;
 	t_vec			color;
 
@@ -98,7 +98,7 @@ Hemisphere sampling:
 t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 {
 	t_vec		target;
-	// double		t;
+	double		t;
 	t_ray		bounce;
 	static int	seed = (int)883082594;
 
@@ -124,10 +124,10 @@ t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 		else
 			return (color_to_vector(0x00FF00FF));
 	}
-	// t = 0.5 * (unit_vector(ray->direction).y + 1.0);
-	// return (add_vector(factor_mult_vector(color_to_vector(0x5588FFFF), 1 - t),
-	// 	factor_mult_vector(color_to_vector(0xFFFFFFFF), t)));
-	return (color_to_vector(0x000000FF));
+	t = 0.5 * (unit_vector(ray->direction).y + 1.0);
+	return (add_vector(factor_mult_vector(color_to_vector(0x5588FFFF), 1 - t),
+		factor_mult_vector(color_to_vector(0xFFFFFFFF), t)));
+	// return (color_to_vector(0x000000FF));
 }
 
 /*

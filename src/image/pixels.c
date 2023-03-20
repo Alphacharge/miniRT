@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/17 20:15:25 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:34:14 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_vec	*get_ambient_lighting(t_obj *obj)
 	return (allocate);
 }
 
-int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
+void	*draw_image(void *threads)
 {
 	int			col;
 	int			row;
@@ -112,25 +112,27 @@ int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 	t_vec		color_new;
 	t_vec		*ambient;
 	int			i;
+	t_thread	*thread;
 
+	thread = (t_thread *)threads;
 	row = 0;
-	ray = cam_ray(cam);
-	ambient = get_ambient_lighting(obj);
-	printf("Image size: %ix%i\n", HEIGHT, WIDTH);
-	while (row < HEIGHT)
+	ray = cam_ray(thread->cam);
+	ambient = get_ambient_lighting(thread->obj);
+	// printf("Image size: %ix%i\n", HEIGHT, WIDTH);
+	while (row < HEIGHT )
 	{
-		col = 0;
-		while (col < WIDTH)
+		col = thread->id;
+		while (col < WIDTH )//&& !(col % thread->id))
 		{
 			color = color_to_vector(0x000000FF);
 			i = 0;
 			// if (SOFT_SHADOWS == 0)
-			// 	color = hard_shadows(set_ray(ray, cam, col, row), obj, MAX_DEPTH);
+			// 	color = hard_shadows(set_ray(ray, data->cam, col, row), data->obj, MAX_DEPTH);
 			// else
 			// {
 				while (i < SAMPLES)
 				{
-					color_new = ray_color(random_ray(ray, cam, col, row), obj, MAX_DEPTH);
+					color_new = ray_color(random_ray(ray, thread->cam, col, row), thread->obj, MAX_DEPTH);
 					color = add_vector(color, color_new);
 					i++;
 				}
@@ -138,13 +140,13 @@ int	draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj)
 			// }
 			color = add_vector(color, *ambient);
 			if (MLX == true)
-				put_pixel(img, col, row, color);
-			col++;
+				put_pixel(thread->img, col, row, color);
+			col += NOT;
 		}
 		row++;
 	}
 	ft_free(ambient);
 	ft_free(ray);
-	printf("Image rendered.\n");
-	return (0);
+	// printf("Image rendered.\n");
+	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 19:40:18 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:34:31 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static	mlx_t	*mlx_setup(t_obj *obj)
 	while (obj && obj->type != RES)
 		obj = obj->next;
 	if (obj == NULL)
-		mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+		mlx = mlx_init(WIDTH, HEIGHT, "miniRT", false);
 	else
-		mlx = mlx_init((int32_t)obj->radius, (int32_t)obj->hei_fov, "miniRT", true);
+		mlx = mlx_init((int32_t)obj->radius, (int32_t)obj->hei_fov, "miniRT", false);
 	if (mlx == NULL)
 		return (NULL);	//needs freeing
 	mlx_set_window_limit(mlx, 100, 100, 2000, 2000);
@@ -65,24 +65,32 @@ int	main(int argc, char **argv)
 	data->map = check_input(argc, argv);
 //this leaks
 	data->obj = create_obj(data->map);
-printf("parsing done\n");
+	// printf("parsing done\n");
 	if (MLX == true)
 	{
 		data->mlx = mlx_setup(data->obj);
 		data->img = img_setup(data->mlx);
-printf("mlx setup done\n");
+		printf("mlx setup done\n");
 		if (data->mlx == NULL || data->img == NULL)
 			return (EXIT_FAILURE);	//needs freeing
 	}
 	data->cam = setup_camera(data->obj, WIDTH, HEIGHT);
-printf("scene setup done\n");
-	draw_image(data->img, data->cam, data->obj);
+	// printf("scene setup done\n");
+	// if (create_mutexes(data) != 0)
+	// 	printf("Error Mutex creating\n");
+	if (create_threads(data))
+		printf("Error Threads creating\n");
+	// draw_image(data);
 	if (MLX == 1)
 	{
 		mlx_key_hook(data->mlx, &my_keyhook, data);
 		mlx_loop(data->mlx);
 		mlx_terminate(data->mlx);
 	}
+	if (remove_threads(data))
+		printf("Error Threads joining\n");
+	// if (remove_mutexes(data) != 0)
+	// 	printf("Error Mutex removing\n");
 	ft_free(data->cam);
 	ft_free(data->map);
 	ft_free(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 20:17:50 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:04:36 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <limits.h>
+# include <pthread.h>
 # include "MLX42.h"
 # include "libft.h"
 
@@ -30,15 +31,16 @@
 // # define WIDTH 1680
 // # define HEIGHT 1050
 
-# define MAX_DEPTH 10
+# define MAX_DEPTH 100
 # define STEPSIZE 10
-# define SAMPLES 50
+# define SAMPLES 100
 
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
 
 # define LIGHT_RADIUS 5
-# define SOFT_SHADOWS 0
+# define SOFT_SHADOWS 1
+# define NOT 20
 
 # define COL "Color"
 # define POS "Position"
@@ -108,12 +110,25 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_cam			*cam;
+	t_map			*map;
+	t_obj			*obj;
+	struct s_thread	*threads[NOT];
+	pthread_mutex_t	mutex[NOT];
+}					t_data;
+
+typedef struct s_thread
+{
+	int			id;
+	pthread_t	pid;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_cam		*cam;
-	t_map		*map;
 	t_obj		*obj;
-}				t_data;
+	t_data		*data;
+}				t_thread;
 
 //PARSING
 t_map	*check_input(int argc, char **argv);
@@ -144,10 +159,17 @@ void	print_syntax_error(t_obj *obj, char *str);
 // void	free_obj(t_obj *obj);
 
 //IMAGE
-int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);
+// int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);
+void	*draw_image(void *threads);
 
 //KEYHOOK
 void	my_keyhook(mlx_key_data_t keydata, void* param);
+
+//MULTITHREADING
+int		create_threads(t_data *data);
+int		remove_threads(t_data *data);
+int		create_mutexes(t_data *data);
+int		remove_mutexes(t_data *data);
 
 //ERROR
 void	ft_error(t_data *data, int ecase);

@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/15 10:05:22 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/20 16:06:41 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror -O3
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS	+=	-g -fsanitize=address
+CFLAGS	+=	#-g #-fsanitize=thread
 
 ###			###			LIBRARIES		###			###
 LIBFT_D	:=	./lib/libft
@@ -34,7 +34,7 @@ endif
 MLX_L	:=	$(MLX_D)$(MLX_SD)
 MLX 	:=	$(MLX_D)/$(MLX_SD)/libmlx42.a
 LIB_MAC	:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -L ~/.brew/opt/glfw/lib -l glfw
-LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -l glfw -lm -ldl
+LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -l glfw -lm -ldl -lpthread
 
 ###			###			HEADER			###			###
 INC_D	:=	./inc
@@ -50,7 +50,7 @@ endif
 
 ###			###			SOURCES			###			###
 VPATH	:=	src/ src/parsing/ src/utils src/camera src/error src/image \
-			src/objects src/mlx
+			src/objects src/mlx src/threads
 
 SRC_F	:=	miniRT.c
 SRC_F	+=	file_parsing.c print_map.c file_utils.c
@@ -67,7 +67,7 @@ SRC_F	+=	color.c
 SRC_F	+=	camera.c
 SRC_F	+=	random.c
 SRC_F	+=	keyhooks.c
-SRC_F	+=
+SRC_F	+=	mutex.c threads.c
 
 ###			###			OBJECTS			###			###
 OBJ_D	:=	./obj
