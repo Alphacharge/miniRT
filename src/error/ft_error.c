@@ -6,11 +6,27 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:21:53 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 11:12:13 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/21 16:10:46 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+static void	error_message2(int ecase)
+{
+	if (ecase == 13)
+		ft_putendl_fd("Error on allocating Camera!", 2);
+	if (ecase == 14)
+		ft_putendl_fd("Error, there is no Cam in the Scene!", 2);
+	if (ecase == 15)
+		ft_putendl_fd("Error on detaching Threads!", 2);
+	if (ecase == 16)
+		ft_putendl_fd("Error on creating Threads!", 2);
+	if (ecase == 17)
+		ft_putendl_fd("Error on joining Threads!", 2);
+	if (ecase == 18)
+		ft_putendl_fd("Error on creating Mutex!", 2);
+}
 
 void	error_message(int ecase)
 {
@@ -38,10 +54,7 @@ void	error_message(int ecase)
 		ft_putendl_fd("Error on splitting Line!", 2);
 	if (ecase == 12)
 		ft_putendl_fd("Error on initialising MLX Image!", 2);
-	if (ecase == 13)
-		ft_putendl_fd("Error on allocating Object!", 2);
-	if (ecase == 14)
-		ft_putendl_fd("Error, there is no Cam in the Scene!", 2);
+	error_message2(ecase);
 }
 
 void	ft_error(t_data *data, int ecase)
@@ -49,7 +62,6 @@ void	ft_error(t_data *data, int ecase)
 	if (data != NULL)
 		ft_free(data);
 	error_message(ecase);
-	// 6 // perror(filename);
 	if (ecase == 2)
 	{
 		mlx_terminate(data->mlx);

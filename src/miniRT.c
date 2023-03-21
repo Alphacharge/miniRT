@@ -6,14 +6,11 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 13:03:25 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/21 16:17:32 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-
-
 
 static t_data	*init_data(void)
 {
@@ -27,6 +24,9 @@ static t_data	*init_data(void)
 	data->mlx = NULL;
 	data->img = NULL;
 	data->cam = NULL;
+	data->run = true;
+	if (create_mutexes(data))
+		cleanup(data, 0);
 	return (data);
 }
 
@@ -53,13 +53,13 @@ int	main(int argc, char **argv)
 		data->cam = setup_cam(data->obj, WIDTH, HEIGHT);
 	if (data->cam == NULL)
 		return(cleanup(data, 2), EXIT_FAILURE);
-	//clean code until here
+	pthread_mutex_lock(&data->lock);
 	if (create_threads(data))
-		printf("Error Threads creating\n");
+		return(cleanup(data, 3), EXIT_FAILURE);
+	pthread_mutex_unlock(&data->lock);
 	run_mlx(data);
 	if (remove_threads(data))
-		printf("Error Threads joining\n");
-	cleanup(data, 2);
-	printf("Terminating.\n");
+		return(cleanup(data, 3), EXIT_FAILURE);
+	cleanup(data, 3);
 	return (EXIT_SUCCESS);
 }

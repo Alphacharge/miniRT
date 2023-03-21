@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/20 20:26:46 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:50:28 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,12 @@ void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 
 	row = 0;
 
-	while (row < thread->data->height)
+	while (thread->data->run && row < thread->data->height)
 	{
-		col = thread->id;
-		while (col < thread->data->width)
+		col = thread->id - 1;
+		while (thread->data->run && col < thread->data->width)
 		{
+			pthread_testcancel();
 			color = new_vector(0, 0, 0);
 			i = 0;
 			while (++i < SAMPLES)
@@ -154,8 +155,10 @@ void	*thread_routine(void *threads)
 	ray = cam_ray(thread->cam);
 	ray->seed = xorshift_random(ray->seed - thread->id);
 	ambient = get_ambient_lighting(thread->obj);
+	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 	draw_image(thread, ray, ambient);
 	ft_free(ambient);
 	ft_free(ray);
+	pthread_exit(NULL);
 	return (NULL);
 }

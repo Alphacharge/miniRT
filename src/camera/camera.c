@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:28:38 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/21 11:17:07 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/21 15:12:16 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_vec	calc_corner(t_cam *cam)
 	corner = subtract_vector(corner, cam->origin);
 	return (corner);
 }
+
 t_cam	*setup_cam(t_obj	*obj, int width, int height)
 {
 	t_cam	*cam;

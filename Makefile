@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/21 13:29:05 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/21 17:15:03 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror -O3
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS	+=	#-g #-fsanitize=thread
+CFLAGS	+=	-g #-fsanitize=thread
 
 ###			###			LIBRARIES		###			###
 LIBFT_D	:=	./lib/libft

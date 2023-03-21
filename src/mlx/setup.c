@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:47:34 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 13:03:03 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/21 14:58:16 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,4 @@ void	run_mlx(t_data *data)
 		return ;
 	mlx_key_hook(data->mlx, &my_keyhook, data);
 	mlx_loop(data->mlx);
-	mlx_terminate(data->mlx);
 }
