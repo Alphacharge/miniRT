@@ -6,13 +6,13 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:21:53 by rbetz             #+#    #+#             */
-/*   Updated: 2023/02/24 15:44:27 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/21 11:12:13 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	error_message(int ecase)
+void	error_message(int ecase)
 {
 	if (ecase == 1)
 		ft_putendl_fd("Error on allocating Datamemory!", 2);
@@ -27,7 +27,21 @@ static void	error_message(int ecase)
 	if (ecase == 6)
 		ft_putendl_fd("Error, can not open file.", 2);
 	if (ecase == 7)
-		ft_putendl_fd("", 2);
+		ft_putendl_fd("Error on allocating Map!", 2);
+	if (ecase == 8)
+		ft_putendl_fd("Error on counting Lines!", 2);
+	if (ecase == 9)
+		ft_putendl_fd("Error on reading Lines!", 2);
+	if (ecase == 10)
+		ft_putendl_fd("Error on allocating Object!", 2);
+	if (ecase == 11)
+		ft_putendl_fd("Error on splitting Line!", 2);
+	if (ecase == 12)
+		ft_putendl_fd("Error on initialising MLX Image!", 2);
+	if (ecase == 13)
+		ft_putendl_fd("Error on allocating Object!", 2);
+	if (ecase == 14)
+		ft_putendl_fd("Error, there is no Cam in the Scene!", 2);
 }
 
 void	ft_error(t_data *data, int ecase)

@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:28:38 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/20 17:02:26 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:17:07 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_cam	*setup_camera(t_obj	*obj, int width, int height)
+static t_vec	calc_corner(t_cam *cam)
+{
+	t_vec	corner;
+
+	corner = factor_mult_vector(cam->horizontal, -0.5);
+	corner = add_vector(corner, factor_mult_vector(cam->vertical, -0.5));
+	corner = add_vector(corner, \
+			factor_mult_vector(cam->direction, cam->focal_length));
+	corner = subtract_vector(corner, cam->origin);
+	return (corner);
+}
+t_cam	*setup_cam(t_obj	*obj, int width, int height)
 {
 	t_cam	*cam;
 	t_vec	down;
@@ -20,11 +31,11 @@ t_cam	*setup_camera(t_obj	*obj, int width, int height)
 	down = new_vector(0, 1, 0);
 	cam = ft_calloc(1, sizeof(t_cam));
 	if (cam == NULL)
-		return (NULL);
+		return (error_message(13), NULL);
 	while (obj && obj->type != CAM)
 		obj = obj->next;
 	if (obj == NULL)
-		return (NULL); //no cam
+		return (error_message(14), ft_free(cam), NULL);
 	cam->origin = obj->origin;
 	cam->focal_length = width / (2 * tan(obj->hei_fov / 2));
 	cam->direction = unit_vector(obj->vector);
@@ -32,11 +43,8 @@ t_cam	*setup_camera(t_obj	*obj, int width, int height)
 	cam->horizontal = factor_mult_vector(cam->horizontal, width);
 	cam->vertical = unit_vector(cross_vector(cam->direction, cam->horizontal));
 	cam->vertical = factor_mult_vector(cam->vertical, height);
-	cam->upper_left_corner = factor_mult_vector(cam->horizontal, -0.5);
-	cam->upper_left_corner = add_vector(cam->upper_left_corner, factor_mult_vector(cam->vertical, -0.5));
-	cam->upper_left_corner = add_vector(cam->upper_left_corner, factor_mult_vector(cam->direction, cam->focal_length));
-	cam->upper_left_corner = subtract_vector(cam->upper_left_corner, cam->origin);
-	cam->horizontal = unit_vector(cam->horizontal);	//now they have a length of 1 pixel for iterating
+	cam->upper_left_corner = calc_corner(cam);
+	cam->horizontal = unit_vector(cam->horizontal);
 	cam->vertical = unit_vector(cam->vertical);
 	return (cam);
 }

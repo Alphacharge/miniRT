@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:53:25 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/10 11:17:32 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/21 09:28:26 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_negativ(char *nbr)
 {
-	while(nbr && *nbr && ft_isspace(*nbr))
+	while (nbr && *nbr && ft_isspace(*nbr))
 		nbr++;
 	if (*nbr == '-')
 		return (1);

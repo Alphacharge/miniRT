@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:03:38 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 19:39:24 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:29:42 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	validate_lines(t_map *map)
 			line++;
 		}
 		line++;
-		while (*line != '\0')
+		while (line != NULL && *line != '\0')
 			line = move_field(line);
 		i++;
 	}
@@ -75,6 +75,7 @@ static void	parse_file(t_map *map)
 			i++;
 		}
 	}
+	close(map->fd);
 }
 
 /*read the inputfile and count the lines that are no comments and alloc ** */
@@ -95,10 +96,12 @@ static void	count_lines(t_map *map)
 		if (line != NULL)
 			ft_free(line);
 	}
-//this leaks
 	map->file = ft_calloc(i + 1, sizeof(char *));
 	if (map->file != NULL)
 		map->file[i] = NULL;
+	else
+		map->file = NULL;
+	close(map->fd);
 }
 
 /*Validate the input and call parsing*/
@@ -108,22 +111,25 @@ t_map	*check_input(int argc, char **argv)
 
 	map = ft_calloc(1, sizeof(t_map));
 	if (map == NULL)
-		return (NULL);
-	map->fd = -1;
+		return (error_message(7), NULL);
 	if (argc < 2)
-		return (map);
+		return (ft_free(map), error_message(3), NULL);
 	if (argc > 2)
-		return (map);
+		return (ft_free(map), error_message(4), NULL);
 	if (!ft_strcmp(argv[1], ""))
-		return (map);
+		return (ft_free(map), error_message(5), NULL);
 	map->fd = open(argv[1], O_RDONLY);
 	if (map->fd < 0)
-		return (map);
+		return (ft_free(map), error_message(6), NULL);
 	count_lines(map);
-	close(map->fd);
+	if (map->file == NULL)
+		return (ft_free(map), error_message(8), NULL);
 	map->fd = open(argv[1], O_RDONLY);
+	if (map->fd < 0)
+		return (ft_free(map), error_message(6), NULL);
 	parse_file(map);
-	close(map->fd);
+	if (map->file == NULL)
+		return (ft_free(map), error_message(9), NULL);
 	validate_lines(map);
 	return (map);
 }

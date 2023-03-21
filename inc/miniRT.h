@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/20 20:34:19 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:06:21 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,11 @@ void	print_syntax_error(t_obj *obj, char *str);
 // int		draw_image(mlx_image_t *img, t_cam *cam, t_obj *obj);
 void	*thread_routine(void *threads);
 
-//KEYHOOK
+//MLX
 void	my_keyhook(mlx_key_data_t keydata, void* param);
+mlx_t	*mlx_setup(t_obj *obj, t_data *data);
+mlx_image_t	*img_setup(mlx_t *mlx);
+void	run_mlx(t_data *data);
 
 //MULTITHREADING
 int		create_threads(t_data *data);
@@ -173,6 +176,9 @@ int		remove_mutexes(t_data *data);
 
 //ERROR
 void	ft_error(t_data *data, int ecase);
+void	error_message(int ecase);
+void	clean_obj(t_obj *obj);
+void	cleanup(t_data *data, int lvl);
 
 //RAY UTILS
 t_ray	new_ray(void);
@@ -205,7 +211,7 @@ bool	hit_cylinder(t_ray *ray, t_obj *obj);
 bool	hit_circle(t_ray *ray, t_obj *obj);
 
 //CAMERA
-t_cam	*setup_camera(t_obj *obj, int width, int height);
+t_cam	*setup_cam(t_obj *obj, int width, int height);
 
 //COLOR UTILS
 int		double_to_color(double r, double g, double b);
