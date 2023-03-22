@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 08:48:44 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/22 14:42:03 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	escape(t_data *data)
 	cancel_threads(data);
 	remove_threads(data);
 	sleep(NOT);
-	cleanup(data, 3);
+	// cleanup(data, 3);
 	mlx_close_window(data->mlx);
 }
 

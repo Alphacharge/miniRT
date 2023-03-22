@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 16:32:47 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 14:13:56 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //Quality Configuration
 # define STEPSIZE 10
 # define MAX_DEPTH 10
-# define SAMPLES 400
+# define SAMPLES 1600
 # define NOT 12
 
 //Ray Configuration
