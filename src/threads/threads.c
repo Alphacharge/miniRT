@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:19:16 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 16:32:39 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 08:47:22 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	create_threads(t_data *data)
 		if (pthread_create(&data->threads[i].pid, NULL, &thread_routine, \
 			(void *)&data->threads[i]) != 0)
 			return (error_message(15), 1);
+		printf("%ld\n", data->threads[i].pid);
 		i++;
 	}
 	return (0);
@@ -38,10 +39,12 @@ int	remove_threads(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < NOT)
+	while (i < NOT && data->threads[i].pid)
 	{
+		printf("%ld\n", data->threads[i].pid);
 		if (pthread_join(data->threads[i].pid, NULL) != 0)
 			return (error_message(16), 1);
+		data->threads[i].pid = 0;
 		i++;
 	}
 	return (0);

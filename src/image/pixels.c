@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/21 16:50:28 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 08:39:42 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,28 +121,42 @@ void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 	int		row;
 	int		i;
 	t_vec	color;
+	t_cam	*cam;
+	t_obj	*obj;
 
 	row = 0;
-
+pthread_mutex_lock(&thread->data->lock);
+cam = thread->cam;
+obj = thread->obj;
 	while (thread->data->run && row < thread->data->height)
 	{
+pthread_mutex_unlock(&thread->data->lock);
 		col = thread->id - 1;
+pthread_mutex_lock(&thread->data->lock);
 		while (thread->data->run && col < thread->data->width)
 		{
+pthread_mutex_unlock(&thread->data->lock);
 			pthread_testcancel();
 			color = new_vector(0, 0, 0);
 			i = 0;
 			while (++i < SAMPLES)
-				color = add_vector(color, ray_color(random_ray(ray, thread->cam, col, row), thread->obj, MAX_DEPTH));
+				color = add_vector(color, ray_color(random_ray(ray, cam, col, row), obj, MAX_DEPTH));
 //following line uses one sample to calculate hard shadow of first light
-			color = add_vector(color, factor_mult_vector(ray_at_light(set_ray(ray, thread->cam, col, row), thread->obj, first_light(thread->obj), MAX_DEPTH), SHADOW));
+			color = add_vector(color, factor_mult_vector(ray_at_light(set_ray(ray, cam, col, row), obj, first_light(obj), MAX_DEPTH), SHADOW));
 			color = factor_mult_vector(color, 1.0 / (double)SAMPLES);
 			color = add_vector(color, *ambient);
+			pthread_testcancel();
+pthread_mutex_lock(&thread->data->lock);
 			put_pixel(thread->img, col, row, color);
+pthread_mutex_unlock(&thread->data->lock);
 			col += NOT;
+pthread_mutex_lock(&thread->data->lock);
 		}
+pthread_mutex_unlock(&thread->data->lock);
 		row++;
+pthread_mutex_lock(&thread->data->lock);
 	}
+pthread_mutex_unlock(&thread->data->lock);
 }
 
 void	*thread_routine(void *threads)
@@ -152,9 +166,11 @@ void	*thread_routine(void *threads)
 	t_thread		*thread;
 
 	thread = (t_thread *)threads;
+pthread_mutex_lock(&thread->data->lock);
 	ray = cam_ray(thread->cam);
 	ray->seed = xorshift_random(ray->seed - thread->id);
 	ambient = get_ambient_lighting(thread->obj);
+pthread_mutex_unlock(&thread->data->lock);
 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 	draw_image(thread, ray, ambient);
 	ft_free(ambient);

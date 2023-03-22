@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 16:39:41 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 08:48:44 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	escape(t_data *data)
 	// data->run = false;
 	cancel_threads(data);
 	remove_threads(data);
-	sleep(NOT / 2);
+	sleep(NOT);
 	cleanup(data, 3);
+	mlx_close_window(data->mlx);
 }
 
 void	clean_obj(t_obj *obj)
