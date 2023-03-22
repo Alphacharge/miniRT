@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 10:58:28 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 15:09:15 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ t_obj	*create_obj(t_map *map)
 			return (ft_free(map), clean_obj(obj), NULL);
 		i++;
 	}
+	ft_free(map->file);
 	ft_free(map);
 	return (obj);
 }

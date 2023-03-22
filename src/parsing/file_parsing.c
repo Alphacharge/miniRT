@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:03:38 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 09:29:42 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 15:08:22 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ t_map	*check_input(int argc, char **argv)
 		return (ft_free(map), error_message(8), NULL);
 	map->fd = open(argv[1], O_RDONLY);
 	if (map->fd < 0)
-		return (ft_free(map), error_message(6), NULL);
+		return (ft_free(map->file), ft_free(map), error_message(6), NULL);
 	parse_file(map);
 	if (map->file == NULL)
-		return (ft_free(map), error_message(9), NULL);
+		return (ft_free(map->file), ft_free(map), error_message(9), NULL);
 	validate_lines(map);
 	return (map);
 }
