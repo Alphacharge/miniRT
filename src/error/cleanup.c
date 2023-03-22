@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 16:39:41 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 12:29:48 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 void	escape(t_data *data)
 {
-	// data->run = false;
-	cancel_threads(data);
-	remove_threads(data);
-	sleep(NOT / 2);
-	cleanup(data, 3);
+	pthread_mutex_lock(&data->lock);
+	data->run = false;
+	pthread_mutex_unlock(&data->lock);
+	// cancel_threads(data);
+	// remove_threads(data);
+	// sleep(NOT / 2);
+	// cleanup(data, 3);
+	mlx_close_window(data->mlx);
 }
 
 void	clean_obj(t_obj *obj)
@@ -47,7 +50,7 @@ void	cleanup(t_data *data, int lvl)
 	remove_mutexes(data);
 	if (lvl > 0)
 		clean_obj(data->obj);
-	if (lvl > 1)
+	if (lvl > 1 && MLX == true)
 		mlx_terminate(data->mlx);
 	if (lvl > 2)
 		ft_free(data->cam);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/21 16:50:28 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 12:35:56 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,17 @@ t_obj	*first_light(t_obj *list)
 	return (list);
 }
 
+bool	run_program(t_data *data)
+{
+	bool	program_status;
+
+	program_status = true;
+	pthread_mutex_lock(&data->lock);
+	program_status = data->run;
+	pthread_mutex_unlock(&data->lock);
+	return (program_status);
+}
+
 void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 {
 	int		col;
@@ -123,13 +134,14 @@ void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 	t_vec	color;
 
 	row = 0;
-
-	while (thread->data->run && row < thread->data->height)
+	while (row < thread->data->height)
 	{
 		col = thread->id - 1;
-		while (thread->data->run && col < thread->data->width)
+		while (col < thread->data->width)
 		{
-			pthread_testcancel();
+			if (run_program(thread->data) == false)
+				return ;
+			// pthread_testcancel();
 			color = new_vector(0, 0, 0);
 			i = 0;
 			while (++i < SAMPLES)

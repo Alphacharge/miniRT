@@ -4,6 +4,7 @@
 - performance checks
 - norm
 - race conditions
+- rouven free bidde deine map->file[i] :P
 
 fixed:
 - multithreading

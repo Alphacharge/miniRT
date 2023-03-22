@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   keyhooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:54:00 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/21 15:45:53 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 12:32:19 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void my_keyhook(mlx_key_data_t keydata, void* param)
+void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
+
 	data = param;
 	if (keydata.action != MLX_RELEASE)
 		return ;

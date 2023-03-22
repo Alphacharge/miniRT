@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 16:17:32 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 12:39:07 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_data	*init_data(void)
 	data->img = NULL;
 	data->cam = NULL;
 	data->run = true;
-	if (create_mutexes(data))
+	if (create_mutexes(data) != 0)
 		cleanup(data, 0);
 	return (data);
 }
@@ -37,29 +37,31 @@ int	main(int argc, char **argv)
 	data = init_data();
 	data->map = check_input(argc, argv);
 	if (data->map == NULL)
-		return(cleanup(data, 0), EXIT_FAILURE);
+		return (cleanup(data, 0), EXIT_FAILURE);
 	data->obj = create_obj(data->map);
 	if (data->obj == NULL)
-		return(cleanup(data, 0), EXIT_FAILURE);
+		return (cleanup(data, 0), EXIT_FAILURE);
+	printf("Parsing done.\n");
 	data->mlx = mlx_setup(data->obj, data);
-	if (data->mlx == NULL)
-		return(cleanup(data, 1), EXIT_FAILURE);
+	if (data->mlx == NULL && MLX == true)
+		return (cleanup(data, 1), EXIT_FAILURE);
 	data->img = img_setup(data->mlx);
-	if (data->img == NULL)
-		return(cleanup(data, 2), EXIT_FAILURE);
+	if (data->img == NULL && MLX == true)
+		return (cleanup(data, 2), EXIT_FAILURE);
 	if (data->mlx != NULL)
 		data->cam = setup_cam(data->obj, data->img->width, data->img->height);
 	else
 		data->cam = setup_cam(data->obj, WIDTH, HEIGHT);
 	if (data->cam == NULL)
-		return(cleanup(data, 2), EXIT_FAILURE);
-	pthread_mutex_lock(&data->lock);
+		return (cleanup(data, 2), EXIT_FAILURE);
+	printf("Starting threads.\n");
 	if (create_threads(data))
-		return(cleanup(data, 3), EXIT_FAILURE);
-	pthread_mutex_unlock(&data->lock);
+		return (cleanup(data, 3), EXIT_FAILURE);
 	run_mlx(data);
+	printf("Freeing memory.\n");
 	if (remove_threads(data))
-		return(cleanup(data, 3), EXIT_FAILURE);
+		return (cleanup(data, 3), EXIT_FAILURE);
 	cleanup(data, 3);
+	printf("Terminating...\n");
 	return (EXIT_SUCCESS);
 }

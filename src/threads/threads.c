@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:19:16 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 16:32:39 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 12:43:39 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	remove_threads(t_data *data)
 			return (error_message(16), 1);
 		i++;
 	}
+	printf("All threads joined.\n");
 	return (0);
 }
 

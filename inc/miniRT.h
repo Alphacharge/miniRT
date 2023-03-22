@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 16:32:47 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 12:47:11 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //Quality Configuration
 # define STEPSIZE 10
 # define MAX_DEPTH 10
-# define SAMPLES 400
+# define SAMPLES 10
 # define NOT 12
 
 //Ray Configuration
@@ -42,6 +42,9 @@
 # define ALBEDO 0.7
 # define SHADOW 0.2
 # define REFLEXION 1
+
+//Debugging
+# define MLX 1
 
 # define COL "Color"
 # define POS "Position"

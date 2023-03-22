@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:47:34 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 14:58:16 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 12:01:30 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ mlx_t	*mlx_setup(t_obj *obj, t_data *data)
 		data->width = WIDTH;
 		data->height = HEIGHT;
 	}
+	if (MLX == false)
+		return (NULL);
 	mlx = mlx_init((int32_t)data->width, (int32_t)data->height, \
 		"miniRT", false);
 	if (mlx == NULL)
@@ -40,6 +42,8 @@ mlx_image_t	*img_setup(mlx_t *mlx)
 {
 	mlx_image_t	*img;
 
+	if (MLX == false)
+		return (NULL);
 	if (mlx == NULL)
 		return (error_message(2), NULL);
 	img = mlx_new_image(mlx, mlx->width, mlx->height);
@@ -51,7 +55,7 @@ mlx_image_t	*img_setup(mlx_t *mlx)
 
 void	run_mlx(t_data *data)
 {
-	if (data->mlx == NULL)
+	if (MLX == false || data->mlx == NULL)
 		return ;
 	mlx_key_hook(data->mlx, &my_keyhook, data);
 	mlx_loop(data->mlx);
