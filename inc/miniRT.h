@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 14:13:56 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 15:17:19 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ void		error_message(int ecase);
 void		clean_obj(t_obj *obj);
 void		cleanup(t_data *data, int lvl);
 void		escape(t_data *data);
+void		free_map(t_map *map);
 
 //RAY UTILS
 t_ray		new_ray(void);

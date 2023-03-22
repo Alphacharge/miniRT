@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 14:42:03 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 15:21:39 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ void	clean_obj(t_obj *obj)
 		tmp = tmp->next;
 	}
 	ft_free(obj);
+}
+
+void free_map(t_map *map)
+{
+	int i;
+
+	i = 0
+	while (map && map->file && map->file[i])
+	{
+		ft_free(map->file[i]);
+		i++;
+	}
+	if (map->file)
+		ft_free(map->file);
+	if (map)
+		ft_free(map);
 }
 
 void	cleanup(t_data *data, int lvl)
