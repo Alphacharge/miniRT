@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 15:21:39 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 15:27:32 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void free_map(t_map *map)
 {
 	int i;
 
-	i = 0
+	i = 0;
 	while (map && map->file && map->file[i])
 	{
 		ft_free(map->file[i]);

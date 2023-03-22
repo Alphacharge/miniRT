@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:19:16 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 14:37:44 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 16:00:17 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	cancel_threads(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < NOT)
+	while (i < NOT && data->threads[i].pid != 0)
 	{
 		if (pthread_cancel(data->threads[i].pid) != 0)
 			return (error_message(17), 1);

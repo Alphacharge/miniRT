@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 16:17:32 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/22 15:45:37 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int	main(int argc, char **argv)
 		data->cam = setup_cam(data->obj, WIDTH, HEIGHT);
 	if (data->cam == NULL)
 		return(cleanup(data, 2), EXIT_FAILURE);
+	run_mlx(data);
 	pthread_mutex_lock(&data->lock);
 	if (create_threads(data))
 		return(cleanup(data, 3), EXIT_FAILURE);
 	pthread_mutex_unlock(&data->lock);
-	run_mlx(data);
 	if (remove_threads(data))
 		return(cleanup(data, 3), EXIT_FAILURE);
 	cleanup(data, 3);
