@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:19:16 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 12:43:39 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:01:21 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ int	remove_threads(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < NOT)
+	while (i < NOT && data->threads[i].pid)
 	{
 		if (pthread_join(data->threads[i].pid, NULL) != 0)
 			return (error_message(16), 1);
+		data->threads[i].pid = 0;
 		i++;
 	}
-	printf("All threads joined.\n");
 	return (0);
 }
 
@@ -53,7 +53,7 @@ int	cancel_threads(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < NOT)
+	while (i < NOT && data->threads[i].pid != 0)
 	{
 		if (pthread_cancel(data->threads[i].pid) != 0)
 			return (error_message(17), 1);

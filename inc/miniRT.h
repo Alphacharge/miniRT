@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 12:47:11 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/23 10:59:00 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@
 # include "libft.h"
 
 //Standard Window Size if no one is given in the scene
-# define WIDTH 800
-# define HEIGHT 460
+# define WIDTH	800
+# define HEIGHT	460
 
 //Quality Configuration
-# define STEPSIZE 10
-# define MAX_DEPTH 10
-# define SAMPLES 10
-# define NOT 12
+# define STEPSIZE	10		// Amount of Pixel that Camera moves
+# define MAX_DEPTH	10		// Amount of Bounce Rays
+# define SAMPLES	10		// Amount of Rays per Pixel
+# define NOT		12		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
 
 //Color and Light Configuration
-# define BACKGROUND 0
-# define LIGHT_RADIUS 10
-# define ALBEDO 0.7
-# define SHADOW 0.2
-# define REFLEXION 1
+# define BACKGROUND		0
+# define LIGHT_RADIUS	10
+# define ALBEDO			0.7
+# define SHADOW			0.2
+# define REFLEXION		1
 
 //Debugging
 # define MLX 1
@@ -85,7 +85,7 @@ typedef struct s_obj
 	t_vec			vector;
 	t_vec			color;
 	struct s_obj	*next;
-}			t_obj;
+}					t_obj;
 
 typedef struct s_ray
 {
@@ -111,7 +111,7 @@ typedef struct s_map
 {
 	int		fd;
 	char	**file;
-}	t_map;
+}			t_map;
 
 typedef struct s_thread
 {
@@ -122,7 +122,7 @@ typedef struct s_thread
 	t_cam			*cam;
 	t_obj			*obj;
 	struct s_data	*data;
-}				t_thread;
+}					t_thread;
 
 typedef struct s_data
 {
@@ -133,9 +133,7 @@ typedef struct s_data
 	t_obj			*obj;
 	int				width;
 	int				height;
-	bool			run;
 	t_thread		threads[NOT];
-	pthread_mutex_t	lock;
 }					t_data;
 
 //PARSING
@@ -178,8 +176,6 @@ void		run_mlx(t_data *data);
 int			create_threads(t_data *data);
 int			remove_threads(t_data *data);
 int			cancel_threads(t_data *data);
-int			create_mutexes(t_data *data);
-int			remove_mutexes(t_data *data);
 
 //ERROR
 void		ft_error(t_data *data, int ecase);
@@ -187,6 +183,7 @@ void		error_message(int ecase);
 void		clean_obj(t_obj *obj);
 void		cleanup(t_data *data, int lvl);
 void		escape(t_data *data);
+void		free_map(t_map *map);
 
 //RAY UTILS
 t_ray		new_ray(void);

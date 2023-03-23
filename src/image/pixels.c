@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/22 12:35:56 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:02:27 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,6 @@ t_obj	*first_light(t_obj *list)
 	return (list);
 }
 
-bool	run_program(t_data *data)
-{
-	bool	program_status;
-
-	program_status = true;
-	pthread_mutex_lock(&data->lock);
-	program_status = data->run;
-	pthread_mutex_unlock(&data->lock);
-	return (program_status);
-}
-
 void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 {
 	int		col;
@@ -139,9 +128,7 @@ void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 		col = thread->id - 1;
 		while (col < thread->data->width)
 		{
-			if (run_program(thread->data) == false)
-				return ;
-			// pthread_testcancel();
+			pthread_testcancel();
 			color = new_vector(0, 0, 0);
 			i = 0;
 			while (++i < SAMPLES)
@@ -150,6 +137,7 @@ void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 			color = add_vector(color, factor_mult_vector(ray_at_light(set_ray(ray, thread->cam, col, row), thread->obj, first_light(thread->obj), MAX_DEPTH), SHADOW));
 			color = factor_mult_vector(color, 1.0 / (double)SAMPLES);
 			color = add_vector(color, *ambient);
+			pthread_testcancel();
 			put_pixel(thread->img, col, row, color);
 			col += NOT;
 		}
@@ -171,6 +159,6 @@ void	*thread_routine(void *threads)
 	draw_image(thread, ray, ambient);
 	ft_free(ambient);
 	ft_free(ray);
-	pthread_exit(NULL);
+	// pthread_exit(NULL);
 	return (NULL);
 }

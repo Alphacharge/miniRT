@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 12:39:07 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:01:59 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ static t_data	*init_data(void)
 	data->mlx = NULL;
 	data->img = NULL;
 	data->cam = NULL;
-	data->run = true;
-	if (create_mutexes(data) != 0)
-		cleanup(data, 0);
 	return (data);
 }
 
