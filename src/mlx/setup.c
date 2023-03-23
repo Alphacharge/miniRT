@@ -6,7 +6,7 @@
 /*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:47:34 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 11:00:41 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/23 12:29:26 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ mlx_image_t	*img_setup(mlx_t *mlx)
 	img = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (img == NULL)
 		return (error_message(12), NULL);
+	ft_memset(img->pixels, 0, (mlx->width * mlx->height * sizeof(uint32_t)));
 	mlx_image_to_window(mlx, img, 0, 0);
 	return (img);
 }

@@ -6,7 +6,7 @@
 /*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 10:59:00 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/23 12:51:12 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
-# define MAX_DEPTH	10		// Amount of Bounce Rays
-# define SAMPLES	10		// Amount of Rays per Pixel
+# define MAX_DEPTH	20		// Amount of Bounce Rays
+# define SAMPLES	25		// Amount of Rays per Pixel
 # define NOT		12		// Amount of Threads
 
 //Ray Configuration
@@ -38,7 +38,7 @@
 
 //Color and Light Configuration
 # define BACKGROUND		0
-# define LIGHT_RADIUS	10
+# define LIGHT_RADIUS	15
 # define ALBEDO			0.7
 # define SHADOW			0.2
 # define REFLEXION		1

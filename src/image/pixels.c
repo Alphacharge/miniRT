@@ -6,7 +6,7 @@
 /*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/23 11:02:27 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/23 13:46:17 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,12 @@ t_obj	*first_light(t_obj *list)
 	return (list);
 }
 
-void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
+void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)//, int run)
 {
 	int		col;
 	int		row;
 	int		i;
+	// t_vec	old;
 	t_vec	color;
 
 	row = 0;
@@ -129,14 +130,20 @@ void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 		while (col < thread->data->width)
 		{
 			pthread_testcancel();
-			color = new_vector(0, 0, 0);
+			// if (run == 1)
+/*-> old*/				color = new_vector(0, 0, 0);
+			// else
+//->				// old = factor_div_vector(color_to_vector(thread->img->pixels[(int)(thread->img->width * row + col)]), run + 1);
+/* i tried to count the runs and divide the old color and add the new on, but the picture is getting darker and darker*/
 			i = 0;
 			while (++i < SAMPLES)
 				color = add_vector(color, ray_color(random_ray(ray, thread->cam, col, row), thread->obj, MAX_DEPTH));
 //following line uses one sample to calculate hard shadow of first light
+			
 			color = add_vector(color, factor_mult_vector(ray_at_light(set_ray(ray, thread->cam, col, row), thread->obj, first_light(thread->obj), MAX_DEPTH), SHADOW));
 			color = factor_mult_vector(color, 1.0 / (double)SAMPLES);
 			color = add_vector(color, *ambient);
+//->			// color = add_vector(factor_mult_vector(old, run), color);
 			pthread_testcancel();
 			put_pixel(thread->img, col, row, color);
 			col += NOT;
@@ -147,16 +154,27 @@ void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 
 void	*thread_routine(void *threads)
 {
-	t_ray			*ray;
-	t_vec			*ambient;
-	t_thread		*thread;
-
+	t_ray		*ray;
+	t_vec		*ambient;
+	t_thread	*thread;
+	int			i;
+	
+	i = 1;
 	thread = (t_thread *)threads;
 	ray = cam_ray(thread->cam);
 	ray->seed = xorshift_random(ray->seed - thread->id);
 	ambient = get_ambient_lighting(thread->obj);
 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-	draw_image(thread, ray, ambient);
+	char c = '0';
+	int w;
+	while(true)
+	{
+		draw_image(thread, ray, ambient);//, i);
+		w = write(2, &c, 1);
+		i++;
+		c++;
+		w++;
+	}
 	ft_free(ambient);
 	ft_free(ray);
 	// pthread_exit(NULL);
