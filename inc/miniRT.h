@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 15:17:19 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/23 09:47:18 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 //Quality Configuration
 # define STEPSIZE 10
-# define MAX_DEPTH 10
-# define SAMPLES 1600
+# define MAX_DEPTH 50
+# define SAMPLES 2000
 # define NOT 12
 
 //Ray Configuration
@@ -130,9 +130,7 @@ typedef struct s_data
 	t_obj			*obj;
 	int				width;
 	int				height;
-	bool			run;
 	t_thread		threads[NOT];
-	pthread_mutex_t	lock;
 }					t_data;
 
 //PARSING
@@ -175,8 +173,6 @@ void		run_mlx(t_data *data);
 int			create_threads(t_data *data);
 int			remove_threads(t_data *data);
 int			cancel_threads(t_data *data);
-int			create_mutexes(t_data *data);
-int			remove_mutexes(t_data *data);
 
 //ERROR
 void		ft_error(t_data *data, int ecase);

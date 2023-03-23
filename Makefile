@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
+#    By: humbi <humbi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/22 14:42:47 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/23 09:42:41 by humbi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror -Ofast
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS	+=	-g -fsanitize=thread
+CFLAGS	+=	-g #-fsanitize=thread
 
 ###			###			LIBRARIES		###			###
 LIBFT_D	:=	./lib/libft
@@ -67,7 +67,7 @@ SRC_F	+=	color.c
 SRC_F	+=	camera.c
 SRC_F	+=	random.c
 SRC_F	+=	keyhooks.c setup.c
-SRC_F	+=	mutex.c threads.c
+SRC_F	+=	threads.c
 SRC_F	+=	ft_error.c cleanup.c
 
 ###			###			OBJECTS			###			###

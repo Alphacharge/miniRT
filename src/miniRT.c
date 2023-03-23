@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 15:45:37 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/23 09:46:01 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ static t_data	*init_data(void)
 	data->mlx = NULL;
 	data->img = NULL;
 	data->cam = NULL;
-	data->run = true;
-	if (create_mutexes(data))
-		cleanup(data, 0);
 	return (data);
 }
 
@@ -53,11 +50,9 @@ int	main(int argc, char **argv)
 		data->cam = setup_cam(data->obj, WIDTH, HEIGHT);
 	if (data->cam == NULL)
 		return(cleanup(data, 2), EXIT_FAILURE);
-	run_mlx(data);
-	pthread_mutex_lock(&data->lock);
 	if (create_threads(data))
 		return(cleanup(data, 3), EXIT_FAILURE);
-	pthread_mutex_unlock(&data->lock);
+	run_mlx(data);
 	if (remove_threads(data))
 		return(cleanup(data, 3), EXIT_FAILURE);
 	cleanup(data, 3);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 15:27:32 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/23 09:41:20 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	escape(t_data *data)
 {
-	// data->run = false;
 	cancel_threads(data);
 	remove_threads(data);
 	sleep(NOT);
-	// cleanup(data, 3);
 	mlx_close_window(data->mlx);
 }
 
@@ -61,7 +59,6 @@ void free_map(t_map *map)
 
 void	cleanup(t_data *data, int lvl)
 {
-	remove_mutexes(data);
 	if (lvl > 0)
 		clean_obj(data->obj);
 	if (lvl > 1)

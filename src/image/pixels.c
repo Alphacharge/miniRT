@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/22 15:43:11 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/23 09:42:18 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,15 +123,11 @@ void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)
 	t_vec	color;
 
 	row = 0;
-pthread_mutex_lock(&thread->data->lock);
-	while (thread->data->run && row < thread->data->height)
+	while (row < thread->data->height)
 	{
-pthread_mutex_unlock(&thread->data->lock);
 		col = thread->id - 1;
-pthread_mutex_lock(&thread->data->lock);
-		while (thread->data->run && col < thread->data->width)
+		while (col < thread->data->width)
 		{
-pthread_mutex_unlock(&thread->data->lock);
 			pthread_testcancel();
 			color = new_vector(0, 0, 0);
 			i = 0;
@@ -142,17 +138,11 @@ pthread_mutex_unlock(&thread->data->lock);
 			color = factor_mult_vector(color, 1.0 / (double)SAMPLES);
 			color = add_vector(color, *ambient);
 			pthread_testcancel();
-pthread_mutex_lock(&thread->data->lock);
 			put_pixel(thread->img, col, row, color);
-pthread_mutex_unlock(&thread->data->lock);
 			col += NOT;
-pthread_mutex_lock(&thread->data->lock);
 		}
-pthread_mutex_unlock(&thread->data->lock);
 		row++;
-pthread_mutex_lock(&thread->data->lock);
 	}
-pthread_mutex_unlock(&thread->data->lock);
 }
 
 void	*thread_routine(void *threads)
@@ -162,15 +152,13 @@ void	*thread_routine(void *threads)
 	t_thread		*thread;
 
 	thread = (t_thread *)threads;
-pthread_mutex_lock(&thread->data->lock);
 	ray = cam_ray(thread->cam);
 	ray->seed = xorshift_random(ray->seed - thread->id);
 	ambient = get_ambient_lighting(thread->obj);
-pthread_mutex_unlock(&thread->data->lock);
 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 	draw_image(thread, ray, ambient);
 	ft_free(ambient);
 	ft_free(ray);
-	pthread_exit(NULL);
+	// pthread_exit(NULL);
 	return (NULL);
 }
