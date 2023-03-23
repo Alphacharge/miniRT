@@ -6,7 +6,7 @@
 /*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 12:51:12 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/23 17:33:06 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
 # define MAX_DEPTH	20		// Amount of Bounce Rays
-# define SAMPLES	25		// Amount of Rays per Pixel
+# define SAMPLES	50		// Amount of Rays per Pixel
 # define NOT		12		// Amount of Threads
 
 //Ray Configuration
@@ -59,7 +59,9 @@ typedef enum e_type
 	CYL,
 	PLN,
 	RES,
-	CIRCLE
+	CIRCLE,
+	RECT,
+	SQUA
 }	t_type;
 
 typedef struct s_vector
@@ -80,9 +82,11 @@ typedef struct s_obj
 {
 	int				type;
 	double			radius;
+	double			width;
 	double			hei_fov;
 	t_vec			origin;
 	t_vec			vector;
+	t_vec			vector2;
 	t_vec			color;
 	struct s_obj	*next;
 }					t_obj;
@@ -154,6 +158,8 @@ void		get_sphere(t_obj *obj, char **split);
 void		get_pln(t_obj *obj, char **split);
 void		get_cyl(t_obj *obj, char **split);
 void		get_circle(t_obj *obj, t_vec vec);
+void		get_rect(t_obj *obj, char **split);
+void		get_square(t_obj *obj, int dir);
 double		ft_atof(char *nbr);
 int			pre_field_check(char *line);
 int			value_check(char *line);
@@ -214,6 +220,7 @@ bool		hit_sphere(t_ray *ray, t_obj *obj);
 bool		hit_plane(t_ray *ray, t_obj *obj);
 bool		hit_cylinder(t_ray *ray, t_obj *obj);
 bool		hit_circle(t_ray *ray, t_obj *obj);
+bool		hit_square(t_ray *ray, t_obj *obj);
 
 //CAMERA
 t_cam		*setup_cam(t_obj *obj, int width, int height);

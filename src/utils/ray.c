@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/20 20:34:27 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/23 17:22:54 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 		else if (obj->type == CYL && hit_cylinder(ray, obj) == true)
 			hit_anything = true;
 		else if (obj->type == CIRCLE && hit_circle(ray, obj) == true)
+			hit_anything = true;
+		else if (obj->type == SQUA && hit_square(ray, obj) == true)
 			hit_anything = true;
 		obj = obj->next;
 	}

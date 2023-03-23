@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 15:19:54 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/23 16:03:48 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	fill_obj(t_obj	*obj, char **split)
 		get_pln(obj, split);
 	else if (!ft_strcmp(split[0], "CY"))
 		get_cyl(obj, split);
+	else if (!ft_strcmp(split[0], "RECT"))
+		get_rect(obj, split);
 	else
 		obj->type = -1;
 }
