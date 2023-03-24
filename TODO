@@ -16,3 +16,15 @@ fixed:
 
 WIP:
 - spot light/hard shadow
+
+boni:
+- soft shadows
+- gobal illumination
+- box
+- sky (+illumination)
+- progressive sampling
+- multi-threading
+- multiple light sources
+- colored light
+- inside and outside normals
+- camera movement

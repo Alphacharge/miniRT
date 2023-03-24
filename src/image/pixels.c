@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/24 18:46:33 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/24 19:39:01 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ void	draw_single_image(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *imag
 		while (col < thread->data->width)
 		{
 			color = ray_at_light(set_ray(ray, thread->cam, col, row), thread->obj, first_light(thread->obj), MAX_DEPTH);
+			// image[i++] = color;
 			image[i++] = color_clamp(color);
 			color = add_vector(color, *ambient);
 			put_pixel(thread->img, col, row, color);
@@ -190,7 +191,7 @@ void	*thread_routine(void *threads)
 		i++;
 		ray->seed = xorshift_random(ray->seed + mlx_get_time());
 		if (i % 100 == 0)
-			printf("thread %i: %i. sample\n", thread->id, i);
+			printf("thread %i: sample %i\n", thread->id, i);
 	}
 	ft_free(ambient);
 	ft_free(ray);
