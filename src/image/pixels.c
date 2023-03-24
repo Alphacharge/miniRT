@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/24 19:39:01 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/24 19:46:05 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,12 +184,12 @@ void	*thread_routine(void *threads)
 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 	image = ft_calloc(sizeof(t_vec), thread->data->width / NOT * thread->data->height);
 	draw_single_image(thread, ray, ambient, image);
-	while (1)
+	while (SOFT_SHADOW == true)
 	{
 		thread->runs++;
 		draw_image(thread, ray, ambient, image);
 		i++;
-		ray->seed = xorshift_random(ray->seed + mlx_get_time());
+		ray->seed = xslcg_random(ray->seed + mlx_get_time());
 		if (i % 100 == 0)
 			printf("thread %i: sample %i\n", thread->id, i);
 	}

@@ -7,15 +7,13 @@
 - rouven free bidde deine map->file[i] :P
 - check image resolution parsing
 - deterministic sampler only uses first light
-- red pixels (might be fixed, division by zero)
 
 fixed:
 - multithreading
 - cylinder backside
 - check double renedring
-
-WIP:
-- spot light/hard shadow
+- red pixels
+- spot light/hard shadow - needs fixing to not reflect itself
 
 boni:
 - soft shadows

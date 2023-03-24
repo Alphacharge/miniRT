@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/24 18:14:37 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/24 20:28:21 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,19 @@ t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 	return (new_vector(0, 0, 0));
 }
 
+t_vec	lambert_color(t_vec light_color, t_vec object_color, t_vec face_normal, t_vec to_light)
+{
+	t_vec	color;
+	t_vec	attenuation;
+
+	attenuation = factor_mult_vector(object_color, ALBEDO);
+	color = multiply_vector(attenuation, light_color);
+	// color = multiply_vector(object_color, light_color);
+	color = color_clamp(color);
+	color = factor_mult_vector(color, sin(scalar_vector(face_normal, to_light)));
+	return (color);
+}
+
 t_vec	ray_at_light(t_ray *ray, t_obj *obj, t_obj *light, int depth)
 {
 	t_ray		bounce;
@@ -155,8 +168,10 @@ t_vec	ray_at_light(t_ray *ray, t_obj *obj, t_obj *light, int depth)
 			return (ray->closest_object->color);
 		bounce.origin = point_at(*ray, ray->closest_t);
 		bounce.direction = unit_vector(subtract_vector(light->origin, bounce.origin));
+		if (scalar_vector(bounce.direction, ray->normal) < 0)
+			return (new_vector(0, 0, 0));
 		if (front_facing(*ray) == true)
-			return (combine_colors(ray_color(&bounce, obj, depth - 1), ray->closest_object->color));
+			return (lambert_color(ray_at_light(&bounce, obj, light, depth - 1), ray->closest_object->color, ray->normal, bounce.direction));
 		else
 			return (new_vector(0, 1, 0));
 	}

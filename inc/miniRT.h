@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/24 18:27:15 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/24 20:29:07 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@
 
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
-# define MAX_DEPTH	20		// Amount of Bounce Rays
-# define SAMPLES	25		// Amount of Rays per Pixel
+# define MAX_DEPTH	50		// Amount of Bounce Rays
 # define NOT		10		// Amount of Threads
 
 //Ray Configuration
@@ -37,11 +36,11 @@
 # define T_MAX __DBL_MAX__
 
 //Color and Light Configuration
-# define SKY			1		//toggle background
+# define SKY			0		//toggle background
 # define LIGHT_RADIUS	15		//point light radius
-# define ALBEDO			0.7		//material absorption rate
-# define SHADOW			0.1		//not used right now
-# define REFLEXION		1		//set reflectivity
+# define ALBEDO			0.18		//material absorption rate
+# define REFLEXION		1		//set reflectivity, unused
+# define SOFT_SHADOW	1		//toggles soft shadows
 
 //Debugging
 # define MLX 1
@@ -226,6 +225,7 @@ int			add_color(int c1, int c2);
 int			gamma_correction(t_vec color);
 t_vec		color_to_vector(uint32_t rgba);
 int			vector_to_color(t_vec color);
+t_vec	color_clamp(t_vec color);
 
 //UTILS
 void		*ft_free(void *pointer);
