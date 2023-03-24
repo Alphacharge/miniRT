@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/20 20:34:27 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:14:37 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 		if (ray->closest_object->type == LIGHT)
 			return (ray->closest_object->color);
 		bounce.origin = point_at(*ray, ray->closest_t);
-		// target = add_vector(bounce.origin, rand_in_hemisphere(ray->seed, ray->normal));
-		target = add_vector(bounce.origin, add_vector(ray->normal, factor_mult_vector(rand_in_hemisphere(ray->seed, ray->normal), REFLEXION)));
+		target = add_vector(bounce.origin, rand_in_hemisphere(ray->seed, ray->normal));
+		// target = add_vector(bounce.origin, add_vector(ray->normal, factor_mult_vector(rand_in_hemisphere(ray->seed, ray->normal), REFLEXION)));
 		ray->seed = lcg_random(ray->seed);
 		bounce.direction = unit_vector(subtract_vector(target, bounce.origin));
 		if (front_facing(*ray) == true)
@@ -137,7 +137,7 @@ t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 		else
 			return (new_vector(0, 1, 0));
 	}
-	if (BACKGROUND == true)
+	if (SKY == true)
 		return (gradient(ray));
 	return (new_vector(0, 0, 0));
 }
@@ -160,7 +160,7 @@ t_vec	ray_at_light(t_ray *ray, t_obj *obj, t_obj *light, int depth)
 		else
 			return (new_vector(0, 1, 0));
 	}
-	if (BACKGROUND == true)
+	if (SKY == true)
 		return (gradient(ray));
 	return (new_vector(0, 0, 0));
 }

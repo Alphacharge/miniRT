@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:47:34 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 12:29:26 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/24 14:59:29 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ mlx_t	*mlx_setup(t_obj *obj, t_data *data)
 
 	while (obj && obj->type != RES)
 		obj = obj->next;
-	if (obj == NULL)
+	if (obj != NULL)
 	{
 		data->width = obj->radius;
 		data->height = obj->hei_fov;

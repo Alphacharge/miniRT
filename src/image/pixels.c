@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/23 13:46:17 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/24 18:46:33 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,36 +115,51 @@ t_obj	*first_light(t_obj *list)
 	return (list);
 }
 
-void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient)//, int run)
+void	draw_image(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
 {
 	int		col;
 	int		row;
-	int		i;
-	// t_vec	old;
 	t_vec	color;
+	int		i;
 
+	i = 0;
+	row = 0;
+	while (row < thread->data->height)
+	{
+		pthread_testcancel();
+		col = thread->id - 1;
+		while (col < thread->data->width)
+		{
+			color = ray_color(random_ray(ray, thread->cam, col, row), thread->obj, MAX_DEPTH);
+			color = add_vector(factor_mult_vector(image[i], thread->runs), color);
+			color = factor_div_vector(color, thread->runs + 1);
+			image[i] = color;
+			color = add_vector(color, *ambient);
+			put_pixel(thread->img, col, row, color);
+			col += NOT;
+			i++;
+		}
+		row++;
+	}
+}
+
+void	draw_single_image(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
+{
+	int		col;
+	int		row;
+	t_vec	color;
+	int		i;
+
+	i = 0;
 	row = 0;
 	while (row < thread->data->height)
 	{
 		col = thread->id - 1;
 		while (col < thread->data->width)
 		{
-			pthread_testcancel();
-			// if (run == 1)
-/*-> old*/				color = new_vector(0, 0, 0);
-			// else
-//->				// old = factor_div_vector(color_to_vector(thread->img->pixels[(int)(thread->img->width * row + col)]), run + 1);
-/* i tried to count the runs and divide the old color and add the new on, but the picture is getting darker and darker*/
-			i = 0;
-			while (++i < SAMPLES)
-				color = add_vector(color, ray_color(random_ray(ray, thread->cam, col, row), thread->obj, MAX_DEPTH));
-//following line uses one sample to calculate hard shadow of first light
-			
-			color = add_vector(color, factor_mult_vector(ray_at_light(set_ray(ray, thread->cam, col, row), thread->obj, first_light(thread->obj), MAX_DEPTH), SHADOW));
-			color = factor_mult_vector(color, 1.0 / (double)SAMPLES);
+			color = ray_at_light(set_ray(ray, thread->cam, col, row), thread->obj, first_light(thread->obj), MAX_DEPTH);
+			image[i++] = color_clamp(color);
 			color = add_vector(color, *ambient);
-//->			// color = add_vector(factor_mult_vector(old, run), color);
-			pthread_testcancel();
 			put_pixel(thread->img, col, row, color);
 			col += NOT;
 		}
@@ -158,25 +173,27 @@ void	*thread_routine(void *threads)
 	t_vec		*ambient;
 	t_thread	*thread;
 	int			i;
-	
-	i = 1;
+	t_vec		*image;
+
+	i = 0;
 	thread = (t_thread *)threads;
 	ray = cam_ray(thread->cam);
-	ray->seed = xorshift_random(ray->seed - thread->id);
+	ray->seed = xslcg_random(ray->seed + thread->id);
 	ambient = get_ambient_lighting(thread->obj);
 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-	char c = '0';
-	int w;
-	while(true)
+	image = ft_calloc(sizeof(t_vec), thread->data->width / NOT * thread->data->height);
+	draw_single_image(thread, ray, ambient, image);
+	while (1)
 	{
-		draw_image(thread, ray, ambient);//, i);
-		w = write(2, &c, 1);
+		thread->runs++;
+		draw_image(thread, ray, ambient, image);
 		i++;
-		c++;
-		w++;
+		ray->seed = xorshift_random(ray->seed + mlx_get_time());
+		if (i % 100 == 0)
+			printf("thread %i: %i. sample\n", thread->id, i);
 	}
 	ft_free(ambient);
 	ft_free(ray);
-	// pthread_exit(NULL);
+	free(image);
 	return (NULL);
 }

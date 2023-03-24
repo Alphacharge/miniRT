@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 12:51:12 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/24 18:27:15 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
 # define MAX_DEPTH	20		// Amount of Bounce Rays
 # define SAMPLES	25		// Amount of Rays per Pixel
-# define NOT		12		// Amount of Threads
+# define NOT		10		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
 
 //Color and Light Configuration
-# define BACKGROUND		0
-# define LIGHT_RADIUS	15
-# define ALBEDO			0.7
-# define SHADOW			0.2
-# define REFLEXION		1
+# define SKY			1		//toggle background
+# define LIGHT_RADIUS	15		//point light radius
+# define ALBEDO			0.7		//material absorption rate
+# define SHADOW			0.1		//not used right now
+# define REFLEXION		1		//set reflectivity
 
 //Debugging
 # define MLX 1
@@ -122,6 +122,7 @@ typedef struct s_thread
 	t_cam			*cam;
 	t_obj			*obj;
 	struct s_data	*data;
+	int				runs;
 }					t_thread;
 
 typedef struct s_data

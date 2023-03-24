@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:19:16 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 11:01:21 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/24 16:37:39 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	create_threads(t_data *data)
 		data->threads[i].obj = data->obj;
 		data->threads[i].mlx = data->mlx;
 		data->threads[i].data = data;
+		data->threads[i].runs = 1;
 		if (pthread_create(&data->threads[i].pid, NULL, &thread_routine, \
 			(void *)&data->threads[i]) != 0)
 			return (error_message(15), 1);

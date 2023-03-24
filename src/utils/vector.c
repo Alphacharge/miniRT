@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:19:27 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/20 20:06:21 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:40:18 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ t_vec	factor_div_vector(t_vec v1, double f)
 {
 	t_vec	vector;
 
+	if (f == 0.0)
+		return (v1);
 	vector.x = v1.x / f;
 	vector.y = v1.y / f;
 	vector.z = v1.z / f;
