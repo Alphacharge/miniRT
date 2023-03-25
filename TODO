@@ -4,11 +4,11 @@
 - performance checks
 - norm
 - race conditions
-- rouven free bidde deine map->file[i] :P
-- check image resolution parsing
 - deterministic sampler only uses first light
 
 fixed:
+- check image resolution parsing
+- rouven free bidde deine map->file[i] :P
 - multithreading
 - cylinder backside
 - check double renedring

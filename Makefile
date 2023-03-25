@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: humbi <humbi@student.42.fr>                +#+  +:+       +#+         #
+#    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/23 09:42:41 by humbi            ###   ########.fr        #
+#    Updated: 2023/03/25 18:38:04 by fkernbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,26 +49,50 @@ else
 endif
 
 ###			###			SOURCES			###			###
-VPATH	:=	src/ src/parsing/ src/utils src/camera src/error src/image \
-			src/objects src/mlx src/threads
+VPATH	:=	src/ \
+			src/camera \
+			src/parsing \
+			src/color \
+			src/intersection \
+			src/light \
+			src/memory \
+			src/mlx \
+			src/parsing \
+			src/ray \
+			src/rendering \
+			src/threads \
+			src/utils \
+			src/vector
 
 SRC_F	:=	miniRT.c
+
+SRC_F	+=	camera.c
+
+SRC_F	+=	color.c
+
+SRC_F	+=	hit_sphere.c hit_plane.c hit_cylinder.c hit_circle.c
+
+SRC_F	+=	ambient_light.c
+
+SRC_F	+=	ft_error.c cleanup.c
+
+SRC_F	+=	keyhooks.c setup.c
+
 SRC_F	+=	file_parsing.c print_map.c file_utils.c
 SRC_F	+=	line_parsing.c ft_split_p.c ft_atof.c
 SRC_F	+=	pre_field_check.c line_utils.c pars_error.c
 SRC_F	+=	get_resolution.c get_camera.c get_ambient.c get_light.c
 SRC_F	+=	get_sphere.c get_plane.c get_cylinder.c get_circle.c
-SRC_F	+=	hit_sphere.c hit_plane.c hit_cylinder.c hit_circle.c
-SRC_F	+=	pixels.c
+
 SRC_F	+=	ray.c
-SRC_F	+=	vector.c
-SRC_F	+=	free.c
-SRC_F	+=	color.c
-SRC_F	+=	camera.c
-SRC_F	+=	random.c
-SRC_F	+=	keyhooks.c setup.c
+
+SRC_F	+=	hard_shadow.c soft_shadow.c render.c
+
 SRC_F	+=	threads.c
-SRC_F	+=	ft_error.c cleanup.c
+
+SRC_F	+=	free.c random.c
+
+SRC_F	+=	vector.c arithmetics.c unit_vector.c vector_ops.c
 
 ###			###			OBJECTS			###			###
 OBJ_D	:=	./obj

@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/24 16:25:38 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:24:12 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	escape(t_data *data)
 {
 	cancel_threads(data);
 	remove_threads(data);
-	// sleep(NOT);
-	mlx_close_window(data->mlx);
+	if (MLX == true)
+		mlx_close_window(data->mlx);
 }
 
 void	clean_obj(t_obj *obj)

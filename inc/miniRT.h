@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/24 20:29:07 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:57:05 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
-# define MAX_DEPTH	50		// Amount of Bounce Rays
+# define MAX_DEPTH	10		// Amount of Bounce Rays
 # define NOT		10		// Amount of Threads
 
 //Ray Configuration
@@ -36,9 +36,9 @@
 # define T_MAX __DBL_MAX__
 
 //Color and Light Configuration
-# define SKY			0		//toggle background
+# define SKY			1		//toggle background
 # define LIGHT_RADIUS	15		//point light radius
-# define ALBEDO			0.18		//material absorption rate
+# define ALBEDO			0.9		//material absorption rate
 # define REFLEXION		1		//set reflectivity, unused
 # define SOFT_SHADOW	1		//toggles soft shadows
 
@@ -163,8 +163,11 @@ void		print_error(char *str, int type, int i, char *field);
 char		**def_color(void);
 void		print_syntax_error(t_obj *obj, char *str);
 
-//IMAGE
+//RENDERING
 void		*thread_routine(void *threads);
+bool		hit_object(t_ray *ray, t_obj *obj);
+t_vec	*get_ambient_lighting(t_obj *obj);
+t_vec	gradient(t_ray *ray);
 
 //MLX
 void		my_keyhook(mlx_key_data_t keydata, void *param);
@@ -186,10 +189,14 @@ void		escape(t_data *data);
 void		free_map(t_map *map);
 
 //RAY UTILS
-t_ray		new_ray(void);
+t_ray	new_ray(void);
+bool	front_facing(t_ray ray);
 t_vec		ray_color(t_ray *ray, t_obj *obj, int depth);
-t_vec		ray_at_light(t_ray *ray, t_obj *obj, t_obj *light, int depth);
+t_vec		ray_at_light(t_ray *ray, t_obj *obj, t_obj *light);
 t_vec		point_at(t_ray ray, double t);
+t_ray	*set_ray(t_ray *ray, t_cam *cam, double col, double row);
+t_ray	*random_ray(t_ray *ray, t_cam *cam, int col, int row);
+t_ray	*cam_ray(t_cam *cam);
 
 //VECTOR UTILS
 t_vec		new_vector(double x, double y, double z);
@@ -225,7 +232,7 @@ int			add_color(int c1, int c2);
 int			gamma_correction(t_vec color);
 t_vec		color_to_vector(uint32_t rgba);
 int			vector_to_color(t_vec color);
-t_vec	color_clamp(t_vec color);
+t_vec		color_clamp(t_vec color);
 
 //UTILS
 void		*ft_free(void *pointer);
