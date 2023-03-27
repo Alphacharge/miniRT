@@ -6,7 +6,7 @@
 /*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 16:24:31 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/27 15:52:16 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	get_rect(t_obj *obj, char **split)
 		printf("Rectangle Color (%s) Syntax Error\n", split[7]);
 	if (obj && split && split[1] && split[2] && split[3] && split[4] && split[5] && split[6] && split[7])
 	{
+		obj->type = RECT;
 		tmp = ft_split_p(split[1], ',');
 		if (vector_check(POS, tmp, obj->type))
 			obj->origin = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
