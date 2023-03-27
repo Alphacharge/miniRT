@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pixels.c                                           :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/25 17:52:01 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:55:19 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
 	row = 0;
 	while (row < thread->data->height)
 	{
-		pthread_testcancel();
 		col = thread->id - 1;
 		while (col < thread->data->width)
 		{
+			pthread_testcancel();
 			ray = random_ray(ray, thread->cam, col, row);
 			color = ray_color(ray, thread->obj, MAX_DEPTH);
 			image[i] = factor_mult_vector(image[i], thread->runs);
@@ -52,6 +52,7 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
 			color = factor_div_vector(color, thread->runs + 1);
 			image[i++] = color;
 			color = add_vector(color, *ambient);
+			pthread_testcancel();
 			put_pixel(thread->img, col, row, color);
 			col += NOT;
 		}
