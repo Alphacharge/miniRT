@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/27 18:05:16 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:27:52 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	*thread_routine(void *threads)
 	{
 		thread->runs++;
 		soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
-		thread->ray->seed = xslcg_random(thread->ray->seed + (int)&thread->ambient);
+		thread->ray->seed = xslcg_random(thread->ray->seed);
 		// if (thread->runs % 10 == 0)
 		// 	printf("%i: run %i\n", thread->id, thread->runs);
 	}

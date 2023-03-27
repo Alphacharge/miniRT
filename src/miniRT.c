@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 16:22:07 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:27:13 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,11 @@ int	main(int argc, char **argv)
 	data->img = img_setup(data->mlx);
 	if (data->img == NULL && MLX == true)
 		return (cleanup(data, 2), EXIT_FAILURE);
-	if (data->mlx != NULL)
-		data->cam = setup_cam(data->obj, data->img->width, data->img->height);
-	else
-		data->cam = setup_cam(data->obj, WIDTH, HEIGHT);
+	data->cam = setup_cam(data->obj, data->width, data->height);
 	if (data->cam == NULL)
 		return (cleanup(data, 2), EXIT_FAILURE);
 	printf("Starting threads.\n");
-	if (create_threads(data))
+	if (create_threads(data) != 0)
 		return (cleanup(data, 3), EXIT_FAILURE);
 	run_mlx(data);
 	printf("Freeing memory.\n");

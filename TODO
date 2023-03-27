@@ -3,6 +3,7 @@
 - performance checks
 - norm
 - deterministic sampler only uses first light
+- window freezes if X is clicked
 
 fixed:
 - fix leaks
