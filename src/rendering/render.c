@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/27 19:27:52 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:41:19 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	put_pixel(mlx_image_t *img, int x, int y, t_vec color)
 /*Returns first light object.*/
 t_obj	*first_light(t_obj *list)
 {
-	//placeholder function?
 	while (list != NULL && list->type != LIGHT)
 		list = list->next;
 	return (list);
@@ -75,9 +74,9 @@ void	hard_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *pixels)
 		while (col < thread->data->width)
 		{
 			ray = set_ray(ray, thread->data->cam, col, row);
-			color = ray_at_light(ray, thread->data->obj, first_light(thread->data->obj));	//could enter a loop for all lights here
-			// pixels[i++] = color;
-			pixels[i++] = color_clamp(color);	//clamping seems necessary
+			color = ray_at_light(ray, thread->data->obj, \
+				first_light(thread->data->obj));
+			pixels[i++] = color;
 			color = add_vector(color, *ambient);
 			put_pixel(thread->data->img, col, row, color);
 			col += NOT;
@@ -99,8 +98,6 @@ void	*thread_routine(void *threads)
 		thread->runs++;
 		soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
 		thread->ray->seed = xslcg_random(thread->ray->seed);
-		// if (thread->runs % 10 == 0)
-		// 	printf("%i: run %i\n", thread->id, thread->runs);
 	}
 	return (NULL);
 }

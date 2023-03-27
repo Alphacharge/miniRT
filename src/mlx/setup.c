@@ -6,37 +6,11 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:47:34 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 16:22:00 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:45:05 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-mlx_t	*mlx_setup(t_obj *obj, t_data *data)
-{
-	mlx_t	*mlx;
-
-	while (obj && obj->type != RES)
-		obj = obj->next;
-	if (obj != NULL)
-	{
-		data->width = obj->radius;
-		data->height = obj->hei_fov;
-	}
-	else
-	{
-		data->width = WIDTH;
-		data->height = HEIGHT;
-	}
-	if (MLX == false)
-		return (NULL);
-	mlx = mlx_init((int32_t)data->width, (int32_t)data->height, \
-		"miniRT", false);
-	if (mlx == NULL)
-		return (error_message(2), NULL);
-	mlx_set_window_pos(mlx, 10, 10);
-	return (mlx);
-}
 
 mlx_image_t	*img_setup(mlx_t *mlx)
 {
@@ -52,6 +26,33 @@ mlx_image_t	*img_setup(mlx_t *mlx)
 	ft_memset(img->pixels, 0, (mlx->width * mlx->height * sizeof(uint32_t)));
 	mlx_image_to_window(mlx, img, 0, 0);
 	return (img);
+}
+
+int	mlx_setup(t_obj *obj, t_data *data)
+{
+	mlx_t	*mlx;
+
+	while (obj && obj->type != RES)
+		obj = obj->next;
+	data->width = WIDTH;
+	data->height = HEIGHT;
+	if (obj != NULL)
+	{
+		data->width = obj->radius;
+		data->height = obj->hei_fov;
+	}
+	if (MLX == false)
+		return (0);
+	mlx = mlx_init((int32_t)data->width, (int32_t)data->height, \
+		"miniRT", false);
+	if (mlx == NULL)
+		return (error_message(2), 1);
+	mlx_set_window_pos(mlx, 10, 10);
+	data->mlx = mlx;
+	data->img = img_setup(mlx);
+	if (data->img == NULL)
+		return (mlx_terminate(mlx), 1);
+	return (0);
 }
 
 void	run_mlx(t_data *data)

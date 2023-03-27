@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:01:32 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/25 18:02:25 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:59:36 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ double	scalar_vector(t_vec v1, t_vec v2)
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-/*Cross product of two vectors returns normal vector.
-The absolute value of this vector is also the surface area of the two vectors.*/
+/*Cross product of two vectors returns normal vector. The absolute value
+of this vector is also the surface area of the two vectors.*/
 t_vec	cross_vector(t_vec v1, t_vec v2)
 {
 	t_vec	vector;

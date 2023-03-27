@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:03:29 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/27 18:12:04 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:32:29 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ t_vec	rand_in_unit_sphere(int seed)
 		rand_vec = random_vector((unsigned int)seed);
 		seed = xorshift_random(seed);
 		if (length_squared(rand_vec) < 1)
-			return (rand_vec);	//try returning unit vector instead?
-		//return (unit_vector(rand_vec));
+			return (unit_vector(rand_vec));
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:15:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/27 18:00:23 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:01:04 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,6 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 	return (hit_anything);
 }
 
-/*Sphere sampling:
-		bounce.origin = point_at(*ray, ray->closest_t);
-		target = add_vector(bounce.origin, ray->normal);
-		seed = lcg_random(seed);
-		target = add_vector(target, unit_vector(rand_in_unit_sphere(seed)));
-		bounce.direction = subtract_vector(target, bounce.origin);
-Hemisphere sampling:
-		bounce.origin = point_at(*ray, ray->closest_t);
-		target = add_vector(bounce.origin, rand_in_hemisphere(seed, ray->normal));
-		seed = lcg_random(seed);
-		bounce.direction = unit_vector(subtract_vector(target, bounce.origin));
-*/
 t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 {
 	t_vec		target;
@@ -95,11 +83,13 @@ t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 		if (ray->closest_object->type == LIGHT)
 			return (ray->closest_object->color);
 		bounce.origin = point_at(*ray, ray->closest_t);
-		target = add_vector(bounce.origin, rand_in_hemisphere(ray->seed, ray->normal));
+		target = add_vector \
+			(bounce.origin, rand_in_hemisphere(ray->seed, ray->normal));
 		ray->seed = xorshift_random(ray->seed);
 		bounce.direction = unit_vector(subtract_vector(target, bounce.origin));
 		if (front_facing(*ray) == true)
-			return (combine_colors(ray_color(&bounce, obj, depth - 1), ray->closest_object->color));
+			return (combine_colors(ray_color(&bounce, obj, depth - 1), \
+				ray->closest_object->color));
 		else
 			return (new_vector(0, 1, 0));
 	}

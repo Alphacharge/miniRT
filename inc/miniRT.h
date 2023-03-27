@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 19:10:03 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:01:47 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
-# define MAX_DEPTH	10		// Amount of Bounce Rays
+# define MAX_DEPTH	20		// Amount of Bounce Rays
 # define NOT		10		// Amount of Threads
 
 //Ray Configuration
@@ -38,7 +38,7 @@
 //Color and Light Configuration
 # define SKY			0		//toggle background
 # define LIGHT_RADIUS	15		//point light radius
-# define ALBEDO			0.9		//material absorption rate
+# define ALBEDO			0.7		//material absorption rate
 # define REFLEXION		1		//set reflectivity, unused
 # define SOFT_SHADOW	1		//toggles soft shadows
 
@@ -116,10 +116,6 @@ typedef struct s_thread
 {
 	int				id;
 	pthread_t		pid;
-	// mlx_t			*mlx;
-	// mlx_image_t		*img;
-	// t_cam			*cam;
-	// t_obj			*obj;
 	struct s_data	*data;
 	int				runs;
 	t_vec			*pixels;
@@ -169,13 +165,12 @@ void		print_syntax_error(t_obj *obj, char *str);
 //RENDERING
 void		*thread_routine(void *threads);
 bool		hit_object(t_ray *ray, t_obj *obj);
-t_vec	*get_ambient_lighting(t_obj *obj);
-t_vec	gradient(t_ray *ray);
+t_vec		*get_ambient_lighting(t_obj *obj);
+t_vec		gradient(t_ray *ray);
 
 //MLX
 void		my_keyhook(mlx_key_data_t keydata, void *param);
-mlx_t		*mlx_setup(t_obj *obj, t_data *data);
-mlx_image_t	*img_setup(mlx_t *mlx);
+int			mlx_setup(t_obj *obj, t_data *data);
 void		run_mlx(t_data *data);
 
 //MULTITHREADING
@@ -192,14 +187,14 @@ void		escape(t_data *data);
 void		free_map(t_map *map);
 
 //RAY UTILS
-t_ray	bounce_ray(t_ray *original);
-bool	front_facing(t_ray ray);
+t_ray		bounce_ray(t_ray *original);
+bool		front_facing(t_ray ray);
 t_vec		ray_color(t_ray *ray, t_obj *obj, int depth);
 t_vec		ray_at_light(t_ray *ray, t_obj *obj, t_obj *light);
 t_vec		point_at(t_ray ray, double t);
-t_ray	*set_ray(t_ray *ray, t_cam *cam, double col, double row);
-t_ray	*random_ray(t_ray *ray, t_cam *cam, int col, int row);
-t_ray	*cam_ray(t_cam *cam);
+t_ray		*set_ray(t_ray *ray, t_cam *cam, double col, double row);
+t_ray		*random_ray(t_ray *ray, t_cam *cam, int col, int row);
+t_ray		*cam_ray(t_cam *cam);
 
 //VECTOR UTILS
 t_vec		new_vector(double x, double y, double z);

@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 19:27:13 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:51:01 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,30 @@ static t_data	*init_data(void)
 	return (data);
 }
 
-int	main(int argc, char **argv)
+t_data	*parse(int argc, char **argv)
 {
 	t_data	*data;
 
 	data = init_data();
 	data->map = check_input(argc, argv);
 	if (data->map == NULL)
-		return (cleanup(data, 0), EXIT_FAILURE);
+		return (cleanup(data, 0), NULL);
 	data->obj = create_obj(data->map);
 	if (data->obj == NULL)
-		return (cleanup(data, 0), EXIT_FAILURE);
+		return (cleanup(data, 0), NULL);
 	printf("Parsing done.\n");
-	data->mlx = mlx_setup(data->obj, data);
-	if (data->mlx == NULL && MLX == true)
-		return (cleanup(data, 1), EXIT_FAILURE);
-	data->img = img_setup(data->mlx);
-	if (data->img == NULL && MLX == true)
-		return (cleanup(data, 2), EXIT_FAILURE);
+	return (data);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data	*data;
+
+	data = parse(argc, argv);
+	if (data == NULL)
+		return (EXIT_FAILURE);
+	if (mlx_setup(data->obj, data) != 0)
+		return (cleanup(data, 0), EXIT_FAILURE);
 	data->cam = setup_cam(data->obj, data->width, data->height);
 	if (data->cam == NULL)
 		return (cleanup(data, 2), EXIT_FAILURE);

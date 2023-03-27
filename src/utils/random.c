@@ -6,15 +6,11 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:14:24 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/27 17:49:50 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:33:13 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-#include <stdio.h>
-
-
 
 int	xorshift_random(int seed)
 {
