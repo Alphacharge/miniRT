@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:47:34 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/24 14:59:29 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:22:00 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,11 @@ mlx_image_t	*img_setup(mlx_t *mlx)
 void	run_mlx(t_data *data)
 {
 	if (MLX == false || data->mlx == NULL)
+	{
+		sleep(100);
+		escape(data);
 		return ;
+	}
 	mlx_key_hook(data->mlx, &my_keyhook, data);
 	mlx_loop(data->mlx);
 }

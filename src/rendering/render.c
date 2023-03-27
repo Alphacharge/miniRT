@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/27 13:55:19 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/27 18:05:16 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_obj	*first_light(t_obj *list)
 }
 
 /*Will calculate the scene with stochastic sampling, GI and soft shadows.*/
-void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
+void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *pixels)
 {
 	int		col;
 	int		row;
@@ -42,18 +42,17 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
 	while (row < thread->data->height)
 	{
 		col = thread->id - 1;
+		pthread_testcancel();
 		while (col < thread->data->width)
 		{
-			pthread_testcancel();
-			ray = random_ray(ray, thread->cam, col, row);
-			color = ray_color(ray, thread->obj, MAX_DEPTH);
-			image[i] = factor_mult_vector(image[i], thread->runs);
-			color = add_vector(image[i], color);
+			ray = random_ray(ray, thread->data->cam, col, row);
+			color = ray_color(ray, thread->data->obj, MAX_DEPTH);
+			pixels[i] = factor_mult_vector(pixels[i], thread->runs);
+			color = add_vector(pixels[i], color);
 			color = factor_div_vector(color, thread->runs + 1);
-			image[i++] = color;
+			pixels[i++] = color;
 			color = add_vector(color, *ambient);
-			pthread_testcancel();
-			put_pixel(thread->img, col, row, color);
+			put_pixel(thread->data->img, col, row, color);
 			col += NOT;
 		}
 		row++;
@@ -61,7 +60,7 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
 }
 
 /*Will calculate the scene with only direct light and hard shadows.*/
-void	hard_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
+void	hard_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *pixels)
 {
 	int		col;
 	int		row;
@@ -75,12 +74,12 @@ void	hard_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
 		col = thread->id - 1;
 		while (col < thread->data->width)
 		{
-			ray = set_ray(ray, thread->cam, col, row);
-			color = ray_at_light(ray, thread->obj, first_light(thread->obj));	//could enter a loop for all lights here
-			// image[i++] = color;
-			image[i++] = color_clamp(color);	//clamping seems necessary
+			ray = set_ray(ray, thread->data->cam, col, row);
+			color = ray_at_light(ray, thread->data->obj, first_light(thread->data->obj));	//could enter a loop for all lights here
+			// pixels[i++] = color;
+			pixels[i++] = color_clamp(color);	//clamping seems necessary
 			color = add_vector(color, *ambient);
-			put_pixel(thread->img, col, row, color);
+			put_pixel(thread->data->img, col, row, color);
 			col += NOT;
 		}
 		row++;
@@ -91,27 +90,17 @@ void	hard_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *image)
 void	*thread_routine(void *threads)
 {
 	t_thread	*thread;
-	t_ray		*ray;
-	t_vec		*ambient;
-	t_vec		*image;
 
 	thread = (t_thread *)threads;
-	ray = cam_ray(thread->cam);
-	ambient = get_ambient_lighting(thread->obj);
-	image = ft_calloc(sizeof(t_vec), (thread->data->width / NOT + (thread->data->width % NOT) / thread->id) * thread->data->height);
-	if (ray == NULL || ambient == NULL || image == NULL)
-		return (ft_free(ray), ft_free(ambient), ft_free(image));
-	ray->seed = xslcg_random(ray->seed + thread->id);
-	hard_shadow(thread, ray, ambient, image);
+	hard_shadow(thread, thread->ray, thread->ambient, thread->pixels);
 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 	while (SOFT_SHADOW == true)
 	{
 		thread->runs++;
-		soft_shadow(thread, ray, ambient, image);
-		ray->seed = xslcg_random(ray->seed + mlx_get_time());
+		soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
+		thread->ray->seed = xslcg_random(thread->ray->seed + (int)&thread->ambient);
+		// if (thread->runs % 10 == 0)
+		// 	printf("%i: run %i\n", thread->id, thread->runs);
 	}
-	ft_free(ambient);
-	ft_free(ray);
-	free(image);
 	return (NULL);
 }

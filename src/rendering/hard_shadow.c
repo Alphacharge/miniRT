@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:13:37 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/25 18:40:49 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:07:23 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vec	ray_at_light(t_ray *ray, t_obj *obj, t_obj *light)
 {
 	t_ray		bounce;
 
-	bounce = new_ray();
+	bounce = bounce_ray(ray);
 	if (hit_object(ray, obj) == true)
 	{
 		if (ray->closest_object->type == LIGHT)

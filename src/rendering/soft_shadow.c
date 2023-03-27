@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:15:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/25 18:20:41 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:00:23 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 	t_vec		target;
 	t_ray		bounce;
 
-	bounce = new_ray();
+	bounce = bounce_ray(ray);
 	if (depth <= 0)
 		return (new_vector(0, 0, 0));
 	if (hit_object(ray, obj) == true)
@@ -96,8 +96,7 @@ t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 			return (ray->closest_object->color);
 		bounce.origin = point_at(*ray, ray->closest_t);
 		target = add_vector(bounce.origin, rand_in_hemisphere(ray->seed, ray->normal));
-		// target = add_vector(bounce.origin, add_vector(ray->normal, factor_mult_vector(rand_in_hemisphere(ray->seed, ray->normal), REFLEXION)));
-		ray->seed = lcg_random(ray->seed);
+		ray->seed = xorshift_random(ray->seed);
 		bounce.direction = unit_vector(subtract_vector(target, bounce.origin));
 		if (front_facing(*ray) == true)
 			return (combine_colors(ray_color(&bounce, obj, depth - 1), ray->closest_object->color));

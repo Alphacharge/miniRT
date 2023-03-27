@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 14:59:54 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/27 17:45:23 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define T_MAX __DBL_MAX__
 
 //Color and Light Configuration
-# define SKY			1		//toggle background
+# define SKY			0		//toggle background
 # define LIGHT_RADIUS	15		//point light radius
 # define ALBEDO			0.9		//material absorption rate
 # define REFLEXION		1		//set reflectivity, unused
@@ -116,12 +116,15 @@ typedef struct s_thread
 {
 	int				id;
 	pthread_t		pid;
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	t_cam			*cam;
-	t_obj			*obj;
+	// mlx_t			*mlx;
+	// mlx_image_t		*img;
+	// t_cam			*cam;
+	// t_obj			*obj;
 	struct s_data	*data;
 	int				runs;
+	t_vec			*pixels;
+	t_ray			*ray;
+	t_vec			*ambient;
 }					t_thread;
 
 typedef struct s_data
@@ -189,7 +192,7 @@ void		escape(t_data *data);
 void		free_map(t_map *map);
 
 //RAY UTILS
-t_ray	new_ray(void);
+t_ray	bounce_ray(t_ray *original);
 bool	front_facing(t_ray ray);
 t_vec		ray_color(t_ray *ray, t_obj *obj, int depth);
 t_vec		ray_at_light(t_ray *ray, t_obj *obj, t_obj *light);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:41:17 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 14:14:03 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/27 16:13:41 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 	double	t;
 	double	length;
 
-	t = T_MAX;
-	discriminant = 0;
 	origin_center = subtract_vector(ray->origin, obj->origin);
 	length = length_vector(ray->direction);
 	a = pow(length, 2);

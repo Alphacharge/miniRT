@@ -6,13 +6,13 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/25 18:52:38 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:55:05 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_ray	new_ray(void)
+t_ray	bounce_ray(t_ray *original)
 {
 	t_ray	ray;
 
@@ -21,6 +21,7 @@ t_ray	new_ray(void)
 	ray.direction = new_vector(0, 0, 0);
 	ray.origin = new_vector(0, 0, 0);
 	ray.normal = new_vector(0, 0, 0);
+	ray.seed = original->seed;
 	return (ray);
 }
 
@@ -62,7 +63,7 @@ t_ray	*random_ray(t_ray *ray, t_cam *cam, int col, int row)
 	double	rand_x;
 	double	rand_y;
 
-	ray->seed = lcg_random(ray->seed);
+	ray->seed = xorshift_random(ray->seed);
 	rand_x = (double)col + random_double(ray->seed);
 	ray->seed = xorshift_random(ray->seed);
 	rand_y = (double)row + random_double(ray->seed);

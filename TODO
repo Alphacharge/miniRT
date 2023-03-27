@@ -1,12 +1,12 @@
 - segfault on missing camera (check all input and print error)
-- fix leaks
 - check subject
 - performance checks
 - norm
-- race conditions
 - deterministic sampler only uses first light
 
 fixed:
+- fix leaks
+- race conditions
 - check image resolution parsing
 - rouven free bidde deine map->file[i] :P
 - multithreading
