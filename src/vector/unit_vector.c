@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:03:29 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/25 18:10:16 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:12:04 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ t_vec	unit_vector(t_vec v1)
 t_vec	random_vector(unsigned int seed)
 {
 	t_vec	vector;
+	int		random;
 
-	vector.x = xorshift_random(seed) % 1000;
-	vector.y = lcg_random(seed) % 1000 ;
-	vector.z = xslcg_random(seed) % 1000;
+	random = xorshift_random(seed);
+	vector.x = random % 1000;
+	random = lcg_random(seed);
+	vector.y = random % 1000 ;
+	random = xslcg_random(seed);
+	vector.z = random % 1000;
 	vector.x /= 1000;
 	vector.y /= 1000;
 	vector.z /= 1000;
