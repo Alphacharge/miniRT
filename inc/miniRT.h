@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 12:58:43 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 16:37:32 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define COL "Color"
 # define POS "Position"
 # define ORI "Orientation"
+# define ORI2 "Orientation2"
 
 typedef enum e_type
 {
@@ -160,12 +161,12 @@ void		get_circle(t_obj *obj, t_vec vec);
 void		get_rect(t_obj *obj, char **split);
 void		get_square(t_obj *obj, int dir);
 double		ft_atof(char *nbr);
+void		pre_check(t_obj *obj, char *str, int type, char *tocheck);
 int			pre_field_check(char *line);
 int			value_check(char *line);
 int			ft_strisdigit(char *str);
 int			vector_check(char *str, char **fields, int type);
 void		print_error(char *str, int type, int i, char *field);
-char		**def_color(void);
 void		print_syntax_error(t_obj *obj, char *str);
 
 //RENDERING

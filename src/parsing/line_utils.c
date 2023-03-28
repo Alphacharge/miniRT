@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 10:22:45 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 11:00:25 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 16:37:03 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,4 @@ int	ft_strisdigit(char *str)
 		str++;
 	}
 	return (1);
-}
-
-char	**def_color(void)
-{
-	static char	*color[3];
-
-	color[0] = "Red";
-	color[1] = "Green";
-	color[2] = "Blue";
-	return (color);
 }

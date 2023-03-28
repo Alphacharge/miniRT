@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:14 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 09:31:59 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 16:04:41 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@ void	get_sphere(t_obj *obj, char **split)
 {
 	char	**tmp;
 
-	if (split[1] && !pre_field_check(split[1]))
-		printf("Sphere Position (%s) Syntax Error\n", split[1]);
-	if (split[2] && !value_check(split[2]))
-		printf("Sphere Diameter (%s) is not valid\n", split[2]);
-	if (split[3] && !pre_field_check(split[3]))
-		printf("Sphere Color (%s) Syntax Error\n", split[3]);
 	if (obj && split && split[1] && split[2] && split[3])
 	{
-		obj->type = SPHERE;
+		pre_check(obj, "Sphere Position", 1, split[1]);
+		pre_check(obj, "Sphere Diameter", 2, split[2]);
+		pre_check(obj, "Sphere Color", 1, split[3]);
+		if (obj->type != -1)
+			obj->type = SPHERE;
 		tmp = ft_split_p(split[1], ',');
 		if (vector_check(POS, tmp, obj->type))
 			obj->origin = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \

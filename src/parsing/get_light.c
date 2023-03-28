@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_light.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:00 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 17:42:44 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:41:05 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@ void	get_light(t_obj *obj, char **split)
 	char	**tmp;
 	double	intensity;
 
-	if (split[1] && !pre_field_check(split[1]))
-		printf("Light Position (%s) Syntax Error\n", split[1]);
-	if (split[2] && !value_check(split[2]))
-		printf("Light Ratio (%s) is not valid\n", split[2]);
-	if (split[3] && !pre_field_check(split[3]))
-		printf("Light Color (%s) Syntax Error\n", split[3]);
 	if (obj && split && split[1] && split[2] && split[3])
 	{
-		obj->type = LIGHT;
+		pre_check(obj, "Light Position", 1, split[1]);
+		pre_check(obj, "Light Ratio", 2, split[2]);
+		pre_check(obj, "Light Color", 1, split[3]);
+		if (obj->type != -1)
+			obj->type = LIGHT;
 		tmp = ft_split_p(split[1], ',');
 		if (vector_check(POS, tmp, obj->type))
 			obj->origin = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
