@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/28 09:33:17 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/28 09:36:38 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ SRC_F	+=	camera.c
 
 SRC_F	+=	color.c
 
-SRC_F	+=	hit_sphere.c hit_plane.c hit_cylinder.c hit_circle.c
+SRC_F	+=	hit_sphere.c hit_plane.c hit_cylinder.c hit_circle.c hit_square.c
 
 SRC_F	+=	ambient_light.c
 
@@ -82,7 +82,8 @@ SRC_F	+=	file_parsing.c print_map.c file_utils.c
 SRC_F	+=	line_parsing.c ft_split_p.c ft_atof.c
 SRC_F	+=	pre_field_check.c line_utils.c pars_error.c
 SRC_F	+=	get_resolution.c get_camera.c get_ambient.c get_light.c
-SRC_F	+=	get_sphere.c get_plane.c get_cylinder.c get_circle.c
+SRC_F	+=	get_sphere.c get_plane.c get_cylinder.c get_circle.c get_rect.c
+SRC_F	+=	get_square.c
 
 SRC_F	+=	ray.c
 
