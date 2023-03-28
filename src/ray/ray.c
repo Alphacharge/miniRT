@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/27 21:01:05 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/28 10:10:55 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,6 @@ t_ray	bounce_ray(t_ray *original)
 	ray.normal = new_vector(0, 0, 0);
 	ray.seed = original->seed;
 	return (ray);
-}
-
-/*Returns coordinates of a point on ray.*/
-t_vec	point_at(t_ray ray, double t)
-{
-	t_vec	product;
-	t_vec	target;
-
-	product = factor_mult_vector(ray.direction, t);
-	target = add_vector(ray.origin, product);
-	return (target);
 }
 
 /*Returns true if ray and normal face each other.*/

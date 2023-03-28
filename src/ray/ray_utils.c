@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.c                                            :+:      :+:    :+:   */
+/*   ray_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 14:00:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 20:34:02 by fkernbac         ###   ########.fr       */
+/*   Created: 2023/03/28 10:10:57 by rbetz             #+#    #+#             */
+/*   Updated: 2023/03/28 10:11:11 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	create_mutexes(t_data *data)
+/*Returns coordinates of a point on ray.*/
+t_vec	point_at(t_ray ray, double t)
 {
-		if (pthread_mutex_init(&data->lock, NULL) != 0)
-			return (error_message(18), 1);
-	return (0);
-}
+	t_vec	product;
+	t_vec	target;
 
-int	remove_mutexes(t_data *data)
-{
-	if (pthread_mutex_destroy(&data->lock) != 0)
-			return (error_message(19), 1);
-	return (0);
+	product = factor_mult_vector(ray.direction, t);
+	target = add_vector(ray.origin, product);
+	return (target);
 }

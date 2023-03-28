@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:50:50 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/17 17:25:28 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 11:25:51 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ bool	hit_circle(t_ray *ray, t_obj *obj)
 	r = length_vector(subtract_vector(obj->origin, point_at(*ray, t)));
 	if (r < 0)
 		r *= -1;
-//what if we hit the edge of the circle?
-	if (r >= obj->radius)
+	if (r > obj->radius)
 		return (false);
 	if (t < ray->closest_t)
 	{
