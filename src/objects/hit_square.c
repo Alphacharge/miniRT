@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:50:50 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 19:18:18 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/28 09:23:00 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ bool	hit_square(t_ray *ray, t_obj *obj)
 	t = (pln_d - dis) / ortho;
 	if (t < T_MIN || t > T_MAX)
 		return (false);
-	//intersectionpoint on square
 	inter = point_at(*ray, t);
-	//vector from square origin to intersection
 	diff = subtract_vector(inter, obj->origin);
-	y = length_vector(cross_vector(diff, obj->vector2)) / length_vector(obj->vector2);
-	x = length_vector(subtract_vector(diff, cross_vector(diff, obj->vector2)));	
+	ortho = scalar_vector(obj->vector2, obj->vector2);
+	if (ortho == 0)
+		return (false);
+	pln_d = scalar_vector(inter, obj->vector2);
+	dis = scalar_vector(obj->vector2, obj->origin);
+	x = (pln_d - dis) / ortho;
+	y = sqrt(length_squared(diff) - pow(x, 2));
 	if (x < 0)
 		x = x * -1;
 	if (y < 0)
