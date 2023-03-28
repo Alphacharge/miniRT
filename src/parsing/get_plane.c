@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:05 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 16:43:22 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 18:17:55 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	get_pln(t_obj *obj, char **split)
 {
-	char	**tmp;
-
 	if (obj && split && split[1] && split[2] && split[3])
 	{
 		pre_check(obj, "Plane Position", 1, split[1]);
@@ -23,22 +21,15 @@ void	get_pln(t_obj *obj, char **split)
 		pre_check(obj, "Plane Color", 1, split[3]);
 		if (obj->type != -1)
 			obj->type = PLN;
-		tmp = ft_split_p(split[1], ',');
-		if (vector_check(POS, tmp, obj->type))
-			obj->origin = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
-			ft_atof(tmp[2]));
-		free(tmp);
-		tmp = ft_split_p(split[2], ',');
-		if (vector_check(ORI, tmp, obj->type))
-			obj->vector = unit_vector(new_vector(ft_atof(tmp[0]), \
-			ft_atof(tmp[1]), ft_atof(tmp[2])));
-		free(tmp);
+		obj->origin = insert_pos_vec(split[1], obj->type, POS);
+		obj->vector = insert_pos_vec(split[2], obj->type, ORI);
 		obj->radius = ft_atof(split[2]);
-		tmp = ft_split_p(split[3], ',');
-		if (vector_check(COL, tmp, obj->type))
-			obj->color = new_vector(ft_atof(tmp[0]) / 255.0, ft_atof(tmp[1]) \
-			/ 255.0, ft_atof(tmp[2]) / 255.0);
-		free(tmp);
+		obj->color = insert_color(split[2], obj->type, 1);
+		if (is_invalid(obj->origin) || is_invalid(obj->vector) || is_invalid(obj->color))
+		{
+			printf("Plane Malloc Error\n");
+			obj->type = -1;
+		}
 	}
 	else
 		print_syntax_error(obj, "Plane");

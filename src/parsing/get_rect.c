@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 16:05:32 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 18:18:01 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	get_rect(t_obj *obj, char **split)
 {
-	char	**tmp;
-
 	if (obj && split && split[1] && split[2] && split[3] && split[4] && split[5] && split[6] && split[7])
 	{
 		pre_check(obj, "Rectangle Position", 1, split[1]);
@@ -27,29 +25,19 @@ void	get_rect(t_obj *obj, char **split)
 		pre_check(obj, "Rectangle Color", 1, split[7]);
 		if (obj->type != -1)
 			obj->type = RECT;
-		tmp = ft_split_p(split[1], ',');
-		if (vector_check(POS, tmp, obj->type))
-			obj->origin = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
-			ft_atof(tmp[2]));
-		free(tmp);
-		tmp = ft_split_p(split[2], ',');
-		if (vector_check(ORI, tmp, obj->type))
-			obj->vector = unit_vector(new_vector(ft_atof(tmp[0]), \
-			ft_atof(tmp[1]), ft_atof(tmp[2])));
-		free(tmp);
+		obj->origin = insert_pos_vec(split[1], obj->type, POS);
+		obj->vector = insert_pos_vec(split[2], obj->type, ORI);
 		obj->radius = ft_atof(split[3]);
-		tmp = ft_split_p(split[4], ',');
-		if (vector_check(ORI2, tmp, obj->type))
-			obj->vector2 = unit_vector(new_vector(ft_atof(tmp[0]), \
-			ft_atof(tmp[1]), ft_atof(tmp[2])));
-		free(tmp);
+		obj->vector2 = insert_pos_vec(split[4], obj->type, ORI2);
 		obj->width = ft_atof(split[5]);
 		obj->hei_fov = ft_atof(split[6]);
-		tmp = ft_split_p(split[7], ',');
-		if (vector_check(COL, tmp, obj->type))
-			obj->color = new_vector(ft_atof(tmp[0]) / 255.0, \
-			ft_atof(tmp[1]) / 255.0, ft_atof(tmp[2]) / 255.0);
-		free(tmp);
+		obj->color = insert_color(split[7], obj->type, 1);
+		if (is_invalid(obj->origin) || is_invalid(obj->vector)|| is_invalid(obj->vector2) || is_invalid(obj->color))
+		{
+			printf("Rectangle Malloc Error\n");
+			obj->type = -1;
+			return ;
+		}
 		get_square(obj, 1);
 		get_square(obj, -1);
 		get_square(obj, 2);

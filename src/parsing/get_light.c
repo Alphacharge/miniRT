@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:00 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 16:41:05 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 18:17:33 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	get_light(t_obj *obj, char **split)
 {
-	char	**tmp;
-	double	intensity;
+	double	intens;
 
 	if (obj && split && split[1] && split[2] && split[3])
 	{
@@ -24,20 +23,15 @@ void	get_light(t_obj *obj, char **split)
 		pre_check(obj, "Light Color", 1, split[3]);
 		if (obj->type != -1)
 			obj->type = LIGHT;
-		tmp = ft_split_p(split[1], ',');
-		if (vector_check(POS, tmp, obj->type))
-			obj->origin = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
-			ft_atof(tmp[2]));
-		free(tmp);
-		intensity = ft_atof(split[2]);
-		tmp = ft_split_p(split[3], ',');
-		if (vector_check(COL, tmp, obj->type))
-			obj->color = new_vector(\
-				ft_atof(tmp[0]) / 255.0 * intensity, \
-				ft_atof(tmp[1]) / 255.0 * intensity, \
-				ft_atof(tmp[2]) / 255.0 * intensity);
-		free(tmp);
+		obj->origin = insert_pos_vec(split[1], obj->type, POS);
+		intens = ft_atof(split[2]);
+		obj->color = insert_color(split[3], obj->type, intens);
 		obj->radius = LIGHT_RADIUS;
+		if (is_invalid(obj->origin) || is_invalid(obj->color))
+		{
+			printf("Light Malloc Error\n");
+			obj->type = -1;
+		}
 	}
 	else
 		print_syntax_error(obj, "Light");

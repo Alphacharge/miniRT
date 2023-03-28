@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:01:08 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 16:42:45 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 16:47:17 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,18 @@ void	pre_check(t_obj *obj, char *str, int type, char *tocheck)
 		return ;
 	}
 	if (tocheck && type == 1 && !pre_field_check(tocheck))
+	{
 		printf("%s (%s) Syntax Error\n", str, tocheck);
+		obj->type = -1;
+	}
 	if (tocheck && type == 2 && !value_check(tocheck))
+	{
 		printf("%s (%s) is not valid\n", str, tocheck);
+		obj->type = -1;
+	}
 	if (tocheck && type == 3 && !ft_strisdigit(tocheck))
+	{
 		printf("%s (%s) is not valid\n", str, tocheck);
-
+		obj->type = -1;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 16:37:32 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 17:29:39 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 
 //Debugging
 # define MLX 1
+# define INVALID
 
 # define COL "Color"
 # define POS "Position"
@@ -168,6 +169,10 @@ int			ft_strisdigit(char *str);
 int			vector_check(char *str, char **fields, int type);
 void		print_error(char *str, int type, int i, char *field);
 void		print_syntax_error(t_obj *obj, char *str);
+t_vec		insert_color(char *bigfield, int type, double intens);
+t_vec		insert_pos_vec(char *bigfield, int type, char *key);
+t_vec		invalid_vec(void);
+bool		is_invalid(t_vec vec);
 
 //RENDERING
 void		*thread_routine(void *threads);
