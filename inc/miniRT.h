@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 09:32:28 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 12:58:43 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ bool		hit_plane(t_ray *ray, t_obj *obj);
 bool		hit_cylinder(t_ray *ray, t_obj *obj);
 bool		hit_circle(t_ray *ray, t_obj *obj);
 bool		hit_square(t_ray *ray, t_obj *obj);
+double		t_to_plane(t_vec obj_n, t_vec obj_o, t_vec ray_n, t_vec ray_o);
 
 //CAMERA
 t_cam		*setup_cam(t_obj *obj, int width, int height);
