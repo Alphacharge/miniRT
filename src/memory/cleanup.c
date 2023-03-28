@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 10:59:14 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/25 17:24:12 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	escape(t_data *data)
 {
 	cancel_threads(data);
 	remove_threads(data);
-	sleep(NOT);
-	mlx_close_window(data->mlx);
+	if (MLX == true)
+		mlx_close_window(data->mlx);
 }
 
 void	clean_obj(t_obj *obj)
@@ -41,9 +41,9 @@ void	clean_obj(t_obj *obj)
 	ft_free(obj);
 }
 
-void free_map(t_map *map)
+void	free_map(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map && map->file && map->file[i])

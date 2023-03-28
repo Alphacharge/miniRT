@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 17:33:06 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/28 09:32:28 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,18 @@
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
 # define MAX_DEPTH	20		// Amount of Bounce Rays
-# define SAMPLES	50		// Amount of Rays per Pixel
-# define NOT		12		// Amount of Threads
+# define NOT		10		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
 # define T_MAX __DBL_MAX__
 
 //Color and Light Configuration
-# define BACKGROUND		0
-# define LIGHT_RADIUS	15
-# define ALBEDO			0.7
-# define SHADOW			0.2
-# define REFLEXION		1
+# define SKY			0		//toggle background
+# define LIGHT_RADIUS	15		//point light radius
+# define ALBEDO			0.7		//material absorption rate
+# define REFLEXION		1		//set reflectivity, unused
+# define SOFT_SHADOW	1		//toggles soft shadows
 
 //Debugging
 # define MLX 1
@@ -121,11 +120,11 @@ typedef struct s_thread
 {
 	int				id;
 	pthread_t		pid;
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	t_cam			*cam;
-	t_obj			*obj;
 	struct s_data	*data;
+	int				runs;
+	t_vec			*pixels;
+	t_ray			*ray;
+	t_vec			*ambient;
 }					t_thread;
 
 typedef struct s_data
@@ -169,13 +168,15 @@ void		print_error(char *str, int type, int i, char *field);
 char		**def_color(void);
 void		print_syntax_error(t_obj *obj, char *str);
 
-//IMAGE
+//RENDERING
 void		*thread_routine(void *threads);
+bool		hit_object(t_ray *ray, t_obj *obj);
+t_vec		*get_ambient_lighting(t_obj *obj);
+t_vec		gradient(t_ray *ray);
 
 //MLX
 void		my_keyhook(mlx_key_data_t keydata, void *param);
-mlx_t		*mlx_setup(t_obj *obj, t_data *data);
-mlx_image_t	*img_setup(mlx_t *mlx);
+int			mlx_setup(t_obj *obj, t_data *data);
 void		run_mlx(t_data *data);
 
 //MULTITHREADING
@@ -192,10 +193,14 @@ void		escape(t_data *data);
 void		free_map(t_map *map);
 
 //RAY UTILS
-t_ray		new_ray(void);
+t_ray		bounce_ray(t_ray *original);
+bool		front_facing(t_ray ray);
 t_vec		ray_color(t_ray *ray, t_obj *obj, int depth);
-t_vec		ray_at_light(t_ray *ray, t_obj *obj, t_obj *light, int depth);
+t_vec		ray_at_light(t_ray *ray, t_obj *obj, t_obj *light);
 t_vec		point_at(t_ray ray, double t);
+t_ray		*set_ray(t_ray *ray, t_cam *cam, double col, double row);
+t_ray		*random_ray(t_ray *ray, t_cam *cam, int col, int row);
+t_ray		*cam_ray(t_cam *cam);
 
 //VECTOR UTILS
 t_vec		new_vector(double x, double y, double z);
@@ -232,6 +237,7 @@ int			add_color(int c1, int c2);
 int			gamma_correction(t_vec color);
 t_vec		color_to_vector(uint32_t rgba);
 int			vector_to_color(t_vec color);
+t_vec		color_clamp(t_vec color);
 
 //UTILS
 void		*ft_free(void *pointer);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:15:52 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/03 09:21:08 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/25 16:43:20 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	theend(char *s)
 	return (ret);
 }
 
-/*replace any kind of spaces with whitespaces to split later*/
+/*replace any kind of whitespace with spaces to split later*/
 char	*kill_nltb(char *line)
 {
 	int	i;

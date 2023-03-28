@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.c                                            :+:      :+:    :+:   */
+/*   ambient_light.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 14:00:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 20:34:02 by fkernbac         ###   ########.fr       */
+/*   Created: 2023/03/25 17:51:46 by fkernbac          #+#    #+#             */
+/*   Updated: 2023/03/25 18:38:27 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	create_mutexes(t_data *data)
+/*Combines all ambient lighting of the scene.*/
+t_vec	*get_ambient_lighting(t_obj *obj)
 {
-		if (pthread_mutex_init(&data->lock, NULL) != 0)
-			return (error_message(18), 1);
-	return (0);
-}
+	t_vec	ambient;
+	t_vec	*allocate;
 
-int	remove_mutexes(t_data *data)
-{
-	if (pthread_mutex_destroy(&data->lock) != 0)
-			return (error_message(19), 1);
-	return (0);
+	while (obj != NULL)
+	{
+		if (obj->type == AMBI)
+			ambient = add_vector(ambient, obj->color);
+		obj = obj->next;
+	}
+	allocate = ft_calloc(1, sizeof(t_vec));
+	if (allocate == NULL)
+		return (NULL);
+	allocate->x = ambient.x;
+	allocate->y = ambient.y;
+	allocate->z = ambient.z;
+	return (allocate);
 }

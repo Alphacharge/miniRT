@@ -1,15 +1,29 @@
 - segfault on missing camera (check all input and print error)
-- fix leaks
 - check subject
 - performance checks
 - norm
-- race conditions
-- rouven free bidde deine map->file[i] :P
+- deterministic sampler only uses first light
+- window freezes if X is clicked
 
 fixed:
+- fix leaks
+- race conditions
+- check image resolution parsing
+- rouven free bidde deine map->file[i] :P
 - multithreading
 - cylinder backside
 - check double renedring
+- red pixels
+- spot light/hard shadow - needs fixing to not reflect itself
 
-no:
-- spot light/hard shadow
+boni:
+- soft shadows
+- gobal illumination
+- box
+- sky (+illumination)
+- progressive sampling
+- multi-threading
+- multiple light sources
+- colored light
+- inside and outside normals
+- camera movement
