@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insert_vectors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:49:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 17:27:55 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 19:55:19 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_vec	insert_color(char *bigfield, int type, double intens)
 
 	tmp = ft_split_p(bigfield, ',');
 	new = invalid_vec();
-	if (tmp != NULL && vector_check(COL, tmp, type))
+	if (tmp && tmp[0] && tmp[1] && tmp[2] && vector_check(COL, tmp, type))
 	{
 		new = new_vector(ft_atof(tmp[0]) / 255.0 * intens, \
 			ft_atof(tmp[1]) / 255.0 * intens, \
@@ -54,7 +54,7 @@ t_vec	insert_pos_vec(char *bigfield, int type, char *key)
 
 	tmp = ft_split_p(bigfield, ',');
 	new = invalid_vec();
-	if (tmp != NULL && vector_check(key, tmp, type))
+	if (tmp && tmp[0] && tmp[1] && tmp[2] && vector_check(key, tmp, type))
 	{
 		new = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
 		ft_atof(tmp[2]));

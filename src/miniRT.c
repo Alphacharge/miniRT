@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 09:34:27 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 20:01:00 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ int	main(int argc, char **argv)
 		return (cleanup(data, 3), EXIT_FAILURE);
 	run_mlx(data);
 	printf("Freeing memory.\n");
-	if (remove_threads(data))
-		return (cleanup(data, 3), EXIT_FAILURE);
+	escape(data);
 	cleanup(data, 3);
 	printf("Terminating...\n");
 	return (EXIT_SUCCESS);
