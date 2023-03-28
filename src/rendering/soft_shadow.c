@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   soft_shadow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:15:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/28 09:31:24 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 15:25:58 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,47 @@ bool	hit_object(t_ray *ray, t_obj *obj)
 	return (hit_anything);
 }
 
+t_vec	bounce_color(t_ray *ray, t_ray	*bounce, t_obj *obj, int depth)
+{
+	t_vec	target;
+
+	target = add_vector(bounce->origin, rand_in_hemisphere(ray->seed, ray->normal));
+	ray->seed = xorshift_random(ray->seed);
+	bounce->direction = unit_vector(subtract_vector(target, bounce->origin));
+	return (ray_color(bounce, obj, depth));
+}
+
+t_vec	bouncecolor_average(t_ray *ray, t_obj *obj, int depth)
+{
+	t_ray	bounce;
+	t_vec	color;
+	int		i;
+
+	if (depth <= 0)
+		return (new_vector(0, 0, 0));
+	i = 0;
+	bounce = bounce_ray(ray);
+	bounce.origin = point_at(*ray, ray->closest_t);
+	color = new_vector(0, 0, 0);
+	while (i < BOUNCES)
+	{
+		color = add_vector(color, bounce_color(ray, &bounce, obj, depth));
+		i++;
+	}
+	color = factor_div_vector(color, BOUNCES);
+	return (color);
+}
+
 t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 {
-	t_vec		target;
-	t_ray		bounce;
-
-	bounce = bounce_ray(ray);
 	if (depth <= 0)
 		return (new_vector(0, 0, 0));
 	if (hit_object(ray, obj) == true)
 	{
 		if (ray->closest_object->type == LIGHT)
 			return (ray->closest_object->color);
-		bounce.origin = point_at(*ray, ray->closest_t);
-		target = add_vector \
-			(bounce.origin, rand_in_hemisphere(ray->seed, ray->normal));
-		ray->seed = xorshift_random(ray->seed);
-		bounce.direction = unit_vector(subtract_vector(target, bounce.origin));
 		if (front_facing(*ray) == true)
-			return (combine_colors(ray_color(&bounce, obj, depth - 1), \
+			return (combine_colors(bouncecolor_average(ray, obj, depth - 1), \
 				ray->closest_object->color));
 		else
 			return (new_vector(0, 1, 0));

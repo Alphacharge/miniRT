@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 12:58:43 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 15:09:18 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
 # define MAX_DEPTH	20		// Amount of Bounce Rays
-# define NOT		10		// Amount of Threads
+# define NOT		20		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
@@ -41,6 +41,7 @@
 # define ALBEDO			0.7		//material absorption rate
 # define REFLEXION		1		//set reflectivity, unused
 # define SOFT_SHADOW	1		//toggles soft shadows
+# define BOUNCES		2
 
 //Debugging
 # define MLX 1
