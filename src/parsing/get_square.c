@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:15:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 11:22:33 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/29 16:28:16 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	get_square(t_obj *obj, int dir)
 		decide_len_hei(obj, dir, &len, &wid, &hei);
 		v = add_vector(obj->origin, factor_mult_vector(v, wid / 2));
 		obj_c->origin = new_vector(v.x, v.y, v.z);
+		print_vector(obj_c->origin);
 		obj_c->vector = unit_vector(subtract_vector(obj_c->origin, obj->origin));
 		obj_c->vector2 = unit_vector(w);
 		obj_c->radius = len;
