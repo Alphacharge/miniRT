@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/23 16:03:48 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/28 15:47:56 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,21 @@ static t_obj	*line_interpreter(char *line)
 	return (ft_free(split), obj);
 }
 
+static bool check_objs(t_obj *objs)
+{
+	if (objs == NULL)
+		return (false);
+	while (objs)
+	{
+		if (objs->type == -1)
+			break ;
+		objs = objs->next;
+	}
+	if (objs && objs->type == -1)
+		return (false);
+	return (true);
+}
+
 /* creates a obj list from a preparsed map list*/
 t_obj	*create_obj(t_map *map)
 {
@@ -61,20 +76,18 @@ t_obj	*create_obj(t_map *map)
 	i = 0;
 	while (map && map->file && map->file[i] != NULL)
 	{
-		new = line_interpreter(map->file[i]);
-		if (new != NULL)
-		{
-			tmp = new;
-			while (tmp && tmp->next != NULL)
-				tmp = tmp->next;
-			if (obj != NULL)
-				tmp->next = obj;
-			obj = new;
-		}
-		else
-			return (ft_free(map), clean_obj(obj), NULL);
-		i++;
+		new = line_interpreter(map->file[i++]);
+		if (new == NULL)
+			return (free_map(map), clean_obj(obj), NULL);
+		tmp = new;
+		while (tmp && tmp->next != NULL)
+			tmp = tmp->next;
+		if (obj != NULL)
+			tmp->next = obj;
+		obj = new;
 	}
 	free_map(map);
+	if (!check_objs(obj))
+		return (clean_obj(obj), NULL);
 	return (obj);
 }

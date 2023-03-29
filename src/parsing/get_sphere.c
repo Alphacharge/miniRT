@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:14 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 09:31:59 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 18:17:24 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,21 @@
 
 void	get_sphere(t_obj *obj, char **split)
 {
-	char	**tmp;
-
-	if (split[1] && !pre_field_check(split[1]))
-		printf("Sphere Position (%s) Syntax Error\n", split[1]);
-	if (split[2] && !value_check(split[2]))
-		printf("Sphere Diameter (%s) is not valid\n", split[2]);
-	if (split[3] && !pre_field_check(split[3]))
-		printf("Sphere Color (%s) Syntax Error\n", split[3]);
 	if (obj && split && split[1] && split[2] && split[3])
 	{
-		obj->type = SPHERE;
-		tmp = ft_split_p(split[1], ',');
-		if (vector_check(POS, tmp, obj->type))
-			obj->origin = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
-			ft_atof(tmp[2]));
-		free(tmp);
+		pre_check(obj, "Sphere Position", 1, split[1]);
+		pre_check(obj, "Sphere Diameter", 2, split[2]);
+		pre_check(obj, "Sphere Color", 1, split[3]);
+		if (obj->type != -1)
+			obj->type = SPHERE;
+		obj->origin = insert_pos_vec(split[1], obj->type, POS);
 		obj->radius = ft_atof(split[2]) / 2;
-		tmp = ft_split_p(split[3], ',');
-		if (vector_check(COL, tmp, obj->type))
-			obj->color = new_vector(ft_atof(tmp[0]) / 255.0, ft_atof(tmp[1]) \
-			/ 255.0, ft_atof(tmp[2]) / 255.0);
-		free(tmp);
+		obj->color = insert_color(split[3], obj->type, 1);
+		if (is_invalid(obj->origin) || is_invalid(obj->color))
+		{
+			printf("Sphere Malloc Error\n");
+			obj->type = -1;
+		}
 	}
 	else
 		print_syntax_error(obj, "Sphere");

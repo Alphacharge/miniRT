@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_resolution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:09 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/09 17:04:00 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:03:35 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	get_reso(t_obj *obj, char **split)
 {
-	if (split[1] && !ft_strisdigit(split[1]))
-		printf("Resolution Width (%s) is not valid\n", split[1]);
-	if (split[2] && !ft_strisdigit(split[2]))
-		printf("Resolution Height (%s) is not valid\n", split[2]);
 	if (obj && split && split[1] && split[2])
 	{
-		obj->type = RES;
+		pre_check(obj, "Resolution Width", 3, split[1]);
+		pre_check(obj, "Resolution Height", 3, split[2]);
+		if (obj->type != -1)
+			obj->type = RES;
 		obj->radius = ft_atof(split[1]);
 		obj->hei_fov = ft_atof(split[2]);
 	}

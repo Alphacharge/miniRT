@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 15:09:18 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:53:19 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@
 
 //Debugging
 # define MLX 1
+# define INVALID
 
 # define COL "Color"
 # define POS "Position"
 # define ORI "Orientation"
+# define ORI2 "Orientation2"
 
 typedef enum e_type
 {
@@ -161,13 +163,17 @@ void		get_circle(t_obj *obj, t_vec vec);
 void		get_rect(t_obj *obj, char **split);
 void		get_square(t_obj *obj, int dir);
 double		ft_atof(char *nbr);
+void		pre_check(t_obj *obj, char *str, int type, char *tocheck);
 int			pre_field_check(char *line);
 int			value_check(char *line);
 int			ft_strisdigit(char *str);
 int			vector_check(char *str, char **fields, int type);
 void		print_error(char *str, int type, int i, char *field);
-char		**def_color(void);
 void		print_syntax_error(t_obj *obj, char *str);
+t_vec		insert_color(char *bigfield, int type, double intens);
+t_vec		insert_pos_vec(char *bigfield, int type, char *key);
+t_vec		invalid_vec(void);
+bool		is_invalid(t_vec vec);
 
 //RENDERING
 void		*thread_routine(void *threads);

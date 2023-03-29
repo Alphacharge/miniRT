@@ -6,12 +6,13 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 10:01:08 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/07 10:59:55 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/28 16:47:17 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+//check the value for only one and leading -, only one . and digits
 int	value_check(char *line)
 {
 	int	m;
@@ -39,6 +40,7 @@ int	value_check(char *line)
 	return (1);
 }
 
+// is checking all 3 fields of a vector with value_check
 int	vector_check(char *str, char **fields, int type)
 {
 	int	i;
@@ -56,6 +58,7 @@ int	vector_check(char *str, char **fields, int type)
 	return (1);
 }
 
+//counts the amount of accepted chars and returns 0 if its to much.
 int	pre_field_check(char *line)
 {
 	int	c;
@@ -82,4 +85,28 @@ int	pre_field_check(char *line)
 	if (m > 3)
 		return (0);
 	return (1);
+}
+
+void	pre_check(t_obj *obj, char *str, int type, char *tocheck)
+{
+	if (obj && tocheck == NULL)
+	{
+		obj->type = -1;
+		return ;
+	}
+	if (tocheck && type == 1 && !pre_field_check(tocheck))
+	{
+		printf("%s (%s) Syntax Error\n", str, tocheck);
+		obj->type = -1;
+	}
+	if (tocheck && type == 2 && !value_check(tocheck))
+	{
+		printf("%s (%s) is not valid\n", str, tocheck);
+		obj->type = -1;
+	}
+	if (tocheck && type == 3 && !ft_strisdigit(tocheck))
+	{
+		printf("%s (%s) is not valid\n", str, tocheck);
+		obj->type = -1;
+	}
 }
