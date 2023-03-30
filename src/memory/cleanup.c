@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 17:23:46 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:57:28 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	refresh_cam(t_data *data, int casse)
 		data->cam->origin.z += STEPSIZE;
 	if (casse == 6)
 		data->cam->origin.z -= STEPSIZE;
+	if (casse == 7)
+		get_next_cam(data);
 	if (new_thread_run(data) != 0)
 		cleanup(data, 4);
 }

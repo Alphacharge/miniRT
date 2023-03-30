@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:54:00 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 15:14:14 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 16:38:47 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 		refresh_cam(data, 5);
 	if (keydata.key == MLX_KEY_Q)
 		refresh_cam(data, 6);
+	if (keydata.key == MLX_KEY_SPACE)
+		refresh_cam(data, 7);
 	if (keydata.key == MLX_KEY_ESCAPE)
 		escape(data);
 }

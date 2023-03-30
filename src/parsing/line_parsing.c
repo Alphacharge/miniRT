@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 16:28:18 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:53:49 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ static void	fill_obj(t_obj	*obj, char **split)
 	else if (!ft_strcmp(split[0], "RECT"))
 		get_rect(obj, split);
 	else
+	{
+		printf("Invalid Object key!\n");
 		obj->type = -1;
+	}
 }
 
 static t_obj	*line_interpreter(char *line)
@@ -42,6 +45,7 @@ static t_obj	*line_interpreter(char *line)
 	obj = ft_calloc(1, sizeof(t_obj));
 	if (obj == NULL)
 		return (error_message(10), NULL);
+	obj->next = NULL;
 	split = ft_split_p(line, ' ');
 	if (split == NULL)
 		return (error_message(11), ft_free(obj), NULL);
@@ -49,18 +53,19 @@ static t_obj	*line_interpreter(char *line)
 	return (ft_free(split), obj);
 }
 
-static bool	check_objs(t_obj *objs)
+static bool	check_objs(t_obj *obj)
 {
 	t_obj	*tmp;
 	int		i;
 
 	i = 1;
-	tmp = objs;
+	tmp = obj;
 	if (tmp == NULL)
 		return (false);
 	while (tmp != NULL)
 	{
 		i++;
+			print_vector(tmp->origin);
 		if (tmp->type == -1)
 		{
 			printf("Error on Object Number --> %d\n", i);
@@ -86,12 +91,14 @@ t_obj	*create_obj(t_map *map)
 		new = line_interpreter(map->file[i++]);
 		if (new == NULL)
 			return (free_map(map), clean_obj(obj), NULL);
-		tmp = new;
+		tmp = obj;
+		printf("%d(%f,%f,%f),", new->type, new->origin.x, new->origin.y, new->origin.z);
+		if (tmp == NULL)
+			obj = new;
 		while (tmp && tmp->next != NULL)
 			tmp = tmp->next;
-		if (obj != NULL)
-			tmp->next = obj;
-		obj = new;
+		if (tmp != NULL)
+			tmp->next = new;
 	}
 	free_map(map);
 	if (!check_objs(obj))

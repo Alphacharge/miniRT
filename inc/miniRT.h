@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 17:44:00 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:58:09 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_ray
 
 typedef struct s_camera
 {
+	int		id;
 	double	focal_length;
 	t_vec	origin;
 	t_vec	direction;
@@ -227,6 +228,7 @@ t_vec		invert_vector(t_vec vec);
 t_vec		random_vector(unsigned int max);
 t_vec		rand_in_unit_sphere(int seed);
 t_vec		rand_in_hemisphere(int seed, t_vec normal);
+bool		equal_vector(t_vec a, t_vec b);
 
 //HIT_OBJECTS
 bool		hit_sphere(t_ray *ray, t_obj *obj);
@@ -237,8 +239,9 @@ bool		hit_square(t_ray *ray, t_obj *obj);
 double		t_to_plane(t_vec obj_n, t_vec obj_o, t_vec ray_n, t_vec ray_o);
 
 //CAMERA
-t_cam		*setup_cam(t_obj *obj, int width, int height);
+t_cam		*setup_cam(t_obj *obj, int width, int height, int id);
 void		refresh_cam(t_data *data, int casse);
+void		get_next_cam(t_data *data);
 
 //COLOR UTILS
 int			double_to_color(double r, double g, double b);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 17:41:15 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:54:15 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (mlx_setup(data->obj, data) != 0)
 		return (cleanup(data, 0), EXIT_FAILURE);
-	data->cam = setup_cam(data->obj, data->width, data->height);
+	data->cam = setup_cam(data->obj, data->width, data->height, 1);
 	if (data->cam == NULL)
 		return (cleanup(data, 2), EXIT_FAILURE);
 	printf("Starting threads.\n");
