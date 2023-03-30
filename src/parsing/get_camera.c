@@ -6,13 +6,11 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:49 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 15:56:58 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:50:41 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-
 
 void	get_cam(t_obj *obj, char **split)
 {

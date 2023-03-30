@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 16:51:44 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:41:15 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_data	*parse(int argc, char **argv)
 	data->obj = create_obj(data->map);
 	if (data->obj == NULL)
 		return (cleanup(data, 0), NULL);
-	// printf("Parsing done.\n");
+	printf("Parsing done.\n");
 	return (data);
 }
 
@@ -54,13 +54,13 @@ int	main(int argc, char **argv)
 	data->cam = setup_cam(data->obj, data->width, data->height);
 	if (data->cam == NULL)
 		return (cleanup(data, 2), EXIT_FAILURE);
-	// printf("Starting threads.\n");
-	if (create_threads(data, 0) != 0)
+	printf("Starting threads.\n");
+	if (create_threads(data) != 0)
 		return (cleanup(data, 3), EXIT_FAILURE);
 	run_mlx(data);
-	// printf("Freeing memory.\n");
+	printf("Freeing memory.\n");
 	escape(data);
 	cleanup(data, 3);
-	// printf("Terminating...\n");
+	printf("Terminating...\n");
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 17:01:38 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:23:46 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	refresh_cam(t_data *data, int casse)
 		data->cam->origin.z += STEPSIZE;
 	if (casse == 6)
 		data->cam->origin.z -= STEPSIZE;
-	if (create_threads(data, 1) != 0)
+	if (new_thread_run(data) != 0)
 		cleanup(data, 4);
 }
 

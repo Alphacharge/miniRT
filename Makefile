@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
+#    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/30 12:41:11 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/30 17:15:41 by fkernbac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ VPATH	:=	src/ \
 			src/parsing \
 			src/color \
 			src/intersection \
-			src/light \
 			src/memory \
 			src/mlx \
 			src/parsing \
@@ -71,8 +70,6 @@ SRC_F	+=	camera.c
 SRC_F	+=	color.c
 
 SRC_F	+=	hit_sphere.c hit_plane.c hit_cylinder.c hit_circle.c hit_square.c
-
-SRC_F	+=	ambient_light.c
 
 SRC_F	+=	ft_error.c cleanup.c
 

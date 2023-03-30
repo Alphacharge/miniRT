@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 17:03:55 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:44:00 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define LIGHT_RADIUS	10		//point light radius
 # define ALBEDO			0.7		//material absorption rate
 # define SOFT_SHADOW	1		//toggles soft shadows
-# define BOUNCES		3		//amount of bounce rays
+# define BOUNCES		1		//amount of bounce rays
 # define SAMPLES		2	//0 means endless progressive sampling
 
 //Debugging
@@ -179,7 +179,6 @@ bool		invalid_color(t_vec color);
 //RENDERING
 void		*thread_routine(void *threads);
 bool		hit_object(t_ray *ray, t_obj *obj);
-t_vec		*get_ambient_lighting(t_obj *obj);
 t_vec		gradient(t_ray *ray);
 
 //MLX
@@ -188,9 +187,10 @@ int			mlx_setup(t_obj *obj, t_data *data);
 void		run_mlx(t_data *data);
 
 //MULTITHREADING
-int			create_threads(t_data *data, int mode);
+int			create_threads(t_data *data);
 int			remove_threads(t_data *data, int mode);
 int			cancel_threads(t_data *data);
+int			new_thread_run(t_data *data);
 
 //ERROR
 void		ft_error(t_data *data, int ecase);
