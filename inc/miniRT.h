@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 16:21:21 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 17:03:55 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
 # define MAX_DEPTH	5		// Amount of Bounce Rays
-# define NOT		2		// Amount of Threads
+# define NOT		50		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
@@ -42,7 +42,7 @@
 # define ALBEDO			0.7		//material absorption rate
 # define SOFT_SHADOW	1		//toggles soft shadows
 # define BOUNCES		3		//amount of bounce rays
-# define SAMPLES		0		//0 means endless progressive sampling
+# define SAMPLES		2	//0 means endless progressive sampling
 
 //Debugging
 # define MLX 1
@@ -173,7 +173,8 @@ void		print_syntax_error(t_obj *obj, char *str);
 t_vec		insert_color(char *bigfield, int type);
 t_vec		insert_pos_vec(char *bigfield, int type, char *key);
 t_vec		invalid_vec(void);
-bool		is_invalid(t_vec vec);
+bool		invalid_vector(t_vec vec);
+bool		invalid_color(t_vec color);
 
 //RENDERING
 void		*thread_routine(void *threads);

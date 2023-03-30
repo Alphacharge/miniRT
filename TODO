@@ -4,10 +4,10 @@
 - norm
 - deterministic sampler only uses first light
 - window freezes if X is clicked
-- adjust luminosity for hard and soft shadows
-- check unitialized values
 
 fixed:
+- adjust luminosity for hard and soft shadows
+- check unitialized values
 - fix leaks
 - race conditions
 - check image resolution parsing

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:19:16 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 16:20:53 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 17:06:09 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,26 @@ int	create_threads(t_data *data, int mode)
 	i = 0;
 	while (i < NOT)
 	{
-		data->threads[i].id = i + 1;
-		data->threads[i].data = data;
+		if (mode == 0)
+		{
+			data->threads[i].id = i + 1;
+			data->threads[i].data = data;
+
+		}
 		data->threads[i].runs = 1;
 		data->threads[i].ray = cam_ray(data->cam);
 		if (mode == 0)
 		{
-		data->threads[i].pixels = ft_calloc(sizeof(t_vec), \
-			(data->width / NOT + 1) * data->height);
+			data->threads[i].pixels = ft_calloc(sizeof(t_vec), \
+				(data->width / NOT + 1) * data->height);
 			// (data->width / NOT + (data->width % NOT) / (i + 1)) * data->height);
-		data->threads[i].ambient = get_ambient_lighting(data->obj);
+			data->threads[i].ambient = get_ambient_lighting(data->obj);
 		}
 		if (data->threads[i].ray == NULL || data->threads[i].pixels == NULL || \
 			data->threads[i].ambient == NULL)
 			return (error_message(1), 1);
 		data->threads[i].ray->seed = xorshift_random(data->threads[i].ray->seed \
-			+ (int)(mlx_get_time() * 1000000000) % 1000);
+				+ (int)(mlx_get_time() * 1000000000) % 1000 + i);
 		if (pthread_create(&data->threads[i].pid, NULL, &thread_routine, \
 			(void *)&data->threads[i]) != 0)
 			return (error_message(15), 1);

@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:00 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 13:39:19 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:57:14 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	get_light(t_obj *obj, char **split)
 		obj->width = ft_atof(split[2]);
 		obj->color = insert_color(split[3], obj->type);
 		obj->radius = LIGHT_RADIUS;
-		if (is_invalid(obj->origin) || is_invalid(obj->color))
+		if (invalid_vector(obj->origin) || invalid_color(obj->color) || \
+			obj->width > 1.0)
 		{
 			printf("Light Malloc Error\n");
 			obj->type = -1;

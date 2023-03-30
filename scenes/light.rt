@@ -12,8 +12,4 @@ L			-20,40,100			1				255,0,0
 sp			30,50,150			30			200,200,200
 ##	Plane	COORDS ON THE PLANE(X,Y,Z)	ORIENTVECTOR(Normalized)	RGB COLOR
 pl			0.0,50,0					0,-1,0						100,100,100
-# pl			-100,0,0					1,0,0						100,100,100
 pl			100,0,0						-1,0,0						100,100,100
-# pl			0,0,500						0,0,-1						100,100,100
-##	Cylinder	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	DIAMETER	HEIGHT	RGB COLOR
-# cy			50.0,0.0,20.6		0.0,0.0,1.0					14.2		21.42	10,0,255

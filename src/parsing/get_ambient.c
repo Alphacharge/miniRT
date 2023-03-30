@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:44 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 13:47:29 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:56:22 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	get_ambi(t_obj *obj, char **split)
 			obj->type = AMBI;
 		obj->width = ft_atof(split[1]);
 		obj->color = insert_color(split[2], obj->type);
-		if (is_invalid(obj->color))
+		if (invalid_color(obj->color) || obj->width > 1.0)
 		{
 			printf("Ambientlight Malloc Error\n");
 			obj->type = -1;

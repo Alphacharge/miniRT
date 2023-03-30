@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:15:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 14:06:05 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 16:45:43 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	get_square(t_obj *obj, int dir)
 	t_obj	*tmp;
 	t_obj	var;
 
+	ft_memset(&var, 0, sizeof(t_obj));
 	obj_c = ft_calloc(1, sizeof(t_obj));
 	if (obj && obj_c)
 	{

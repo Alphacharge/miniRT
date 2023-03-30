@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 13:47:38 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:33:38 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	get_rect(t_obj *obj, char **split)
 		obj->width = ft_atof(split[5]);
 		obj->hei_fov = ft_atof(split[6]);
 		obj->color = insert_color(split[7], obj->type);
-		if (is_invalid(obj->origin) || is_invalid(obj->vector) \
-			|| is_invalid(obj->vector2) || is_invalid(obj->color))
+		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) \
+			|| invalid_vector(obj->vector2) || invalid_color(obj->color))
 		{
 			printf("Rectangle Malloc Error\n");
 			obj->type = -1;

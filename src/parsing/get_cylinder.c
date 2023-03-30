@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 13:47:44 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:55:00 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	get_cyl(t_obj *obj, char **split)
 		obj->radius = ft_atof(split[3]) / 2.0;
 		obj->hei_fov = ft_atof(split[4]);
 		obj->color = insert_color(split[5], obj->type);
-		if (is_invalid(obj->origin) || is_invalid(obj->vector) \
-			|| is_invalid(obj->color))
+		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) \
+			|| invalid_color(obj->color) || obj->radius <= 0.0)
 		{
 			printf("Cylinder Malloc Error\n");
 			obj->type = -1;

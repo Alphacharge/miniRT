@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insert_vectors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:49:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 15:05:33 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 16:28:33 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ t_vec	invalid_vec(void)
 	return (new);
 }
 
-//check if a vector is marked as invalid
-bool	is_invalid(t_vec vec)
+bool	invalid_vector(t_vec vec)
 {
 	if (vec.x == T_MAX && vec.y == T_MAX && vec.z == T_MAX)
 		return (true);
@@ -62,4 +61,15 @@ t_vec	insert_pos_vec(char *bigfield, int type, char *key)
 	}
 	free(tmp);
 	return (new);
+}
+
+bool	invalid_color(t_vec color)
+{
+	if (color.x > 1 || color.x < 0)
+		return (true);
+	if (color.y > 1 || color.y < 0)
+		return (true);
+	if (color.z > 1 || color.z < 0)
+		return (true);
+	return (false);
 }

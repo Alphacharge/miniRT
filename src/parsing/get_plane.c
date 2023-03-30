@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:05 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 13:47:35 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:33:29 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	get_pln(t_obj *obj, char **split)
 		obj->vector = insert_pos_vec(split[2], obj->type, ORI);
 		obj->radius = ft_atof(split[2]);
 		obj->color = insert_color(split[3], obj->type);
-		if (is_invalid(obj->origin) || is_invalid(obj->vector) \
-			|| is_invalid(obj->color))
+		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) \
+			|| invalid_color(obj->color))
 		{
 			printf("Plane Malloc Error\n");
 			obj->type = -1;

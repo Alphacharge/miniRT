@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/28 10:10:55 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 16:21:42 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ t_ray	*cam_ray(t_cam *cam)
 	ray->closest_t = T_MAX;
 	ray->closest_object = NULL;
 	ray->seed = 883082594;
+	ray->normal = new_vector(0, 0, 0);
+	ray->direction = new_vector(0, 0, 0);
 	return (ray);
 }
