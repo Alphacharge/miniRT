@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:15:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 19:10:23 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 20:48:10 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	get_square(t_obj *obj, int dir)
 		obj_c->vector2 = unit_vector(var.vector2);
 		obj_c->radius = var.radius;
 		obj_c->width = var.hei_fov;
-		obj_c->color = obj->color;
+		obj_c->color = new_vector(obj->color.x, obj->color.y, obj->color.z);
 		tmp = obj;
 		while (tmp->next != NULL)
 			tmp = tmp->next;

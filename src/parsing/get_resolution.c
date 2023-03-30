@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_resolution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:09 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 16:03:35 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 20:47:23 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	get_reso(t_obj *obj, char **split)
 			obj->type = RES;
 		obj->radius = ft_atof(split[1]);
 		obj->hei_fov = ft_atof(split[2]);
+		obj->color = new_vector(0, 0, 0);
 	}
 	else
 		print_syntax_error(obj, "Resolution");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 14:33:14 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 20:24:45 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ double	midnight(t_ray *ray, t_obj *obj)
 	cros = cross_vector(subtract_vector(ray->origin, obj->origin), obj->vector);
 	a[0] = length_squared(d);
 	a[1] = 2.0 * scalar_vector(d, cros);
-	a[2] = length_squared(cros) - pow(obj->radius, 2);
+	a[2] = length_squared(cros) - (obj->radius * obj->radius);
 	if (a[0] == 0)
 		return (0);
-	t[0] = (-a[1] - sqrt(pow(a[1], 2) - (4.0 * a[0] * a[2]))) / (2.0 * a[0]);
-	t[1] = (-a[1] + sqrt(pow(a[1], 2) - (4.0 * a[0] * a[2]))) / (2.0 * a[0]);
+	t[0] = (-a[1] - sqrt((a[1] * a[1]) - (4.0 * a[0] * a[2]))) / (2.0 * a[0]);
+	t[1] = (-a[1] + sqrt((a[1] * a[1]) - (4.0 * a[0] * a[2]))) / (2.0 * a[0]);
 	if (t[0] < T_MIN || t[0] > T_MAX || isnan(t[0]))
 		t[0] = T_MAX;
 	if (t[1] < T_MIN || t[1] > T_MAX || isnan(t[1]))
@@ -70,7 +70,7 @@ bool	hit_cylinder(t_ray *ray, t_obj *obj)
 	{
 		inter = point_at(*ray, val);
 		x = sqrt(length_squared(subtract_vector(inter, obj->origin)) \
-			- pow(obj->radius, 2));
+			- pow(obj->radius, 2.0));
 		if (x > obj->hei_fov / 2.0)
 			return (false);
 		ray->closest_object = obj;

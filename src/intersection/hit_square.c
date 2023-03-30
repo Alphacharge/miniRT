@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:50:50 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 13:20:37 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 20:20:42 by humbi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	hit_square(t_ray *ray, t_obj *obj)
 	inter = point_at(*ray, txy[0]);
 	diff = subtract_vector(inter, obj->origin);
 	txy[1] = x_in_plane(obj->vector2, inter, obj->vector2, obj->origin);
-	txy[2] = sqrt(length_squared(diff) - pow(txy[1], 2));
+	txy[2] = sqrt(length_squared(diff) - txy[1] * txy[1]);
 	if (txy[1] < 0)
 		txy[1] = txy[1] * -1;
 	if (txy[2] < 0)
