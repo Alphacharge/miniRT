@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_plane.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:05 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 19:56:37 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/30 12:56:56 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	get_pln(t_obj *obj, char **split)
 		obj->vector = insert_pos_vec(split[2], obj->type, ORI);
 		obj->radius = ft_atof(split[2]);
 		obj->color = insert_color(split[3], obj->type, 1);
-		if (is_invalid(obj->origin) || is_invalid(obj->vector) || is_invalid(obj->color))
+		if (is_invalid(obj->origin) || is_invalid(obj->vector) \
+			|| is_invalid(obj->color))
 		{
 			printf("Plane Malloc Error\n");
 			obj->type = -1;

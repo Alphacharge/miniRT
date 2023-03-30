@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/29 16:53:19 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 09:38:36 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
 # define MAX_DEPTH	20		// Amount of Bounce Rays
-# define NOT		20		// Amount of Threads
+# define NOT		12		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
@@ -37,7 +37,7 @@
 
 //Color and Light Configuration
 # define SKY			0		//toggle background
-# define LIGHT_RADIUS	15		//point light radius
+# define LIGHT_RADIUS	8		//point light radius
 # define ALBEDO			0.7		//material absorption rate
 # define REFLEXION		1		//set reflectivity, unused
 # define SOFT_SHADOW	1		//toggles soft shadows
@@ -45,7 +45,6 @@
 
 //Debugging
 # define MLX 1
-# define INVALID
 
 # define COL "Color"
 # define POS "Position"

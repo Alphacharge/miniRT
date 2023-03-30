@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/28 15:08:51 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:51:31 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ void	*thread_routine(void *threads)
 	t_thread	*thread;
 
 	thread = (t_thread *)threads;
-	hard_shadow(thread, thread->ray, thread->ambient, thread->pixels);
+	if (SOFT_SHADOW)
+		soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
+	else
+		hard_shadow(thread, thread->ray, thread->ambient, thread->pixels);
 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 	while (SOFT_SHADOW == true)
 	{

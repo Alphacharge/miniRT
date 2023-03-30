@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:49:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/29 16:13:05 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 12:43:37 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_vec	invalid_vec(void)
 {
 	t_vec	new;
-	
+
 	new.x = T_MAX;
 	new.y = T_MAX;
 	new.z = T_MAX;
@@ -50,7 +50,6 @@ t_vec	insert_pos_vec(char *bigfield, int type, char *key)
 {
 	char	**tmp;
 	t_vec	new;
-
 
 	tmp = ft_split_p(bigfield, ',');
 	new = invalid_vec();

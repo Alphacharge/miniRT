@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/29 18:08:18 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/30 12:41:11 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ BREWU	:=	/Users/$(USER)/.brewconfig.zsh
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror -Ofast
 #CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS	+=	-g -fsanitize=address
+CFLAGS	+=	-g #-fsanitize=address
 
 ###			###			LIBRARIES		###			###
 LIBFT_D	:=	./lib/libft
@@ -87,7 +87,7 @@ SRC_F	+=	get_square.c insert_vectors.c
 
 SRC_F	+=	ray.c ray_utils.c
 
-SRC_F	+=	hard_shadow.c soft_shadow.c render.c
+SRC_F	+=	hard_shadow.c soft_shadow.c render.c hit_object.c
 
 SRC_F	+=	threads.c
 

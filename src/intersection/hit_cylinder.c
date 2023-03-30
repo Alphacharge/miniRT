@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/28 13:45:56 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 13:04:33 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ double	midnight(t_ray *ray, t_obj *obj)
 	return (val);
 }
 
+t_vec	decide_normal(t_vec inter, t_vec origin, t_vec vector, double x)
+{
+	
+}
 bool	hit_cylinder(t_ray *ray, t_obj *obj)
 {
 	double	x;
@@ -59,6 +63,7 @@ bool	hit_cylinder(t_ray *ray, t_obj *obj)
 			return (false);
 		ray->closest_object = obj;
 		ray->closest_t = val;
+		
 		s[0] = subtract_vector(subtract_vector(inter, obj->origin), factor_mult_vector(obj->vector, x));
 		s[1] = subtract_vector(subtract_vector(inter, obj->origin), factor_mult_vector(obj->vector, -x));
 		if (length_vector(s[0]) < length_vector(s[1]))

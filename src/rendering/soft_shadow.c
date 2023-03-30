@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   soft_shadow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:15:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/28 15:25:58 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:41:42 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,44 +39,12 @@ t_vec	gradient(t_ray *ray)
 	return (add_vector(top_color, bottom_color));
 }
 
-/*I pretend the light is a small sphere.
-Could also calculate it as plane intersection
-within radius of light coordinates.*/
-bool	hit_light(t_ray *ray, t_obj *obj)
-{
-	return (hit_sphere(ray, obj));
-}
-
-/*Checks if the ray hit any object in the linked list.*/
-bool	hit_object(t_ray *ray, t_obj *obj)
-{
-	bool	hit_anything;
-
-	hit_anything = false;
-	while (obj != NULL)
-	{
-		if (obj->type == SPHERE && hit_sphere(ray, obj) == true)
-			hit_anything = true;
-		else if (obj->type == LIGHT && hit_light(ray, obj) == true)
-			hit_anything = true;
-		else if (obj->type == PLN && hit_plane(ray, obj) == true)
-			hit_anything = true;
-		else if (obj->type == CYL && hit_cylinder(ray, obj) == true)
-			hit_anything = true;
-		else if (obj->type == CIRCLE && hit_circle(ray, obj) == true)
-			hit_anything = true;
-		else if (obj->type == SQUA && hit_square(ray, obj) == true)
-			hit_anything = true;
-		obj = obj->next;
-	}
-	return (hit_anything);
-}
-
 t_vec	bounce_color(t_ray *ray, t_ray	*bounce, t_obj *obj, int depth)
 {
 	t_vec	target;
 
-	target = add_vector(bounce->origin, rand_in_hemisphere(ray->seed, ray->normal));
+	target = add_vector(bounce->origin, \
+		rand_in_hemisphere(ray->seed, ray->normal));
 	ray->seed = xorshift_random(ray->seed);
 	bounce->direction = unit_vector(subtract_vector(target, bounce->origin));
 	return (ray_color(bounce, obj, depth));

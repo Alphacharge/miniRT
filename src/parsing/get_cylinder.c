@@ -6,21 +6,31 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/29 16:14:37 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 12:56:40 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	get_cyl(t_obj *obj, char **split)
+void	cyl_check(t_obj *obj, char **split)
 {
-	if (obj && split && split[1] && split[2] && split[3] && split[4] && split[5])
+	if (obj && split && split[1] && split[2] && split[3] \
+		&& split[4] && split[5])
 	{
 		pre_check(obj, "Cylinder Position", 1, split[1]);
 		pre_check(obj, "Cylinder Vector", 1, split[2]);
 		pre_check(obj, "Cylinder Diameter", 2, split[3]);
 		pre_check(obj, "Cylinder Height", 2, split[4]);
 		pre_check(obj, "Cylinder Color", 1, split[5]);
+	}
+}
+
+void	get_cyl(t_obj *obj, char **split)
+{
+	if (obj && split && split[1] && split[2] && split[3] \
+		&& split[4] && split[5])
+	{
+		cyl_check(obj, split);
 		if (obj->type != -1)
 			obj->type = CYL;
 		obj->origin = insert_pos_vec(split[1], obj->type, POS);
@@ -28,7 +38,8 @@ void	get_cyl(t_obj *obj, char **split)
 		obj->radius = ft_atof(split[3]) / 2.0;
 		obj->hei_fov = ft_atof(split[4]);
 		obj->color = insert_color(split[5], obj->type, 1);
-		if (is_invalid(obj->origin) || is_invalid(obj->vector) || is_invalid(obj->color))
+		if (is_invalid(obj->origin) || is_invalid(obj->vector) \
+			|| is_invalid(obj->color))
 		{
 			printf("Cylinder Malloc Error\n");
 			obj->type = -1;
