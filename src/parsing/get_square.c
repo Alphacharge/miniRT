@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:15:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 16:45:43 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:10:23 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-static void	decide_vectors(t_obj *obj, int dir, t_obj *var)
-{
-	if (obj && (dir == 1 || dir == -1))
-	{
-		var->vector = obj->vector;
-		var->vector2 = obj->vector2;
-	}
-	else if (obj && (dir == 2 || dir == -2))
-	{
-		var->vector = obj->vector2;
-		var->vector2 = obj->vector;
-	}
-	else if (obj && (dir == 3 || dir == -3))
-	{
-		var->vector = cross_vector(obj->vector, obj->vector2);
-		var->vector2 = obj->vector;
-	}
-	if (dir < 0)
-		var->vector = invert_vector(var->vector);
-}
 
 void	decide_len_hei(t_obj *obj, int dir, t_obj *var)
 {
@@ -55,6 +34,28 @@ void	decide_len_hei(t_obj *obj, int dir, t_obj *var)
 	}
 }
 
+static void	decide_vectors(t_obj *obj, int dir, t_obj *var)
+{
+	if (obj && (dir == 1 || dir == -1))
+	{
+		var->vector = obj->vector;
+		var->vector2 = obj->vector2;
+	}
+	else if (obj && (dir == 2 || dir == -2))
+	{
+		var->vector = obj->vector2;
+		var->vector2 = obj->vector;
+	}
+	else if (obj && (dir == 3 || dir == -3))
+	{
+		var->vector = cross_vector(obj->vector, obj->vector2);
+		var->vector2 = obj->vector;
+	}
+	if (dir < 0)
+		var->vector = invert_vector(var->vector);
+	decide_len_hei(obj, dir, var);
+}
+
 void	get_square(t_obj *obj, int dir)
 {
 	t_obj	*obj_c;
@@ -67,7 +68,6 @@ void	get_square(t_obj *obj, int dir)
 	{
 		obj_c->type = SQUA;
 		decide_vectors(obj, dir, &var);
-		decide_len_hei(obj, dir, &var);
 		obj_c->origin = add_vector(obj->origin, \
 					factor_mult_vector(var.vector, var.width / 2));
 		obj_c->vector = unit_vector(\

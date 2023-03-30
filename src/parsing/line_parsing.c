@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 18:53:49 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 19:06:46 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static bool	check_objs(t_obj *obj)
 	while (tmp != NULL)
 	{
 		i++;
-			print_vector(tmp->origin);
 		if (tmp->type == -1)
 		{
 			printf("Error on Object Number --> %d\n", i);
@@ -92,7 +91,6 @@ t_obj	*create_obj(t_map *map)
 		if (new == NULL)
 			return (free_map(map), clean_obj(obj), NULL);
 		tmp = obj;
-		printf("%d(%f,%f,%f),", new->type, new->origin.x, new->origin.y, new->origin.z);
 		if (tmp == NULL)
 			obj = new;
 		while (tmp && tmp->next != NULL)

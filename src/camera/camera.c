@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:28:38 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 18:50:40 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 19:11:19 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ void	get_next_cam(t_data *data)
 
 	tmp = data->obj;
 	id = data->cam->id + 1;
-	while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && 
-			!equal_vector(tmp->origin, data->cam->origin))))
+	while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
+				!equal_vector(tmp->origin, data->cam->origin))))
 		tmp = tmp->next;
-	while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && 
-			equal_vector(tmp->origin, data->cam->origin))))
+	while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
+				equal_vector(tmp->origin, data->cam->origin))))
 		tmp = tmp->next;
 	if (tmp == NULL)
 	{
 		tmp = data->obj;
-		while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && 
-			equal_vector(tmp->origin, data->cam->origin))))
+		while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
+				equal_vector(tmp->origin, data->cam->origin))))
 			tmp = tmp->next;
 	}
 	ft_free(data->cam);
