@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 14:23:07 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:21:21 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
-# define MAX_DEPTH	20		// Amount of Bounce Rays
-# define NOT		12		// Amount of Threads
+# define MAX_DEPTH	5		// Amount of Bounce Rays
+# define NOT		2		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
@@ -37,15 +37,15 @@
 
 //Color and Light Configuration
 # define SKY			0		//toggle background
-# define LIGHT_FACTOR	20		//sets factor for stochastic sampling
+# define LIGHT_FACTOR	30		//sets factor for stochastic sampling
 # define LIGHT_RADIUS	10		//point light radius
 # define ALBEDO			0.7		//material absorption rate
 # define SOFT_SHADOW	1		//toggles soft shadows
-# define BOUNCES		2		//amount of bounce rays
-# define SAMPLES		2		//0 means endless progressive sampling
+# define BOUNCES		3		//amount of bounce rays
+# define SAMPLES		0		//0 means endless progressive sampling
 
 //Debugging
-# define MLX 0
+# define MLX 1
 
 # define COL "Color"
 # define POS "Position"
@@ -187,8 +187,8 @@ int			mlx_setup(t_obj *obj, t_data *data);
 void		run_mlx(t_data *data);
 
 //MULTITHREADING
-int			create_threads(t_data *data);
-int			remove_threads(t_data *data);
+int			create_threads(t_data *data, int mode);
+int			remove_threads(t_data *data, int mode);
 int			cancel_threads(t_data *data);
 
 //ERROR
@@ -237,6 +237,7 @@ double		t_to_plane(t_vec obj_n, t_vec obj_o, t_vec ray_n, t_vec ray_o);
 
 //CAMERA
 t_cam		*setup_cam(t_obj *obj, int width, int height);
+void		refresh_cam(t_data *data, int casse);
 
 //COLOR UTILS
 int			double_to_color(double r, double g, double b);

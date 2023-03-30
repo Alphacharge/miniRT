@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 13:15:31 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:33:14 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,27 @@ double	midnight(t_ray *ray, t_obj *obj)
 	return (val);
 }
 
-// t_vec	decide_normal(t_vec inter, t_vec origin, t_vec vector, double x)
-// {
+t_vec	decide_normal(t_vec inter, t_vec origin, t_vec vector, double x)
+{
+	t_vec	s[2];
+	t_vec	res;
 
-// }
+	s[0] = subtract_vector(subtract_vector(inter, origin), \
+			factor_mult_vector(vector, x));
+	s[1] = subtract_vector(subtract_vector(inter, origin), \
+			factor_mult_vector(vector, -x));
+	if (length_vector(s[0]) < length_vector(s[1]))
+		res = unit_vector(s[0]);
+	else
+		res = unit_vector(s[1]);
+	return (res);
+}
+
 bool	hit_cylinder(t_ray *ray, t_obj *obj)
 {
 	double	x;
 	double	val;
 	t_vec	inter;
-	t_vec	s[2];
 
 	val = midnight(ray, obj);
 	if (val >= T_MAX || val == 0)
@@ -58,18 +69,13 @@ bool	hit_cylinder(t_ray *ray, t_obj *obj)
 	if (val > T_MIN && val < T_MAX && val < ray->closest_t)
 	{
 		inter = point_at(*ray, val);
-		x = sqrt(length_squared(subtract_vector(inter, obj->origin)) - pow(obj->radius, 2));
+		x = sqrt(length_squared(subtract_vector(inter, obj->origin)) \
+			- pow(obj->radius, 2));
 		if (x > obj->hei_fov / 2.0)
 			return (false);
 		ray->closest_object = obj;
 		ray->closest_t = val;
-
-		s[0] = subtract_vector(subtract_vector(inter, obj->origin), factor_mult_vector(obj->vector, x));
-		s[1] = subtract_vector(subtract_vector(inter, obj->origin), factor_mult_vector(obj->vector, -x));
-		if (length_vector(s[0]) < length_vector(s[1]))
-			ray->normal = unit_vector(s[0]);
-		else
-			ray->normal = unit_vector(s[1]);
+		ray->normal = decide_normal(inter, obj->origin, obj->vector, x);
 		return (true);
 	}
 	return (false);

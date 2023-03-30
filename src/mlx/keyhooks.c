@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyhooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:54:00 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/22 12:32:19 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:14:14 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	if (keydata.action != MLX_RELEASE)
 		return ;
 	if (keydata.key == MLX_KEY_D)
-		data->cam->origin.x += STEPSIZE;
+		refresh_cam(data, 1);
 	if (keydata.key == MLX_KEY_A)
-		data->cam->origin.x -= STEPSIZE;
+		refresh_cam(data, 2);
 	if (keydata.key == MLX_KEY_W)
-		data->cam->origin.y -= STEPSIZE;
+		refresh_cam(data, 3);
 	if (keydata.key == MLX_KEY_S)
-		data->cam->origin.y += STEPSIZE;
+		refresh_cam(data, 4);
 	if (keydata.key == MLX_KEY_E)
-		data->cam->origin.z += STEPSIZE;
+		refresh_cam(data, 5);
 	if (keydata.key == MLX_KEY_Q)
-		data->cam->origin.z -= STEPSIZE;
+		refresh_cam(data, 6);
 	if (keydata.key == MLX_KEY_ESCAPE)
 		escape(data);
 }

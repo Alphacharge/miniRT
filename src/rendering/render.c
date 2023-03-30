@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 14:13:40 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:55:13 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,11 @@ void	*thread_routine(void *threads)
 
 	thread = (t_thread *)threads;
 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-	// if (SOFT_SHADOW)
-	// 	soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
-	// else
-		hard_shadow(thread, thread->ray, thread->ambient, thread->pixels);
+	hard_shadow(thread, thread->ray, thread->ambient, thread->pixels);
 	while (SOFT_SHADOW == true)
 	{
-		if (SAMPLES > 0 && thread->runs < SAMPLES)
+		if (SAMPLES > 0 && thread->runs > SAMPLES)
 			break ;
-printf("run %i\n", thread->runs);
 		thread->runs++;
 		soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
 		thread->ray->seed = xslcg_random(thread->ray->seed);

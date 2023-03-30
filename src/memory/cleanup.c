@@ -3,19 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:51:35 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/25 17:24:12 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:20:42 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+void	refresh_cam(t_data *data, int casse)
+{
+	cancel_threads(data);
+	remove_threads(data, 1);
+	if (casse == 1)
+		data->cam->origin.x += STEPSIZE;
+	if (casse == 2)
+		data->cam->origin.x -= STEPSIZE;
+	if (casse == 3)
+		data->cam->origin.y -= STEPSIZE;
+	if (casse == 4)
+		data->cam->origin.y += STEPSIZE;
+	if (casse == 5)
+		data->cam->origin.z += STEPSIZE;
+	if (casse == 6)
+		data->cam->origin.z -= STEPSIZE;
+	if (create_threads(data, 1) != 0)
+		cleanup(data, 4);
+}
+
 void	escape(t_data *data)
 {
 	cancel_threads(data);
-	remove_threads(data);
+	remove_threads(data, 0);
 	if (MLX == true)
 		mlx_close_window(data->mlx);
 }
@@ -66,4 +86,6 @@ void	cleanup(t_data *data, int lvl)
 	if (lvl > 2)
 		ft_free(data->cam);
 	ft_free(data);
+	if (lvl > 3)
+		exit(1);
 }

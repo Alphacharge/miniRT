@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 12:52:40 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 14:55:20 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,27 @@ static t_obj	*line_interpreter(char *line)
 	return (ft_free(split), obj);
 }
 
-// static bool check_objs(t_obj *objs)
-// {
-// 	t_obj	*tmp;
-// 	int		i;
+static bool	check_objs(t_obj *objs)
+{
+	t_obj	*tmp;
+	int		i;
 
-// 	i = 1;
-// 	tmp = objs;
-// 	if (tmp == NULL)
-// 		return (false);
-// 	while (tmp != NULL)
-// 	{
-// 		i++;
-// 		if (tmp->type == -1)
-// 		{
-// 			printf("Error on Object Number --> %d\n", i);
-// 			return (false);
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// 	return (true);
-// }
+	i = 1;
+	tmp = objs;
+	if (tmp == NULL)
+		return (false);
+	while (tmp != NULL)
+	{
+		i++;
+		if (tmp->type == -1)
+		{
+			printf("Error on Object Number --> %d\n", i);
+			return (false);
+		}
+		tmp = tmp->next;
+	}
+	return (true);
+}
 
 /* creates a obj list from a preparsed map list*/
 t_obj	*create_obj(t_map *map)
@@ -94,7 +94,7 @@ t_obj	*create_obj(t_map *map)
 		obj = new;
 	}
 	free_map(map);
-	// if (!check_objs(obj))
-	// 	return (clean_obj(obj), NULL);
+	if (!check_objs(obj))
+		return (clean_obj(obj), NULL);
 	return (obj);
 }

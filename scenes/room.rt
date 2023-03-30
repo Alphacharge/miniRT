@@ -1,14 +1,22 @@
 ##	Resolution	WIDTH	HEIGHT
-R				1680		1050
+R				800		460
 ##	Camera	VIEWPOINT(X,Y,Z)	ORIENTVECTOR(Normalized)	FOV
-C	0,0,-200						0,0,1.0						80
+C	0,-50,-450						0,0.1,1					70
 ##	AmbientLight	LIGHTING RATIO		RGB COLOR
 #A					0.01					255,230,179
+
+##Lights
 ##	Light	CENTERCOORDS(X,Y,Z)	LIGHTING RATIO	RGB COLOR
-L			-40,-80,40			80				255,230,179
-L			-40,-80,70			80				255,230,179
-L			40,-80,70			80				255,230,179
-L			40,-80,40			80				255,230,179
+L			-30,-80,30			80				255,230,179
+L			-30,-80,70			80				255,230,179
+L			30,-80,70			80				255,230,179
+L			30,-80,30			80				255,230,179
+#
+##	Cylinder	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	DIAMETER	HEIGHT	RGB COLOR
+cy			-30,-110,30		0.0,-1,0					1		40	0,0,0
+cy			-30,-110,70		0.0,-1,0					1		40	0,0,0
+cy			30,-110,70		0.0,-1,0					1		40	0,0,0
+cy			30,110,30		0.0,-1,0					1		40	0,0,0
 
 ##Walls
 ##	Plane	COORDS ON THE PLANE(X,Y,Z)	ORIENTVECTOR(Normalized)	RGB COLOR
@@ -20,19 +28,97 @@ pl			0,70,0						0,-1,0						26,13,0
 
 ##Floor
 ##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
-Rect		0,70,0				1,0,0						200		0,0,1	20		2		128,64,0
-Rect		0,70,20.5			1,0,0						200		0,0,1	20		2		128,64,0
-Rect		0,70,41				1,0,0						200		0,0,1	20		2		128,64,0
-Rect		0,70,61.5			1,0,0						200		0,0,1	20		2		128,64,0
-Rect		0,70,82				1,0,0						200		0,0,1	20		2		128,64,0
-Rect		0,70,102.5			1,0,0						200		0,0,1	20		2		128,64,0
+pl			0,70,0			0,-1,0						0,0,0
+Rect		0,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		11,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		-11,70,0		0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		22,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		-22,70,0		0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		33,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		-33,70,0		0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		44,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		-44,70,0		0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		55,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		-55,70,0		0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		66,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		-66,70,0		0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		77,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		-77,70,0		0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		88,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		-88,70,0		0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		99,70,0			0,0,1						200		1,0,0	10		0.1		102,51,0
+Rect		-99,70,0		0,0,1						200		1,0,0	10		0.1		102,51,0
 
 ##Chair
 ##	Cylinder	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	DIAMETER	HEIGHT	RGB COLOR
-cy			80,70,40		0.0,-1,0					5		60	77,19,0
-cy			80,70,60		0.0,-1,0					5		60	77,19,0
-cy			60,70,60		0.0,-1,0					5		60	77,19,0
-cy			60,70,40		0.0,-1,0					5		60	77,19,0
-
+cy			70,70,5		0.0,-1,0					3		60	77,19,0
+cy			70,70,-5	0.0,-1,0					3		60	77,19,0
+cy			60,70,5		0.0,-1,0					3		60	77,19,0
+cy			60,70,-5	0.0,-1,0					3		60	77,19,0
 ##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
-Rect		70,75,50		0,1,0						10		1,0,0	25		25		77,19,0
+Rect		65,40,0		0,1,0						4		1,0,0	15		15		77,19,0
+##	Cylinder	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	DIAMETER	HEIGHT	RGB COLOR
+cy			74,27,0		0.2,-1,0					3		25	77,19,0
+cy			74,27,-4	0.2,-1,0					3		25	77,19,0
+cy			74,27,4		0.2,-1,0					3		25	77,19,0
+##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
+Rect		76,15,0		0.2,-1,0						6		0,0,1	15		3		77,19,0
+
+##Chair
+##	Cylinder	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	DIAMETER	HEIGHT	RGB COLOR
+cy			-70,70,5	0.0,-1,0					3		60	77,19,0
+cy			-70,70,-5	0.0,-1,0					3		60	77,19,0
+cy			-60,70,5	0.0,-1,0					3		60	77,19,0
+cy			-60,70,-5	0.0,-1,0					3		60	77,19,0
+##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
+Rect		-65,40,0		0,1,0					4		1,0,0	15		15		77,19,0
+##	Cylinder	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	DIAMETER	HEIGHT	RGB COLOR
+cy			-74,27,0		-0.2,-1,0					3		25	77,19,0
+cy			-74,27,-4		-0.2,-1,0					3		25	77,19,0
+cy			-74,27,4		-0.2,-1,0					3		25	77,19,0
+##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
+Rect		-76,15,0		-0.2,-1,0						6		0,0,1	15		3		77,19,0
+
+##Table
+##	Cylinder	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	DIAMETER	HEIGHT	RGB COLOR
+cy			-50,60,15		0.0,-1,0					4		80	77,19,0
+cy			-50,60,-15		0.0,-1,0					4		80	77,19,0
+cy			50,60,15		0.0,-1,0					4		80	77,19,0
+cy			50,60,-15		0.0,-1,0					4		80	77,19,0
+##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
+Rect		0,20,0		0,1,0					5		1,0,0	105		65		77,19,0
+
+##Window Right
+##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
+Rect		100,-9,11			1,0,0						0.01		0,0,1	20		20		255,255,255
+Rect		100,-31,11			1,0,0						0.01		0,0,1	20		20		255,255,255
+Rect		100,-31,-11			1,0,0						0.01		0,0,1	20		20		255,255,255
+Rect		100,-9,-11			1,0,0						0.01		0,0,1	20		20		255,255,255
+
+##Window Left
+##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
+Rect		-100,-9,11			1,0,0						0.01		0,0,1	20		20		255,255,255
+Rect		-100,-31,11			1,0,0						0.01		0,0,1	20		20		255,255,255
+Rect		-100,-31,-11		1,0,0						0.01		0,0,1	20		20		255,255,255
+Rect		-100,-9,-11			1,0,0						0.01		0,0,1	20		20		255,255,255
+
+##Window Back
+##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
+Rect		11,-9,100			0,0,1						0.01		1,0,0	20		20		255,255,255
+Rect		11,-31,100			0,0,1						0.01		1,0,0	20		20		255,255,255
+Rect		-11,-31,100			0,0,1						0.01		1,0,0	20		20		255,255,255
+Rect		-11,-9,100			0,0,1						0.01		1,0,0	20		20		255,255,255
+
+##Flower Box
+##	Rectangle	CENTERCOORDS(X,Y,Z)	ORIENTVECTOR(Normalized)	LENGTH	ORIENTVECTOR(Normalized)	WIDTH	HEIGTH	RGB COLOR
+Rect		90,60,-80			0,0,1						80		0,-1,0	40		20		255,0,191
+Rect		90,37.5,-60			0,0,1						8		0,-1,0	8		8		0,0,255
+Rect		90,37.5,-100		0,0,1						8		0,-1,0	8		8		0,0,255
+cy			92.5,30,-57.5		0.2,-0.8,0.2				2		15						0,128,0
+cy			87.5,30,-57.5		-0.2,-0.8,0.2				2		15						0,128,0
+cy			87.5,30,-62.5		-0.2,-0.8,-0.2				2		15						0,128,0
+cy			90,30,-62.5			0.2,-0.8,-0.2				2		15						0,128,0
+sp			94,22.5,-56			4			255,255,0
+sp			86,22.5,-56			4			255,0,0
+sp			86,22.5,-64			4			255,51,204
+sp			94,22.5,-64			4			0,255,255

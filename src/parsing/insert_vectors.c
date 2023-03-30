@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   insert_vectors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:49:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 13:40:12 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:05:33 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+//invalidate a vector to T_MAX
 t_vec	invalid_vec(void)
 {
 	t_vec	new;
@@ -22,6 +23,7 @@ t_vec	invalid_vec(void)
 	return (new);
 }
 
+//check if a vector is marked as invalid
 bool	is_invalid(t_vec vec)
 {
 	if (vec.x == T_MAX && vec.y == T_MAX && vec.z == T_MAX)
@@ -41,8 +43,8 @@ t_vec	insert_color(char *bigfield, int type)
 		new = new_vector(ft_atof(tmp[0]) / 255.0, \
 			ft_atof(tmp[1]) / 255.0, \
 			ft_atof(tmp[2]) / 255.0);
-		free(tmp);
 	}
+	free(tmp);
 	return (new);
 }
 
@@ -57,7 +59,7 @@ t_vec	insert_pos_vec(char *bigfield, int type, char *key)
 	{
 		new = new_vector(ft_atof(tmp[0]), ft_atof(tmp[1]), \
 		ft_atof(tmp[2]));
-		free(tmp);
 	}
+	free(tmp);
 	return (new);
 }

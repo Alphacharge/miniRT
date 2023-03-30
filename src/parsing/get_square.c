@@ -6,52 +6,52 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:15:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/29 17:57:20 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 14:06:05 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	decide_vectors(t_obj *obj, int dir, t_vec *v, t_vec *w)
+static void	decide_vectors(t_obj *obj, int dir, t_obj *var)
 {
 	if (obj && (dir == 1 || dir == -1))
 	{
-		*v = obj->vector;
-		*w = obj->vector2;
+		var->vector = obj->vector;
+		var->vector2 = obj->vector2;
 	}
 	else if (obj && (dir == 2 || dir == -2))
 	{
-		*v = obj->vector2;
-		*w = obj->vector;
+		var->vector = obj->vector2;
+		var->vector2 = obj->vector;
 	}
 	else if (obj && (dir == 3 || dir == -3))
 	{
-		*v = cross_vector(obj->vector, obj->vector2);
-		*w = obj->vector;
+		var->vector = cross_vector(obj->vector, obj->vector2);
+		var->vector2 = obj->vector;
 	}
 	if (dir < 0)
-		*v = invert_vector(*v);
+		var->vector = invert_vector(var->vector);
 }
 
-void	decide_len_hei(t_obj *obj, int dir, double *len, double *wid, double *hei)
+void	decide_len_hei(t_obj *obj, int dir, t_obj *var)
 {
 	if (obj && (dir == 1 || dir == -1))
 	{
-		*len = obj->width;
-		*hei = obj->hei_fov;
-		*wid = obj->radius;
+		var->radius = obj->width;
+		var->hei_fov = obj->hei_fov;
+		var->width = obj->radius;
 	}
 	else if (obj && (dir == 2 || dir == -2))
 	{
-		*len = obj->radius;
-		*hei = obj->hei_fov;
-		*wid = obj->width;
+		var->radius = obj->radius;
+		var->hei_fov = obj->hei_fov;
+		var->width = obj->width;
 	}
 	else if (obj && (dir == 3 || dir == -3))
 	{
-		*len = obj->radius;
-		*hei = obj->width;
-		*wid = obj->hei_fov;
+		var->radius = obj->radius;
+		var->hei_fov = obj->width;
+		var->width = obj->hei_fov;
 	}
 }
 
@@ -59,28 +59,22 @@ void	get_square(t_obj *obj, int dir)
 {
 	t_obj	*obj_c;
 	t_obj	*tmp;
-	t_vec	v;
-	t_vec	w;
-	double	len;
-	double	wid;
-	double	hei;
+	t_obj	var;
 
-	len = 0;
-	wid = 0;
-	hei = 0;
 	obj_c = ft_calloc(1, sizeof(t_obj));
 	if (obj && obj_c)
 	{
 		obj_c->type = SQUA;
-		decide_vectors(obj, dir, &v, &w);
-		decide_len_hei(obj, dir, &len, &wid, &hei);
-		v = add_vector(obj->origin, factor_mult_vector(v, wid / 2));
-		obj_c->origin = new_vector(v.x, v.y, v.z);
-		obj_c->vector = unit_vector(subtract_vector(obj_c->origin, obj->origin));
-		obj_c->vector2 = unit_vector(w);
-		obj_c->radius = len;
-		obj_c->width = hei;
-		obj_c->color = new_vector(obj->color.x, obj->color.y, obj->color.z);
+		decide_vectors(obj, dir, &var);
+		decide_len_hei(obj, dir, &var);
+		obj_c->origin = add_vector(obj->origin, \
+					factor_mult_vector(var.vector, var.width / 2));
+		obj_c->vector = unit_vector(\
+					subtract_vector(obj_c->origin, obj->origin));
+		obj_c->vector2 = unit_vector(var.vector2);
+		obj_c->radius = var.radius;
+		obj_c->width = var.hei_fov;
+		obj_c->color = obj->color;
 		tmp = obj;
 		while (tmp->next != NULL)
 			tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 09:14:35 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 15:41:40 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv)
 	if (data->cam == NULL)
 		return (cleanup(data, 2), EXIT_FAILURE);
 	printf("Starting threads.\n");
-	if (create_threads(data) != 0)
+	if (create_threads(data, 0) != 0)
 		return (cleanup(data, 3), EXIT_FAILURE);
 	run_mlx(data);
 	printf("Freeing memory.\n");
