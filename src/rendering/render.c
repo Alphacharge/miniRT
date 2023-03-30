@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 12:51:31 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 14:13:40 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	hard_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *pixels)
 		col = thread->id - 1;
 		while (col < thread->data->width)
 		{
+			color = new_vector(0, 0, 0);
 			ray = set_ray(ray, thread->data->cam, col, row);
 			color = ray_at_light(ray, thread->data->obj, \
 				first_light(thread->data->obj));
@@ -91,13 +92,16 @@ void	*thread_routine(void *threads)
 	t_thread	*thread;
 
 	thread = (t_thread *)threads;
-	if (SOFT_SHADOW)
-		soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
-	else
-		hard_shadow(thread, thread->ray, thread->ambient, thread->pixels);
 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+	// if (SOFT_SHADOW)
+	// 	soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
+	// else
+		hard_shadow(thread, thread->ray, thread->ambient, thread->pixels);
 	while (SOFT_SHADOW == true)
 	{
+		if (SAMPLES > 0 && thread->runs < SAMPLES)
+			break ;
+printf("run %i\n", thread->runs);
 		thread->runs++;
 		soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
 		thread->ray->seed = xslcg_random(thread->ray->seed);

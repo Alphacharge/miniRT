@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 12:56:40 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 13:47:44 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	get_cyl(t_obj *obj, char **split)
 		obj->vector = insert_pos_vec(split[2], obj->type, ORI);
 		obj->radius = ft_atof(split[3]) / 2.0;
 		obj->hei_fov = ft_atof(split[4]);
-		obj->color = insert_color(split[5], obj->type, 1);
+		obj->color = insert_color(split[5], obj->type);
 		if (is_invalid(obj->origin) || is_invalid(obj->vector) \
 			|| is_invalid(obj->color))
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_rect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 12:59:45 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 13:47:38 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	get_rect(t_obj *obj, char **split)
 		obj->vector2 = unit_vector(insert_pos_vec(split[4], obj->type, ORI2));
 		obj->width = ft_atof(split[5]);
 		obj->hei_fov = ft_atof(split[6]);
-		obj->color = insert_color(split[7], obj->type, 1);
+		obj->color = insert_color(split[7], obj->type);
 		if (is_invalid(obj->origin) || is_invalid(obj->vector) \
 			|| is_invalid(obj->vector2) || is_invalid(obj->color))
 		{

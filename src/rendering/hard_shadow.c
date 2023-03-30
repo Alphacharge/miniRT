@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:13:37 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/27 20:42:50 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:42:30 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_vec	ray_at_light(t_ray *ray, t_obj *obj, t_obj *light)
 	if (hit_object(ray, obj) == true)
 	{
 		if (ray->closest_object->type == LIGHT)
-			return (ray->closest_object->color);
+			return (factor_mult_vector(\
+				ray->closest_object->color, ray->closest_object->width));
 		bounce.origin = point_at(*ray, ray->closest_t);
 		bounce.direction = \
 			unit_vector(subtract_vector(light->origin, bounce.origin));

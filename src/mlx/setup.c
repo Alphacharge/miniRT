@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:47:34 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/27 20:45:05 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:21:47 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	run_mlx(t_data *data)
 {
 	if (MLX == false || data->mlx == NULL)
 	{
-		sleep(100);
+		sleep(360);
 		escape(data);
 		return ;
 	}

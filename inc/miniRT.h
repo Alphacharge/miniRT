@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 09:38:36 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 14:23:07 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@
 
 //Color and Light Configuration
 # define SKY			0		//toggle background
-# define LIGHT_RADIUS	8		//point light radius
+# define LIGHT_FACTOR	20		//sets factor for stochastic sampling
+# define LIGHT_RADIUS	10		//point light radius
 # define ALBEDO			0.7		//material absorption rate
-# define REFLEXION		1		//set reflectivity, unused
 # define SOFT_SHADOW	1		//toggles soft shadows
-# define BOUNCES		2
+# define BOUNCES		2		//amount of bounce rays
+# define SAMPLES		2		//0 means endless progressive sampling
 
 //Debugging
-# define MLX 1
+# define MLX 0
 
 # define COL "Color"
 # define POS "Position"
@@ -169,7 +170,7 @@ int			ft_strisdigit(char *str);
 int			vector_check(char *str, char **fields, int type);
 void		print_error(char *str, int type, int i, char *field);
 void		print_syntax_error(t_obj *obj, char *str);
-t_vec		insert_color(char *bigfield, int type, double intens);
+t_vec		insert_color(char *bigfield, int type);
 t_vec		insert_pos_vec(char *bigfield, int type, char *key);
 t_vec		invalid_vec(void);
 bool		is_invalid(t_vec vec);

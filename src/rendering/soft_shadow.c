@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   soft_shadow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:15:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 12:41:42 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/30 13:45:59 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
 	if (hit_object(ray, obj) == true)
 	{
 		if (ray->closest_object->type == LIGHT)
-			return (ray->closest_object->color);
+			return (factor_mult_vector(ray->closest_object->color, \
+				ray->closest_object->width * LIGHT_FACTOR));
 		if (front_facing(*ray) == true)
 			return (combine_colors(bouncecolor_average(ray, obj, depth - 1), \
 				ray->closest_object->color));
