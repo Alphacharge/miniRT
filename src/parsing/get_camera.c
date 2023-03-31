@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:49 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 11:14:10 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/31 18:33:30 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	get_cam(t_obj *obj, char **split)
 		if (obj->type != -1)
 			obj->type = CAM;
 		obj->origin = insert_pos_vec(split[1], obj->type, POS);
-		obj->vector = insert_pos_vec(split[2], obj->type, ORI);
+		obj->vector = unit_vector(insert_pos_vec(split[2], obj->type, ORI));
 		obj->hei_fov = ft_atof(split[3]);
 		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) || \
 			obj->hei_fov > 180.0 || obj->hei_fov <= 0.0)
