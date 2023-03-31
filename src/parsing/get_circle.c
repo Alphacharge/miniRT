@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:15:24 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 15:39:32 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:12:56 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	get_circle(t_obj *obj, t_vec vec)
 	t_obj	*tmp;
 	t_vec	v;
 
+	v = new_vector(0, 0, 0);
 	obj_c = ft_calloc(1, sizeof(t_obj));
 	if (obj && obj_c)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:28:38 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 19:11:19 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:09:32 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_vec	calc_corner(t_cam *cam)
 {
 	t_vec	corner;
 
+	corner = new_vector(0, 0, 0);
 	corner = factor_mult_vector(cam->horizontal, -0.5);
 	corner = add_vector(corner, factor_mult_vector(cam->vertical, -0.5));
 	corner = add_vector(corner, \

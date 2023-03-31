@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:15:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 13:45:59 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:16:50 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_vec	combine_colors(t_vec bounce_color, t_vec object_color)
 	t_vec	attenuation;
 	t_vec	color;
 
+	attenuation = new_vector(0, 0, 0);
+	color = new_vector(0, 0, 0);
 	attenuation = factor_mult_vector(object_color, ALBEDO);
 	color = multiply_vector(attenuation, bounce_color);
 	return (color);
@@ -31,6 +33,8 @@ t_vec	gradient(t_ray *ray)
 	t_vec	top_color;
 	t_vec	bottom_color;
 
+	top_color = new_vector(0, 0, 0);
+	bottom_color = new_vector(0, 0, 0);
 	top_color = new_vector(0.1, 0.4, 1.0);
 	bottom_color = new_vector(1, 1, 1);
 	t = 0.5 * (ray->direction.y + 1.0);
@@ -43,6 +47,7 @@ t_vec	bounce_color(t_ray *ray, t_ray	*bounce, t_obj *obj, int depth)
 {
 	t_vec	target;
 
+	target = new_vector(0, 0, 0);
 	target = add_vector(bounce->origin, \
 		rand_in_hemisphere(ray->seed, ray->normal));
 	ray->seed = xorshift_random(ray->seed);

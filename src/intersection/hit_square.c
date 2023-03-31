@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 09:50:50 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 20:20:42 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:12:12 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ bool	hit_square(t_ray *ray, t_obj *obj)
 	t_vec	diff;
 	t_vec	inter;
 
+	diff = new_vector(0, 0, 0);
+	inter = new_vector(0, 0, 0);
 	txy[0] = t_to_plane(obj->vector, obj->origin, ray->direction, ray->origin);
 	if (txy[0] == 0)
 		return (false);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 21:39:20 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:05:49 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
 # define MAX_DEPTH	5		// Amount of Bounce Rays
-# define NOT		36		// Amount of Threads
+# define NOT		5		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
@@ -128,7 +128,7 @@ typedef struct s_thread
 	int				runs;
 	t_vec			*pixels;
 	t_ray			*ray;
-	t_vec			*ambient;
+	t_vec			ambient;
 }					t_thread;
 
 typedef struct s_data

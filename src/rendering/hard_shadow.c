@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:13:37 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 13:42:30 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:15:34 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_vec	lambert_color(\
 	t_vec	color;
 	t_vec	attenuation;
 
+	color = new_vector(0, 0, 0);
+	attenuation = new_vector(0, 0, 0);
 	attenuation = factor_mult_vector(object_color, ALBEDO);
 	color = multiply_vector(attenuation, light_color);
 	color = color_clamp(color);

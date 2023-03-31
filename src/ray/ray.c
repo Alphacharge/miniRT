@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 16:21:42 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:14:59 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ bool	front_facing(t_ray ray)
 /*Shoots ray through pixel col|row.*/
 t_ray	*set_ray(t_ray *ray, t_cam *cam, double col, double row)
 {
+	ray->direction = new_vector(0, 0, 0);
 	ray->direction = add_vector(\
 		factor_mult_vector(cam->horizontal, col), \
 		factor_mult_vector(cam->vertical, row));

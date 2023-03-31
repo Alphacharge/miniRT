@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:19:16 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 18:53:23 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:08:29 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
 /*Combines all ambient lighting of the scene.*/
-t_vec	*get_ambient_lighting(t_obj *obj)
+t_vec	get_ambient_lighting(t_obj *obj)
 {
 	t_vec	ambient;
-	t_vec	*allocate;
 
+	ambient = new_vector(0, 0, 0);
 	while (obj != NULL)
 	{
 		if (obj->type == AMBI)
@@ -25,13 +25,7 @@ t_vec	*get_ambient_lighting(t_obj *obj)
 				factor_mult_vector(obj->color, obj->width));
 		obj = obj->next;
 	}
-	allocate = ft_calloc(1, sizeof(t_vec));
-	if (allocate == NULL)
-		return (NULL);
-	allocate->x = ambient.x;
-	allocate->y = ambient.y;
-	allocate->z = ambient.z;
-	return (allocate);
+	return (ambient);
 }
 
 int	new_thread_run(t_data *data)
@@ -43,8 +37,7 @@ int	new_thread_run(t_data *data)
 	{
 		data->threads[i].runs = 1;
 		data->threads[i].ray = cam_ray(data->cam);
-		if (data->threads[i].ray == NULL || data->threads[i].pixels == NULL || \
-			data->threads[i].ambient == NULL)
+		if (data->threads[i].ray == NULL || data->threads[i].pixels == NULL)
 			return (error_message(1), 1);
 		data->threads[i].ray->seed = xorshift_random(data->threads[i].ray->seed \
 				+ (int)(mlx_get_time() * 1000000000) % 1000 + i);
@@ -85,10 +78,7 @@ int	remove_threads(t_data *data, int mode)
 		data->threads[i].pid = 0;
 		ft_free(data->threads[i].ray);
 		if (mode == 0)
-		{
 			ft_free(data->threads[i].pixels);
-			ft_free(data->threads[i].ambient);
-		}
 		i++;
 	}
 	return (0);

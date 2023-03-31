@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:19:27 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/25 18:12:25 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:19:22 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_vec	invert_vector(t_vec vec)
 {
 	t_vec	v;
 
+	v = new_vector(0, 0, 0);
 	v.x = -vec.x;
 	v.y = -vec.y;
 	v.z = -vec.z;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 20:24:45 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:19:44 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ double	midnight(t_ray *ray, t_obj *obj)
 	t_vec	d;
 	t_vec	cros;
 
+	d = new_vector(0, 0, 0);
+	cros = new_vector(0, 0, 0);
 	val = NAN;
 	ray->direction = unit_vector(ray->direction);
 	d = cross_vector(ray->direction, obj->vector);
@@ -46,6 +48,9 @@ t_vec	decide_normal(t_vec inter, t_vec origin, t_vec vector, double x)
 	t_vec	s[2];
 	t_vec	res;
 
+	s[0] = new_vector(0, 0, 0);
+	s[1] = new_vector(0, 0, 0);
+	res = new_vector(0, 0, 0);
 	s[0] = subtract_vector(subtract_vector(inter, origin), \
 			factor_mult_vector(vector, x));
 	s[1] = subtract_vector(subtract_vector(inter, origin), \
@@ -63,6 +68,7 @@ bool	hit_cylinder(t_ray *ray, t_obj *obj)
 	double	val;
 	t_vec	inter;
 
+	inter = new_vector(0, 0, 0);
 	val = midnight(ray, obj);
 	if (val >= T_MAX || val == 0)
 		return (false);

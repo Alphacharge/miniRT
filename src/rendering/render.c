@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 20:54:48 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:16:14 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_obj	*first_light(t_obj *list)
 }
 
 /*Will calculate the scene with stochastic sampling, GI and soft shadows.*/
-void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *pixels)
+void	soft_shadow(t_thread *thread, t_ray *ray, t_vec ambient, t_vec *pixels)
 {
 	int		col;
 	int		row;
@@ -44,13 +44,14 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *pixels)
 		pthread_testcancel();
 		while (col < thread->data->width)
 		{
+			color = new_vector(0, 0, 0);
 			ray = random_ray(ray, thread->data->cam, col, row);
 			color = ray_color(ray, thread->data->obj, MAX_DEPTH);
 			pixels[i] = factor_mult_vector(pixels[i], thread->runs);
 			color = add_vector(pixels[i], color);
 			color = factor_div_vector(color, thread->runs + 1);
 			pixels[i++] = color;
-			color = add_vector(color, *ambient);
+			color = add_vector(color, ambient);
 			put_pixel(thread->data->img, col, row, color);
 			col += NOT;
 		}
@@ -59,7 +60,7 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *pixels)
 }
 
 /*Will calculate the scene with only direct light and hard shadows.*/
-void	hard_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *pixels)
+void	hard_shadow(t_thread *thread, t_ray *ray, t_vec ambient, t_vec *pixels)
 {
 	int		col;
 	int		row;
@@ -78,7 +79,7 @@ void	hard_shadow(t_thread *thread, t_ray *ray, t_vec *ambient, t_vec *pixels)
 			color = ray_at_light(ray, thread->data->obj, \
 				first_light(thread->data->obj));
 			pixels[i++] = color;
-			color = add_vector(color, *ambient);
+			color = add_vector(color, ambient);
 			put_pixel(thread->data->img, col, row, color);
 			col += NOT;
 		}

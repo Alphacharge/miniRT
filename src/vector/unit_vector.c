@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:03:29 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/27 20:32:29 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:18:29 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_vec	random_vector(unsigned int seed)
 	t_vec	vector;
 	int		random;
 
+	vector = new_vector(0, 0, 0);
 	random = xorshift_random(seed);
 	vector.x = random % 1000;
 	random = lcg_random(seed);
@@ -42,6 +43,7 @@ t_vec	rand_in_unit_sphere(int seed)
 {
 	t_vec	rand_vec;
 
+	rand_vec = new_vector(0, 0, 0);
 	while (1)
 	{
 		rand_vec = random_vector((unsigned int)seed);
@@ -56,6 +58,7 @@ t_vec	rand_in_hemisphere(int seed, t_vec normal)
 {
 	t_vec	rand_vec;
 
+	rand_vec = new_vector(0, 0, 0);
 	rand_vec = rand_in_unit_sphere(seed);
 	if (scalar_vector(rand_vec, normal) > 0.0)
 		return (rand_vec);
