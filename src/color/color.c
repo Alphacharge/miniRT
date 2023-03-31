@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:32:39 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/30 20:29:49 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/31 13:06:30 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,13 @@ t_vec	color_clamp(t_vec color)
 		color.z = 1;
 	else if (color.z < 0)
 		color.z = 0;
+	return (color);
+}
+
+t_vec	abs_vector(t_vec color)
+{
+	color.x = fabs(color.x);
+	color.y = fabs(color.y);
+	color.z = fabs(color.z);
 	return (color);
 }

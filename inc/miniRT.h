@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 11:19:07 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/31 13:56:52 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define LIGHT_FACTOR	30		//sets factor for stochastic sampling
 # define LIGHT_RADIUS	10		//point light radius
 # define ALBEDO			0.7		//material absorption rate
-# define SOFT_SHADOW	1		//toggles soft shadows
+# define SOFT_SHADOW	0		//toggles soft shadows
 # define BOUNCES		1		//amount of bounce rays
 # define SAMPLES		0		//0 means endless progressive sampling
 
@@ -204,7 +204,7 @@ void		free_map(t_map *map);
 
 //RAY UTILS
 t_ray		bounce_ray(t_ray *original);
-bool		front_facing(t_ray ray);
+bool		front_facing(t_vec ray_direction, t_vec face_normal);
 t_vec		ray_color(t_ray *ray, t_obj *obj, int depth);
 t_vec		ray_at_light(t_ray *ray, t_obj *obj, t_obj *light);
 t_vec		point_at(t_ray ray, double t);
@@ -230,6 +230,7 @@ t_vec		random_vector(unsigned int max);
 t_vec		rand_in_unit_sphere(int seed);
 t_vec		rand_in_hemisphere(int seed, t_vec normal);
 bool		equal_vector(t_vec a, t_vec b);
+t_vec		abs_vector(t_vec color);
 
 //HIT_OBJECTS
 bool		hit_sphere(t_ray *ray, t_obj *obj);

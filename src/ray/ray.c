@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:42:25 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/31 10:14:59 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:49:11 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_ray	bounce_ray(t_ray *original)
 }
 
 /*Returns true if ray and normal face each other.*/
-bool	front_facing(t_ray ray)
+bool	front_facing(t_vec ray_direction, t_vec face_normal)
 {
-	if (scalar_vector(ray.direction, ray.normal) >= 0)
+	if (scalar_vector(ray_direction, face_normal) >= 0)
 		return (false);
 	return (true);
 }
