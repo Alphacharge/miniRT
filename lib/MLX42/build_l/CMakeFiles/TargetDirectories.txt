@@ -1,3 +1,0 @@
-/code/lib/MLX42/build_l/CMakeFiles/mlx42.dir
-/code/lib/MLX42/build_l/CMakeFiles/edit_cache.dir
-/code/lib/MLX42/build_l/CMakeFiles/rebuild_cache.dir

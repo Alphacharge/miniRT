@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:13:37 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/31 13:53:00 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:59:20 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_vec	ray_at_light(t_ray *ray, t_obj *obj, t_obj *light)
 		if (front_facing(ray->direction, ray->normal) \
 			== front_facing(bounce.direction, ray->normal))
 			return (new_vector(0, 0, 0));
-		return (lambert_color(ray_at_light(&bounce, obj, light),\
+		return (lambert_color(ray_at_light(&bounce, obj, light), \
 			ray->closest_object->color, ray->normal, bounce.direction));
 	}
 	if (SKY == true)
