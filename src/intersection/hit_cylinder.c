@@ -6,24 +6,36 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 14:22:10 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 10:19:44 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:08:55 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+double	smallest_t(double t1, double t2)
+{
+	double	val;
+
+	val = NAN;
+	if (t1 < T_MIN || t1 > T_MAX || isnan(t1))
+		t1 = T_MAX;
+	if (t2 < T_MIN || t2 > T_MAX || isnan(t2))
+		t2 = T_MAX;
+	val = t1;
+	if (t2 < t1)
+		val = t2;
+	return (val);
+}
+
 double	midnight(t_ray *ray, t_obj *obj)
 {
 	double	a[3];
 	double	t[2];
-	double	val;
 	t_vec	d;
 	t_vec	cros;
 
 	d = new_vector(0, 0, 0);
 	cros = new_vector(0, 0, 0);
-	val = NAN;
-	ray->direction = unit_vector(ray->direction);
 	d = cross_vector(ray->direction, obj->vector);
 	cros = cross_vector(subtract_vector(ray->origin, obj->origin), obj->vector);
 	a[0] = length_squared(d);
@@ -33,14 +45,7 @@ double	midnight(t_ray *ray, t_obj *obj)
 		return (0);
 	t[0] = (-a[1] - sqrt((a[1] * a[1]) - (4.0 * a[0] * a[2]))) / (2.0 * a[0]);
 	t[1] = (-a[1] + sqrt((a[1] * a[1]) - (4.0 * a[0] * a[2]))) / (2.0 * a[0]);
-	if (t[0] < T_MIN || t[0] > T_MAX || isnan(t[0]))
-		t[0] = T_MAX;
-	if (t[1] < T_MIN || t[1] > T_MAX || isnan(t[1]))
-		t[1] = T_MAX;
-	val = t[0];
-	if (t[1] < t[0])
-		val = t[1];
-	return (val);
+	return (smallest_t(t[0], t[1]));
 }
 
 t_vec	decide_normal(t_vec inter, t_vec origin, t_vec vector, double x)

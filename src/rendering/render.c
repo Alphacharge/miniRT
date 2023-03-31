@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/31 10:16:14 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:53:22 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_obj	*first_light(t_obj *list)
 }
 
 /*Will calculate the scene with stochastic sampling, GI and soft shadows.*/
-void	soft_shadow(t_thread *thread, t_ray *ray, t_vec ambient, t_vec *pixels)
+void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *pixels, t_data *data)
 {
 	int		col;
 	int		row;
@@ -38,21 +38,20 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec ambient, t_vec *pixels)
 
 	i = 0;
 	row = 0;
-	while (row < thread->data->height)
+	while (row < data->height)
 	{
 		col = thread->id - 1;
 		pthread_testcancel();
-		while (col < thread->data->width)
+		while (col < data->width)
 		{
 			color = new_vector(0, 0, 0);
-			ray = random_ray(ray, thread->data->cam, col, row);
-			color = ray_color(ray, thread->data->obj, MAX_DEPTH);
+			ray = random_ray(ray, data->cam, col, row);
 			pixels[i] = factor_mult_vector(pixels[i], thread->runs);
-			color = add_vector(pixels[i], color);
+			color = add_vector(pixels[i], ray_color(ray, data->obj, MAX_DEPTH));
 			color = factor_div_vector(color, thread->runs + 1);
 			pixels[i++] = color;
-			color = add_vector(color, ambient);
-			put_pixel(thread->data->img, col, row, color);
+			color = add_vector(color, thread->ambient);
+			put_pixel(data->img, col, row, color);
 			col += NOT;
 		}
 		row++;
@@ -100,7 +99,7 @@ void	*thread_routine(void *threads)
 		if (SAMPLES > 0 && thread->runs > SAMPLES)
 			break ;
 		thread->runs++;
-		soft_shadow(thread, thread->ray, thread->ambient, thread->pixels);
+		soft_shadow(thread, thread->ray, thread->pixels, thread->data);
 		thread->ray->seed = xslcg_random(thread->ray->seed);
 	}
 	return (NULL);

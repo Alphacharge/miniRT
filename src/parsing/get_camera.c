@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_camera.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humbi <humbi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:49 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 20:46:23 by humbi            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:47:34 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	get_cam(t_obj *obj, char **split)
 			obj->type = -1;
 		}
 		obj->hei_fov = obj->hei_fov * M_PI / 180;
-		obj->color = new_vector(0,0,0);
+		obj->color = new_vector(0, 0, 0);
 	}
 	else
 		print_syntax_error(obj, "Camera");

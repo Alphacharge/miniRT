@@ -6,13 +6,13 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 14:41:17 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 10:11:24 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:59:49 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-double	closest_intersection(double root, double a, double b)
+static double	closest_intersection(double root, double a, double b)
 {
 	double	t;
 
@@ -26,7 +26,7 @@ double	closest_intersection(double root, double a, double b)
 	return (t);
 }
 
-bool	closest_sphere(t_ray *ray, t_obj *obj, double t)
+static bool	closest_sphere(t_ray *ray, t_obj *obj, double t)
 {
 	if (t >= ray->closest_t)
 		return (false);
@@ -52,7 +52,7 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 	a = length * length;
 	b = scalar_vector(origin_center, ray->direction);
 	length = length_vector(origin_center);
-	discriminant = b * b - ((a * length * length) - (obj->radius * obj->radius));
+	discriminant = b * b - (a * pow(length, 2) - pow(obj->radius, 2));
 	if (discriminant <= 0)
 		return (false);
 	discriminant = sqrt(discriminant);

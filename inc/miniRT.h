@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 10:26:08 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:09:38 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define SAMPLES		0		//0 means endless progressive sampling
 
 //Debugging
-# define MLX 1
+# define MLX 0
 
 # define COL "Color"
 # define POS "Position"
