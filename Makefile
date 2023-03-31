@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/31 13:15:18 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/31 14:06:56 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -167,5 +167,7 @@ fclean: clean
 	@echo "$(RED)All is cleaned$(WHITE)"
 
 re: fclean all
+
+bonus: all
 
 .PHONY: all clean fclean re
