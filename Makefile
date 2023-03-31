@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+         #
+#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/30 17:15:41 by fkernbac         ###   ########.fr        #
+#    Updated: 2023/03/31 11:29:13 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ SRC_F	+=	ft_error.c cleanup.c
 
 SRC_F	+=	keyhooks.c setup.c
 
-SRC_F	+=	file_parsing.c print_map.c file_utils.c
+SRC_F	+=	file_parsing.c print_map.c file_utils.c file_utils_2.c
 SRC_F	+=	line_parsing.c ft_split_p.c ft_atof.c
 SRC_F	+=	pre_field_check.c line_utils.c pars_error.c
 SRC_F	+=	get_resolution.c get_camera.c get_ambient.c get_light.c
@@ -143,6 +143,8 @@ $(LIBFT):
 	make -j -C $(LIBFT_D)
 
 $(MLX): $(CONFIG)
+	@mkdir $(MLX_L)
+	@cmake -S $(MLX_D) -B $(MLX_L)
 	make -C $(MLX_L)
 
 $(CONFIG):
@@ -168,6 +170,7 @@ clean:
 	fi;
 
 fclean: clean
+	$(RM) -rf $(MLX_L);
 	@if [ -f "$(NAME)" ]; then \
 			$(RM) -f $(NAME); \
 	fi;

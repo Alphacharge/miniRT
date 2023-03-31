@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 14:21:53 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/21 16:10:46 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:31:03 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	error_message(int ecase)
 	if (ecase == 4)
 		ft_putendl_fd("Error, too much Arguments!", 2);
 	if (ecase == 5)
-		ft_putendl_fd("Error, empty Argument!", 2);
+		ft_putendl_fd("Error, invalid Argument!", 2);
 	if (ecase == 6)
 		ft_putendl_fd("Error, can not open file.", 2);
 	if (ecase == 7)

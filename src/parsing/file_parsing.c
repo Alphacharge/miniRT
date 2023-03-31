@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:03:38 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/22 15:20:32 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:32:20 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_map	*check_input(int argc, char **argv)
 		return (ft_free(map), error_message(3), NULL);
 	if (argc > 2)
 		return (ft_free(map), error_message(4), NULL);
-	if (!ft_strcmp(argv[1], ""))
+	if (!ft_strcmp(argv[1], "") || is_no_rt_file(argv[1]))
 		return (ft_free(map), error_message(5), NULL);
 	map->fd = open(argv[1], O_RDONLY);
 	if (map->fd < 0)

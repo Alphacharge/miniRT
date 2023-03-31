@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:00 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 18:54:03 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/31 08:10:28 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	get_light(t_obj *obj, char **split)
 		if (invalid_vector(obj->origin) || invalid_color(obj->color) || \
 			obj->width > 1.0)
 		{
-			printf("Light Malloc Error\n");
+			printf("Light Malloc Error or Ratio over 1\n");
 			obj->type = -1;
 		}
 	}

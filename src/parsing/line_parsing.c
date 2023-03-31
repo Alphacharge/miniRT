@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 09:38:42 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 19:06:46 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:21:32 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ static bool	check_objs(t_obj *obj)
 		i++;
 		if (tmp->type == -1)
 		{
-			printf("Error on Object Number --> %d\n", i);
+			printf("Error on Object Number --> %d", i);
+			printf("| Origin is: (%f,%f,%f)\n", tmp->origin.x, tmp->origin.y, \
+				tmp->origin.z);
 			return (false);
 		}
 		tmp = tmp->next;
