@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 18:54:15 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/03/31 10:44:07 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 	if (data == NULL)
 		return (EXIT_FAILURE);
 	if (mlx_setup(data->obj, data) != 0)
-		return (cleanup(data, 0), EXIT_FAILURE);
+		return (cleanup(data, 1), EXIT_FAILURE);
 	data->cam = setup_cam(data->obj, data->width, data->height, 1);
 	if (data->cam == NULL)
 		return (cleanup(data, 2), EXIT_FAILURE);

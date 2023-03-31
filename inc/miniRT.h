@@ -6,7 +6,7 @@
 /*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 10:05:49 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/03/31 10:26:08 by fkernbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
 # define MAX_DEPTH	5		// Amount of Bounce Rays
-# define NOT		5		// Amount of Threads
+# define NOT		20		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
@@ -40,7 +40,7 @@
 # define LIGHT_FACTOR	30		//sets factor for stochastic sampling
 # define LIGHT_RADIUS	10		//point light radius
 # define ALBEDO			0.7		//material absorption rate
-# define SOFT_SHADOW	1		//toggles soft shadows
+# define SOFT_SHADOW	0		//toggles soft shadows
 # define BOUNCES		1		//amount of bounce rays
 # define SAMPLES		0		//0 means endless progressive sampling
 
