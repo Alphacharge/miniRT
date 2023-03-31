@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/31 11:29:13 by rbetz            ###   ########.fr        #
+#    Updated: 2023/03/31 13:15:18 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,13 @@ NAME	:=	miniRT
 
 ###			###			COMPABILITY		###			###
 OS		:=	$(shell uname)
-BREWU	:=	/Users/$(USER)/.brewconfig.zsh
+CONFIG	:=	/Users/$(USER)/.brewconfig.zsh
+BREWU	:=	.brew
 
 ###			###			COMPILER		###			###
 CC		:=	cc
 CFLAGS	:=	-Wall -Wextra -Werror -Ofast
-#CFLAGS	+=	-framework Cocoa -framework OpenGL -framework IOKit
-CFLAGS	+=	-g #-fsanitize=address
+#CFLAGS	+=	-g #-fsanitize=address
 
 ###			###			LIBRARIES		###			###
 LIBFT_D	:=	./lib/libft
@@ -32,8 +32,8 @@ else
 	MLX_SD :=	build_l
 endif
 MLX_L	:=	$(MLX_D)$(MLX_SD)
-MLX 	:=	$(MLX_D)/$(MLX_SD)/libmlx42.a
-LIB_MAC	:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -L ~/.brew/opt/glfw/lib -l glfw
+MLX 	:=	$(MLX_D)$(MLX_SD)/libmlx42.a
+LIB_MAC	:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -L ~/$(BREWU)/opt/glfw/lib -l glfw
 LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -l glfw -lm -ldl -lpthread
 
 ###			###			HEADER			###			###
@@ -64,32 +64,21 @@ VPATH	:=	src/ \
 			src/vector
 
 SRC_F	:=	miniRT.c
-
 SRC_F	+=	camera.c
-
 SRC_F	+=	color.c
-
 SRC_F	+=	hit_sphere.c hit_plane.c hit_cylinder.c hit_circle.c hit_square.c
-
 SRC_F	+=	ft_error.c cleanup.c
-
 SRC_F	+=	keyhooks.c setup.c
-
 SRC_F	+=	file_parsing.c print_map.c file_utils.c file_utils_2.c
 SRC_F	+=	line_parsing.c ft_split_p.c ft_atof.c
 SRC_F	+=	pre_field_check.c line_utils.c pars_error.c
 SRC_F	+=	get_resolution.c get_camera.c get_ambient.c get_light.c
 SRC_F	+=	get_sphere.c get_plane.c get_cylinder.c get_circle.c get_rect.c
 SRC_F	+=	get_square.c insert_vectors.c
-
 SRC_F	+=	ray.c ray_utils.c
-
 SRC_F	+=	hard_shadow.c soft_shadow.c render.c hit_object.c
-
 SRC_F	+=	threads.c
-
 SRC_F	+=	free.c random.c
-
 SRC_F	+=	vector.c arithmetics.c unit_vector.c vector_ops.c
 
 ###			###			OBJECTS			###			###
@@ -153,11 +142,12 @@ $(CONFIG):
 			apt-get install -y libglfw3-dev >> /dev/null 2>&1 \
 		;else \
 			if [ -f $(BREWU) ]; then \
-				echo "check brew for glfw"; \
-				brew install glfw >> /dev/null 2>&1 \
+				echo "check brew for glfw and cmake"; \
+				brew install glfw cmake \
 			;else \
-				curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | bash; \
-				brew install glfw >> /dev/null 2>&1; \
+				curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh; \
+				source ~/.zshrc; \
+				brew install glfw cmake; \
 			fi; \
 		fi; \
 	fi;
@@ -170,10 +160,11 @@ clean:
 	fi;
 
 fclean: clean
-	$(RM) -rf $(MLX_L);
+	@$(RM) -r $(MLX_L);
 	@if [ -f "$(NAME)" ]; then \
 			$(RM) -f $(NAME); \
 	fi;
+	@echo "$(RED)All is cleaned$(WHITE)"
 
 re: fclean all
 
