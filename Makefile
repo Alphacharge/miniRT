@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/03/31 14:06:56 by rbetz            ###   ########.fr        #
+#    Updated: 2023/04/03 11:28:46 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -139,7 +139,7 @@ $(MLX): $(CONFIG)
 $(CONFIG):
 	@if [ ! -f "$(CONFIG)" ]; then \
 		if [ "$(OS)" = "Linux" ]; then \
-			apt-get install -y libglfw3-dev >> /dev/null 2>&1 \
+			apt-get install -y libglfw3-dev cmake >> /dev/null 2>&1 \
 		;else \
 			if [ -f $(BREWU) ]; then \
 				echo "check brew for glfw and cmake"; \
