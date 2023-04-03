@@ -1,5 +1,5 @@
 # 42 miniRT Project
-This project is a small selfcoded Raytracer from [fkernbac](https://github.com/fkernbac) and [rbetz](https://github.com/Alphacharge).
+This project is a selfcoded Raytracer from [fkernbac](https://github.com/fkernbac) and [rbetz](https://github.com/Alphacharge).
 It's using the [glfw Lib](https://github.com/glfw/glfw), [MLX42 V2.3.0](https://github.com/codam-coding-college/MLX42/commit/bf5dd7085b403974dd2d4e1e217877a518fc8915) and my [libft Lib](https://github.com/Alphacharge/mylibft/commit/37dc7a19c7b4b2734c7a4ccf9407ca715a660866).
 
 All Dependencies are included or should get installed during the Make process.
