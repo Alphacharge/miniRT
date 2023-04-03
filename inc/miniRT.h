@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 13:56:52 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/04/03 10:27:48 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 # define LIGHT_FACTOR	30		//sets factor for stochastic sampling
 # define LIGHT_RADIUS	10		//point light radius
 # define ALBEDO			0.7		//material absorption rate
-# define SOFT_SHADOW	0		//toggles soft shadows
-# define BOUNCES		1		//amount of bounce rays
+# define SOFT_SHADOW	1		//toggles soft shadows
+# define BOUNCES		3		//amount of bounce rays
 # define SAMPLES		0		//0 means endless progressive sampling
 
 //Debugging
@@ -105,7 +105,6 @@ typedef struct s_ray
 
 typedef struct s_camera
 {
-	int		id;
 	double	focal_length;
 	t_vec	origin;
 	t_vec	direction;
@@ -241,7 +240,7 @@ bool		hit_square(t_ray *ray, t_obj *obj);
 double		t_to_plane(t_vec obj_n, t_vec obj_o, t_vec ray_n, t_vec ray_o);
 
 //CAMERA
-t_cam		*setup_cam(t_obj *obj, int width, int height, int id);
+t_cam		*setup_cam(t_obj *obj, int width, int height);
 void		refresh_cam(t_data *data, int casse);
 void		get_next_cam(t_data *data);
 

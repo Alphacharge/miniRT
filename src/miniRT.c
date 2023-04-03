@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:03:07 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 11:19:56 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/04/03 10:28:15 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (mlx_setup(data->obj, data) != 0)
 		return (cleanup(data, 1), EXIT_FAILURE);
-	data->cam = setup_cam(data->obj, data->width, data->height, 1);
+	data->cam = setup_cam(data->obj, data->width, data->height);
 	if (data->cam == NULL)
 		return (cleanup(data, 2), EXIT_FAILURE);
 	printf("Starting threads.\n");

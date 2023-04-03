@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:28:38 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/31 10:09:32 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/04/03 10:27:35 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_vec	calc_corner(t_cam *cam)
 	return (corner);
 }
 
-t_cam	*setup_cam(t_obj	*obj, int width, int height, int id)
+t_cam	*setup_cam(t_obj	*obj, int width, int height)
 {
 	t_cam	*cam;
 	t_vec	down;
@@ -45,7 +45,6 @@ t_cam	*setup_cam(t_obj	*obj, int width, int height, int id)
 		obj = obj->next;
 	if (obj == NULL)
 		return (error_message(14), ft_free(cam), NULL);
-	cam->id = id;
 	cam->origin = obj->origin;
 	cam->focal_length = width / (2 * tan(obj->hei_fov / 2));
 	cam->direction = unit_vector(obj->vector);
@@ -59,13 +58,22 @@ t_cam	*setup_cam(t_obj	*obj, int width, int height, int id)
 	return (cam);
 }
 
+bool	no_further_cam(t_obj *obj)
+{
+	while (obj != NULL)
+	{
+		if (obj && obj->type == CAM)
+			return (false);
+		obj = obj->next;
+	}
+	return (true);
+}
+
 void	get_next_cam(t_data *data)
 {
 	t_obj	*tmp;
-	int		id;
 
 	tmp = data->obj;
-	id = data->cam->id + 1;
 	while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
 				!equal_vector(tmp->origin, data->cam->origin))))
 		tmp = tmp->next;
@@ -79,6 +87,9 @@ void	get_next_cam(t_data *data)
 				equal_vector(tmp->origin, data->cam->origin))))
 			tmp = tmp->next;
 	}
-	ft_free(data->cam);
-	data->cam = setup_cam(tmp, data->mlx->width, data->mlx->height, id);
+	if (!no_further_cam(tmp))
+	{
+		ft_free(data->cam);
+		data->cam = setup_cam(tmp, data->mlx->width, data->mlx->height);
+	}
 }
