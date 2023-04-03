@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 18:33:54 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/04/03 10:46:18 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_cyl(t_obj *obj, char **split)
 		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) \
 			|| invalid_color(obj->color) || obj->radius <= 0.0)
 		{
-			printf("Cylinder Malloc Error\n");
+			printf("Cylinder Error\n");
 			obj->type = -1;
 			return ;
 		}

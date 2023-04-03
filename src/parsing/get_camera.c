@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:49 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 18:33:30 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/04/03 10:46:28 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_cam(t_obj *obj, char **split)
 		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) || \
 			obj->hei_fov > 180.0 || obj->hei_fov <= 0.0)
 		{
-			printf("Camera Malloc Error\n");
+			printf("Camera Error\n");
 			obj->type = -1;
 		}
 		obj->hei_fov = obj->hei_fov * M_PI / 180;

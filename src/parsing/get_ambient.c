@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:44 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 08:10:40 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/04/03 10:46:33 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_ambi(t_obj *obj, char **split)
 		obj->color = insert_color(split[2], obj->type);
 		if (invalid_color(obj->color) || obj->width > 1.0)
 		{
-			printf("Ambientlight Malloc Error or Ratio over 1\n");
+			printf("Ambientlight Error or Ratio over 1\n");
 			obj->type = -1;
 		}
 	}

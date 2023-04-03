@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:05 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/31 18:34:16 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/04/03 10:46:38 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	get_pln(t_obj *obj, char **split)
 		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) \
 			|| invalid_color(obj->color))
 		{
-			printf("Plane Malloc Error\n");
+			printf("Plane Error\n");
 			obj->type = -1;
 		}
 	}

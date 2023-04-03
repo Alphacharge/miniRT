@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_rect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 15:33:38 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/04/03 10:46:43 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	get_rect(t_obj *obj, char **split)
 		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) \
 			|| invalid_vector(obj->vector2) || invalid_color(obj->color))
 		{
-			printf("Rectangle Malloc Error\n");
+			printf("Rectangle Error\n");
 			obj->type = -1;
 			return ;
 		}

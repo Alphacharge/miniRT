@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:13:14 by rbetz             #+#    #+#             */
-/*   Updated: 2023/03/30 15:57:31 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/04/03 10:46:50 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_sphere(t_obj *obj, char **split)
 		if (invalid_vector(obj->origin) || invalid_color(obj->color) || \
 			obj->radius <= 0.0)
 		{
-			printf("Sphere Malloc Error\n");
+			printf("Sphere Error\n");
 			obj->type = -1;
 		}
 	}
