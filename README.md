@@ -23,7 +23,7 @@ It contains following Objects:
 
 Additional you can declare a * *Resolution* * in the Scenefile.
 
-This Raytracer is multithreaded, handles hard shadows as soft shadows [shadows](https://www.peachpit.com/articles/article.aspx?p=486505&seqNum=6) also.
+This Raytracer is multithreaded, handles hard shadows as soft [shadows](https://www.peachpit.com/articles/article.aspx?p=486505&seqNum=6) also.
 
 You can declare all Objects multiple times, expect Resolution.
 ## Using
