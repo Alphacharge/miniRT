@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 16:33:15 by rbetz             #+#    #+#              #
-#    Updated: 2023/06/02 17:51:50 by rbetz            ###   ########.fr        #
+#    Updated: 2023/06/02 18:13:51 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,7 +120,7 @@ endif
 
 #Linux Compability for our programm
 ifeq ($(OS), Linux)
-	LIB	+=	-lm -ldl -l glfw
+	LIB	+=	-lm -ldl -l glfw -lpthread
 ifeq ($(shell which cmake), )
 	@echo "$(BLUE)Install cmake and glfw...$(WHITE)"
 	@apt-get update
