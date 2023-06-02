@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+         #
+#    By: rbetz <rbetz@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/30 12:38:23 by rbetz             #+#    #+#              #
-#    Updated: 2023/04/03 11:28:46 by rbetz            ###   ########.fr        #
+#    Created: 2023/06/02 16:33:15 by rbetz             #+#    #+#              #
+#    Updated: 2023/06/02 17:51:50 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,39 +14,12 @@ NAME	:=	miniRT
 
 ###			###			COMPABILITY		###			###
 OS		:=	$(shell uname)
-CONFIG	:=	/Users/$(USER)/.brewconfig.zsh
-BREWU	:=	.brew
 
 ###			###			COMPILER		###			###
 CC		:=	cc
-CFLAGS	:=	-Wall -Wextra -Werror -Ofast
+CFLAGS	:=	-Wall -Wextra -Werror
+CFLAGS	+=	-O2 -MMD
 #CFLAGS	+=	-g #-fsanitize=address
-
-###			###			LIBRARIES		###			###
-LIBFT_D	:=	./lib/libft
-LIBFT	:=	./lib/libft/libft.a
-MLX_D	:=	./lib/MLX42/
-ifeq ($(OS), Darwin)
-	MLX_SD :=	build
-else
-	MLX_SD :=	build_l
-endif
-MLX_L	:=	$(MLX_D)$(MLX_SD)
-MLX 	:=	$(MLX_D)$(MLX_SD)/libmlx42.a
-LIB_MAC	:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -L ~/$(BREWU)/opt/glfw/lib -l glfw
-LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX_L) -l mlx42 -l glfw -lm -ldl -lpthread
-
-###			###			HEADER			###			###
-INC_D	:=	./inc
-INC_ALL	:=	-I $(INC_D)/ -I $(LIBFT_D) -I $(MLX_D)include/MLX42
-
-ifeq ($(OS), Darwin)
-	INC_MAC	:=	$(INC_ALL)
-	CFLAGS	+=	$(INC_MAC)
-else
-	INC		:=	$(INC_ALL)
-	CFLAGS	+=	$(INC)
-endif
 
 ###			###			SOURCES			###			###
 VPATH	:=	src/ \
@@ -84,37 +57,124 @@ SRC_F	+=	vector.c arithmetics.c unit_vector.c vector_ops.c
 ###			###			OBJECTS			###			###
 OBJ_D	:=	./obj
 OBJ_F	:=	$(patsubst %.c,$(OBJ_D)/%.o,$(SRC_F))
+DEP_F	:=	$(patsubst %.c,$(OBJ_D)/%.d,$(SRC_F))
 
 ###			###			COLORS			###			###
-RED		=	\033[1;31m
-GREEN	=	\033[1;32m
-YELL	=	\033[1;33m
-BLUE	=	\033[1;34m
-WHITE	=	\033[0m
+RED		:=	\033[1;31m
+GREEN	:=	\033[1;32m
+YELL	:=	\033[1;33m
+BLUE	:=	\033[1;34m
+WHITE	:=	\033[0m
 
-###			###			RULES			###			###
-all: message $(LIBFT) $(MLX)
-	@$(MAKE) $(NAME) -j
+###			###			LIBRARIES		###			###
+LIBFT_D	:=	./lib/libft
+LIBFT_F	:=	$(LIBFT_D)/libft.a
+LIBFT_U	:=	https://www.github.com/Alphacharge/mylibft
 
-rt:
-	$(RM) -rf $(OBJ_D);
-	@$(MAKE) $(NAME) -j
-
+MLX42_D	:=	./lib/MLX42
 ifeq ($(OS), Darwin)
-$(NAME): $(OBJ_D) $(OBJ_F)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ_F) $(LIB_MAC)
-	@echo "$(RED)>>>$(BLUE)$(NAME) is compiled.$(WHITE)"
+	MLX42_BD	:=	$(MLX42_D)/build
 else
-$(NAME): $(OBJ_D) $(OBJ_F)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ_F) $(LIB)
-	@echo "$(RED)>>>$(BLUE)$(NAME) is compiled.$(WHITE)"
+	MLX42_BD	:=	$(MLX42_D)/build_l
+endif
+MLX42_F	:=	$(MLX42_BD)/libmlx42.a
+MLX42_U	:=	https://www.github.com/codam-coding-college/MLX42
+
+LSAN_D	:=	./lib/LeakSanitizer
+LSAN_F	:=	$(LSAN_D)/liblsan.a
+LSAN_U	:=	https://www.github.com/mhahnFr/LeakSanitizer
+
+LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX42_BD) -l mlx42
+
+###			###			HEADER			###			###
+INC_D	:=	./inc
+INC_F	:=	-I $(INC_D) -I $(LIBFT_D) -I $(MLX42_D)/include/MLX42
+
+#Linux/Mac Compability for Leaksanitizer
+ifeq ($(OS), Darwin)
+ifeq ($(shell test -d $(LSAN_D) && test -f $(LSAN_F) && echo exists), exists)
+	INC_F	+=	-Wno-gnu-include-next -I $(LSAN_D)/include
+	LIB		+=	-L $(LSAN_D) -llsan -lc++
+endif
+else ifeq ($(OS), Linux)
+ifeq ($(shell test -d $(LSAN_D) && test -f $(LSAN_F) && echo exists), exists)
+	INC_F	+=	-Wno-gnu-include-next -I $(LSAN_D)/include
+	LIB		+=	-rdynamic -L $(LSAN_D) -llsan -ldl -lstdc++
+endif
 endif
 
+###			###			COMPABILITY		###			###
+#Mac Compability for our programm
+ifeq ($(OS), Darwin)
+ifeq ($(shell which brew), )
+	@echo -e "$(BLUE)Install brew ...$(WHITE)"
+	@/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+endif
+ifeq ($(shell which cmake), )
+	@echo "$(BLUE)Install cmake and glfw...$(WHITE)"
+	@brew install -q cmake glfw
+endif
+	BREW_D	:=	$(shell which brew | cut -d'/' -f1-4)
+	LIB	+=	-L $(BREW_D)/opt/glfw/lib -l glfw
+endif
+
+#Linux Compability for our programm
+ifeq ($(OS), Linux)
+	LIB	+=	-lm -ldl -l glfw
+ifeq ($(shell which cmake), )
+	@echo "$(BLUE)Install cmake and glfw...$(WHITE)"
+	@apt-get update
+	@apt-get install -qq -y libglfw3-dev cmake
+endif
+endif
+
+###			###			RULES			###			###
+#make lsan is downloading lsan if its not.
+#every make will be with lsan until a clean occurs.
+
+all: message $(LIBFT_F) $(MLX42_F)
+	@$(MAKE) -j $(NAME)
+
+lsan: clean_lsan $(OBJ_D) $(LIBFT_F) $(MLX42_F) $(LSAN_F)
+	@$(MAKE) -j $(NAME)
+
+$(NAME): $(OBJ_D) $(OBJ_F)
+	$(CC) $(CFLAGS) $(INC_F) -o $(NAME) $(OBJ_F) $(LIB)
+
 $(OBJ_D)/%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC_F) -c $< -o $@
+
+-include $(DEP_F)
 
 $(OBJ_D):
-	mkdir $@
+	@git config advice.detachedHead false
+	@mkdir -p $@
+
+$(LIBFT_F):
+ifneq ($(shell test -d $(LIBFT_D) && echo exists), exists)
+	@echo "$(GREEN)Clone libft ...$(WHITE)"
+	@git clone -q --branch v1.0.0 --recurse-submodules $(LIBFT_U) $(LIBFT_D)
+endif
+	@$(MAKE) -j -C $(LIBFT_D)
+
+$(MLX42_F):
+ifneq ($(shell test -d $(MLX42_D) && echo exists), exists)
+	@echo "$(GREEN)Clone MLX42 ...$(WHITE)"
+	@git clone -q --branch v2.3.0 --recurse-submodules $(MLX42_U) $(MLX42_D)
+endif
+ifneq ($(shell test -d $(MLX42_BD) && echo exists), exists)
+	@echo "$(GREEN)Cmake MLX42 ...$(WHITE)"
+	@cmake -S $(MLX42_D) -B $(MLX42_BD)
+endif
+	@$(MAKE) -j -C $(MLX42_BD)
+
+$(LSAN_F):
+ifneq ($(shell test -d $(LSAN_D) && echo exists), exists)
+	@echo "$(GREEN)Clone LeakSanitizer ...$(WHITE)"
+	@git clone -q --branch v1.4 --recursive $(LSAN_U) $(LSAN_D)
+endif
+	@echo "$(GREEN)Make LeakSanitizer ...$(WHITE)"
+	@$(MAKE) -s -C $(LSAN_D)
 
 message:
 	@echo "$(BLUE)---------------------------------------------------------"
@@ -127,47 +187,23 @@ message:
 	@echo "$(BLUE)|$(GREEN)\t\t\t\t\t  \_\_\_\$(YELL)/\t$(BLUE)|"
 	@echo "$(BLUE)---------------------------------------------------------$(WHITE)"
 
-
-$(LIBFT):
-	make -j -C $(LIBFT_D)
-
-$(MLX): $(CONFIG)
-	@mkdir $(MLX_L)
-	@cmake -S $(MLX_D) -B $(MLX_L)
-	make -C $(MLX_L)
-
-$(CONFIG):
-	@if [ ! -f "$(CONFIG)" ]; then \
-		if [ "$(OS)" = "Linux" ]; then \
-			apt-get install -y libglfw3-dev cmake >> /dev/null 2>&1 \
-		;else \
-			if [ -f $(BREWU) ]; then \
-				echo "check brew for glfw and cmake"; \
-				brew install glfw cmake \
-			;else \
-				curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh; \
-				source ~/.zshrc; \
-				brew install glfw cmake; \
-			fi; \
-		fi; \
-	fi;
+clean_lsan:
+	@rm -rf $(OBJ_D)
 
 clean:
-	@if [ -d "$(OBJ_D)" ]; then \
-			$(RM) -rf $(OBJ_D); \
-			make fclean -C $(LIBFT_D); \
-			make clean -C $(MLX_L); \
-	fi;
+	@rm -rf $(OBJ_D)
+	@rm -f $(LSAN_F)
+	@make fclean -C $(LIBFT_D)
+	@make clean -C $(MLX42_BD)
 
 fclean: clean
-	@$(RM) -r $(MLX_L);
-	@if [ -f "$(NAME)" ]; then \
-			$(RM) -f $(NAME); \
-	fi;
+	@rm -rf $(MLX42_BD)
+	@rm -f $(NAME)
+	@echo "$(BLUE)--->$(GREEN)Cleaning $(NAME) .....$(WHITE)"
 	@echo "$(RED)All is cleaned$(WHITE)"
 
 re: fclean all
 
 bonus: all
 
-.PHONY: all clean fclean re
+.PHONY: all fclean clean re lsan bonus clean_lsan
