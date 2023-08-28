@@ -6,7 +6,7 @@
 #    By: rbetz <rbetz@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 16:33:15 by rbetz             #+#    #+#              #
-#    Updated: 2023/06/02 18:13:51 by rbetz            ###   ########.fr        #
+#    Updated: 2023/08/28 14:22:12 by rbetz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,16 +106,7 @@ endif
 ###			###			COMPABILITY		###			###
 #Mac Compability for our programm
 ifeq ($(OS), Darwin)
-ifeq ($(shell which brew), )
-	@echo -e "$(BLUE)Install brew ...$(WHITE)"
-	@/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-endif
-ifeq ($(shell which cmake), )
-	@echo "$(BLUE)Install cmake and glfw...$(WHITE)"
-	@brew install -q cmake glfw
-endif
-	BREW_D	:=	$(shell which brew | cut -d'/' -f1-4)
-	LIB	+=	-L $(BREW_D)/opt/glfw/lib -l glfw
+	LIB	+=	-l glfw
 endif
 
 #Linux Compability for our programm
