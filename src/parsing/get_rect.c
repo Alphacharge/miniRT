@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_rect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 11:12:54 by rbetz             #+#    #+#             */
-/*   Updated: 2023/04/03 10:46:43 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/08/30 15:35:18 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	rect_check(t_obj *obj, char **split)
 {
 	if (obj && split && split[1] && split[2] && split[3] \
-		&& split[4] && split[5] && split[6] && split[7])
+		&& split[4] && split[5] && split[6] && split[7] && split[8])
 	{
 		pre_check(obj, "Rectangle Position", 1, split[1]);
 		pre_check(obj, "Rectangle Length Vector", 1, split[2]);
@@ -24,6 +24,7 @@ void	rect_check(t_obj *obj, char **split)
 		pre_check(obj, "Rectangle Width", 2, split[5]);
 		pre_check(obj, "Rectangle Height", 2, split[6]);
 		pre_check(obj, "Rectangle Color", 1, split[7]);
+		pre_check(obj, "Rectangle Reflection", 2, split[8]);
 	}
 }
 
@@ -40,7 +41,7 @@ void	create_squares(t_obj *obj)
 void	get_rect(t_obj *obj, char **split)
 {
 	if (obj && split && split[1] && split[2] && split[3] && split[4] \
-		&& split[5] && split[6] && split[7])
+		&& split[5] && split[6] && split[7] && split[8])
 	{
 		rect_check(obj, split);
 		if (obj->type != -1)
@@ -52,8 +53,10 @@ void	get_rect(t_obj *obj, char **split)
 		obj->width = ft_atof(split[5]);
 		obj->hei_fov = ft_atof(split[6]);
 		obj->color = insert_color(split[7], obj->type);
+		obj->reflection = ft_atof(split[8]);
 		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) \
-			|| invalid_vector(obj->vector2) || invalid_color(obj->color))
+			|| invalid_vector(obj->vector2) || invalid_color(obj->color)\
+			|| obj->reflection < 0.0 || obj->reflection > 1.0)
 		{
 			printf("Rectangle Error\n");
 			obj->type = -1;
