@@ -2,7 +2,9 @@
 This project is a selfcoded raytracer from [fkernbac](https://github.com/fkernbac) and [rbetz](https://github.com/Alphacharge).
 It's using the [glfw Lib](https://github.com/glfw/glfw), [MLX42 V2.3.0](https://github.com/codam-coding-college/MLX42/commit/bf5dd7085b403974dd2d4e1e217877a518fc8915) and my [libft Lib](https://github.com/Alphacharge/mylibft/releases/tag/v1.0.0).
 
-All dependencies are included or should get installed during the Make process.
+If you want the original school project with Norm then use [v1.0.0](https://github.com/Alphacharge/miniRT/releases/tag/v1.0.0).
+
+You need to install 'cmake' and 'glfw3' manually!
 ## Installation
 This project should compile under Mac OS and Unix:
 ```
