@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbetz <rbetz@student.42heilbronn.de>       +#+  +:+       +#+         #
+#    By: humbi <humbi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/02 16:33:15 by rbetz             #+#    #+#              #
-#    Updated: 2023/08/28 14:22:12 by rbetz            ###   ########.fr        #
+#    Updated: 2023/08/31 12:49:12 by humbi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -185,10 +185,9 @@ clean:
 	@rm -rf $(OBJ_D)
 	@rm -f $(LSAN_F)
 	@make fclean -C $(LIBFT_D)
-	@make clean -C $(MLX42_BD)
 
 fclean: clean
-	@rm -rf $(MLX42_BD)
+#	@rm -rf $(MLX42_BD)
 	@rm -f $(NAME)
 	@echo "$(BLUE)--->$(GREEN)Cleaning $(NAME) .....$(WHITE)"
 	@echo "$(RED)All is cleaned$(WHITE)"
