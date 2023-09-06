@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkernbac <fkernbac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbetz <rbetz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 19:36:08 by fkernbac          #+#    #+#             */
-/*   Updated: 2023/03/31 10:53:22 by fkernbac         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:41:54 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *pixels, t_data *data)
 	int		row;
 	t_vec	color;
 	int		i;
+	char	*print;
 
 	i = 0;
 	row = 0;
+	print = "\033[1;34m";
+	if (thread->runs % 25 == 0)
+		printf("\033[0mThread:\t %d\tstarts sample:%s\t%d\n", thread->id, print, thread->runs);
 	while (row < data->height)
 	{
 		col = thread->id - 1;
@@ -51,6 +55,8 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *pixels, t_data *data)
 			color = factor_div_vector(color, thread->runs + 1);
 			pixels[i++] = color;
 			color = add_vector(color, thread->ambient);
+			// if (thread->id == 1)
+				// color = new_vector(255,255,255);
 			put_pixel(data->img, col, row, color);
 			col += NOT;
 		}

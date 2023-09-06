@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 09:45:02 by rbetz             #+#    #+#             */
-/*   Updated: 2023/08/30 15:09:07 by rbetz            ###   ########.fr       */
+/*   Updated: 2023/09/06 14:00:52 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 //Quality Configuration
 # define STEPSIZE	10		// Amount of Pixel that Camera moves
 # define MAX_DEPTH	5		// Amount of Bounce Rays
-# define NOT		48		// Amount of Threads
+# define NOT		16		// Amount of Threads
 
 //Ray Configuration
 # define T_MIN 0.001
@@ -37,12 +37,12 @@
 
 //Color and Light Configuration
 # define SKY			0		//toggle background
-# define LIGHT_FACTOR	30		//sets factor for stochastic sampling
-# define LIGHT_RADIUS	10		//point light radius
-# define ALBEDO			0.7		//material absorption rate
+# define LIGHT_FACTOR	80		//sets factor for stochastic sampling
+# define LIGHT_RADIUS	15		//point light radius
+# define ALBEDO			1.0		//material absorption rate
 # define SOFT_SHADOW	1		//toggles soft shadows
 # define BOUNCES		3		//amount of bounce rays
-# define SAMPLES		0		//0 means endless progressive sampling
+# define SAMPLES		10000		//0 means endless progressive sampling
 
 //Debugging
 # define MLX 1
