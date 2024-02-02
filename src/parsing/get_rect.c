@@ -47,9 +47,9 @@ void	get_rect(t_obj *obj, char **split)
 		if (obj->type != -1)
 			obj->type = RECT;
 		obj->origin = insert_pos_vec(split[1], obj->type, POS);
-		obj->vector = unit_vector(insert_pos_vec(split[2], obj->type, ORI));
+		obj->vector = normalize_vector(insert_pos_vec(split[2], obj->type, ORI));
 		obj->radius = ft_atof(split[3]);
-		obj->vector2 = unit_vector(insert_pos_vec(split[4], obj->type, ORI2));
+		obj->vector2 = normalize_vector(insert_pos_vec(split[4], obj->type, ORI2));
 		obj->width = ft_atof(split[5]);
 		obj->hei_fov = ft_atof(split[6]);
 		obj->color = insert_color(split[7], obj->type);

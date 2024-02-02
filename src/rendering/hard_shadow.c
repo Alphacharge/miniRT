@@ -20,11 +20,11 @@ t_vec	lambert_color(\
 
 	color = new_vector(0, 0, 0);
 	attenuation = new_vector(0, 0, 0);
-	attenuation = factor_mult_vector(object_color, ALBEDO);
-	color = multiply_vector(attenuation, light_color);
+	attenuation = multiply_vector_by_scalar(object_color, ALBEDO);
+	color = multiply_vectors(attenuation, light_color);
 	color = color_clamp(color);
-	color = factor_mult_vector(color, \
-		sin(scalar_vector(face_normal, to_light)));
+	color = multiply_vector_by_scalar(color, \
+		sin(dot_product(face_normal, to_light)));
 	color = abs_vector(color);
 	return (color);
 }
@@ -37,11 +37,11 @@ t_vec	ray_at_light(t_ray *ray, t_obj *obj, t_obj *light)
 	if (hit_object(ray, obj) == true)
 	{
 		if (ray->closest_object->type == LIGHT)
-			return (factor_mult_vector(\
+			return (multiply_vector_by_scalar(\
 				ray->closest_object->color, ray->closest_object->width));
 		bounce.origin = point_at(*ray, ray->closest_t);
 		bounce.direction = \
-			unit_vector(subtract_vector(light->origin, bounce.origin));
+			normalize_vector(subtract_vectors(light->origin, bounce.origin));
 		if (front_facing(ray->direction, ray->normal) \
 			== front_facing(bounce.direction, ray->normal))
 			return (new_vector(0, 0, 0));

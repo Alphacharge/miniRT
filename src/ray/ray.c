@@ -28,7 +28,7 @@ t_ray	bounce_ray(t_ray *original)
 /*Returns true if ray and normal face each other.*/
 bool	front_facing(t_vec ray_direction, t_vec face_normal)
 {
-	if (scalar_vector(ray_direction, face_normal) >= 0)
+	if (dot_product(ray_direction, face_normal) >= 0)
 		return (false);
 	return (true);
 }
@@ -37,11 +37,11 @@ bool	front_facing(t_vec ray_direction, t_vec face_normal)
 t_ray	*set_ray(t_ray *ray, t_cam *cam, double col, double row)
 {
 	ray->direction = new_vector(0, 0, 0);
-	ray->direction = add_vector(\
-		factor_mult_vector(cam->horizontal, col), \
-		factor_mult_vector(cam->vertical, row));
-	ray->direction = add_vector(cam->upper_left_corner, ray->direction);
-	ray->direction = unit_vector(ray->direction);
+	ray->direction = add_vectors(\
+		multiply_vector_by_scalar(cam->horizontal, col), \
+		multiply_vector_by_scalar(cam->vertical, row));
+	ray->direction = add_vectors(cam->upper_left_corner, ray->direction);
+	ray->direction = normalize_vector(ray->direction);
 	ray->closest_t = T_MAX;
 	ray->closest_object = NULL;
 	return (ray);

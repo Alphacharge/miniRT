@@ -20,7 +20,7 @@ bool	hit_circle(t_ray *ray, t_obj *obj)
 	t = t_to_plane(obj->vector, obj->origin, ray->direction, ray->origin);
 	if (t == 0)
 		return (false);
-	r = length_vector(subtract_vector(obj->origin, point_at(*ray, t)));
+	r = length_vector(subtract_vectors(obj->origin, point_at(*ray, t)));
 	if (r < 0)
 		r *= -1;
 	if (r > obj->radius)
@@ -29,7 +29,7 @@ bool	hit_circle(t_ray *ray, t_obj *obj)
 	{
 		ray->closest_object = obj;
 		ray->closest_t = t;
-		ray->normal = unit_vector(obj->vector);
+		ray->normal = normalize_vector(obj->vector);
 		return (true);
 	}
 	return (false);

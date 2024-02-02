@@ -48,7 +48,7 @@ static void	decide_vectors(t_obj *obj, int dir, t_obj *var)
 	}
 	else if (obj && (dir == 3 || dir == -3))
 	{
-		var->vector = cross_vector(obj->vector, obj->vector2);
+		var->vector = cross_product(obj->vector, obj->vector2);
 		var->vector2 = obj->vector;
 	}
 	if (dir < 0)
@@ -68,11 +68,11 @@ void	get_square(t_obj *obj, int dir)
 	{
 		obj_c->type = SQUA;
 		decide_vectors(obj, dir, &var);
-		obj_c->origin = add_vector(obj->origin, \
-					factor_mult_vector(var.vector, var.width / 2));
-		obj_c->vector = unit_vector(\
-					subtract_vector(obj_c->origin, obj->origin));
-		obj_c->vector2 = unit_vector(var.vector2);
+		obj_c->origin = add_vectors(obj->origin, \
+					multiply_vector_by_scalar(var.vector, var.width / 2));
+		obj_c->vector = normalize_vector(\
+					subtract_vectors(obj_c->origin, obj->origin));
+		obj_c->vector2 = normalize_vector(var.vector2);
 		obj_c->radius = var.radius;
 		obj_c->width = var.hei_fov;
 		obj_c->reflection = var.reflection;

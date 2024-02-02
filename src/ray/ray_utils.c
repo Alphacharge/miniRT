@@ -20,7 +20,7 @@ t_vec	point_at(t_ray ray, double t)
 
 	product = new_vector(0, 0, 0);
 	target = new_vector(0, 0, 0);
-	product = factor_mult_vector(ray.direction, t);
-	target = add_vector(ray.origin, product);
+	product = multiply_vector_by_scalar(ray.direction, t);
+	target = add_vectors(ray.origin, product);
 	return (target);
 }

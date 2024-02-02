@@ -21,6 +21,7 @@
 # include <pthread.h>	//threads, mutex
 # include "MLX42.h"
 # include "libft.h"
+# include "libvec.h"
 
 //Standard Window Size if no one is given in the scene
 # define WIDTH	800
@@ -65,13 +66,6 @@ typedef enum e_type
 	RECT,
 	SQUA
 }	t_type;
-
-typedef struct s_vector
-{
-	double	x;
-	double	y;
-	double	z;
-}			t_vec;
 
 typedef struct s_color
 {
@@ -213,22 +207,6 @@ t_ray		*random_ray(t_ray *ray, t_cam *cam, int col, int row);
 t_ray		*cam_ray(t_cam *cam);
 
 //VECTOR UTILS
-t_vec		new_vector(double x, double y, double z);
-void		print_vector(t_vec vector);
-t_vec		add_vector(t_vec v1, t_vec v2);
-t_vec		subtract_vector(t_vec v1, t_vec v2);
-t_vec		multiply_vector(t_vec v1, t_vec v2);
-t_vec		factor_mult_vector(t_vec v1, double f);
-t_vec		factor_div_vector(t_vec v1, double f);
-double		scalar_vector(t_vec v1, t_vec v2);
-t_vec		cross_vector(t_vec v1, t_vec v2);
-double		length_vector(t_vec v1);
-double		length_squared(t_vec vector);
-t_vec		unit_vector(t_vec v1);
-t_vec		invert_vector(t_vec vec);
-t_vec		random_vector(unsigned int max);
-t_vec		rand_in_unit_sphere(int seed);
-t_vec		rand_in_hemisphere(int seed, t_vec normal);
 bool		equal_vector(t_vec a, t_vec b);
 t_vec		abs_vector(t_vec color);
 
@@ -256,9 +234,6 @@ t_vec		color_clamp(t_vec color);
 
 //UTILS
 void		*ft_free(void *pointer);
-int			xorshift_random(int seed);
-int			lcg_random(unsigned int seed);
-int			xslcg_random(unsigned int seed);
 int			three_digits(unsigned int seed);
 double		random_double(unsigned int seed);
 

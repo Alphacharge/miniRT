@@ -36,10 +36,10 @@ double	midnight(t_ray *ray, t_obj *obj)
 
 	d = new_vector(0, 0, 0);
 	cros = new_vector(0, 0, 0);
-	d = cross_vector(ray->direction, obj->vector);
-	cros = cross_vector(subtract_vector(ray->origin, obj->origin), obj->vector);
+	d = cross_product(ray->direction, obj->vector);
+	cros = cross_product(subtract_vectors(ray->origin, obj->origin), obj->vector);
 	a[0] = length_squared(d);
-	a[1] = 2.0 * scalar_vector(d, cros);
+	a[1] = 2.0 * dot_product(d, cros);
 	a[2] = length_squared(cros) - (obj->radius * obj->radius);
 	if (a[0] == 0)
 		return (0);
@@ -56,14 +56,14 @@ t_vec	decide_normal(t_vec inter, t_vec origin, t_vec vector, double x)
 	s[0] = new_vector(0, 0, 0);
 	s[1] = new_vector(0, 0, 0);
 	res = new_vector(0, 0, 0);
-	s[0] = subtract_vector(subtract_vector(inter, origin), \
-			factor_mult_vector(vector, x));
-	s[1] = subtract_vector(subtract_vector(inter, origin), \
-			factor_mult_vector(vector, -x));
+	s[0] = subtract_vectors(subtract_vectors(inter, origin), \
+			multiply_vector_by_scalar(vector, x));
+	s[1] = subtract_vectors(subtract_vectors(inter, origin), \
+			multiply_vector_by_scalar(vector, -x));
 	if (length_vector(s[0]) < length_vector(s[1]))
-		res = unit_vector(s[0]);
+		res = normalize_vector(s[0]);
 	else
-		res = unit_vector(s[1]);
+		res = normalize_vector(s[1]);
 	return (res);
 }
 
@@ -80,7 +80,7 @@ bool	hit_cylinder(t_ray *ray, t_obj *obj)
 	if (val > T_MIN && val < T_MAX && val < ray->closest_t)
 	{
 		inter = point_at(*ray, val);
-		x = sqrt(length_squared(subtract_vector(inter, obj->origin)) \
+		x = sqrt(length_squared(subtract_vectors(inter, obj->origin)) \
 			- pow(obj->radius, 2.0));
 		if (x > obj->hei_fov / 2.0)
 			return (false);

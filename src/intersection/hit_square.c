@@ -18,7 +18,7 @@ static bool	is_closest(t_ray *ray, t_obj *obj, double t)
 		return (false);
 	ray->closest_t = t;
 	ray->closest_object = obj;
-	ray->normal = unit_vector(obj->vector);
+	ray->normal = normalize_vector(obj->vector);
 	return (true);
 }
 
@@ -29,11 +29,11 @@ double	x_in_plane(t_vec obj_n, t_vec obj_o, t_vec ray_n, t_vec ray_o)
 	double	dis;
 	double	t;
 
-	ortho = scalar_vector(obj_n, ray_n);
+	ortho = dot_product(obj_n, ray_n);
 	if (ortho == 0)
 		return (0);
-	pln_d = scalar_vector(obj_o, obj_n);
-	dis = scalar_vector(obj_n, ray_o);
+	pln_d = dot_product(obj_o, obj_n);
+	dis = dot_product(obj_n, ray_o);
 	t = (pln_d - dis) / ortho;
 	return (t);
 }
@@ -50,7 +50,7 @@ bool	hit_square(t_ray *ray, t_obj *obj)
 	if (txy[0] == 0)
 		return (false);
 	inter = point_at(*ray, txy[0]);
-	diff = subtract_vector(inter, obj->origin);
+	diff = subtract_vectors(inter, obj->origin);
 	txy[1] = x_in_plane(obj->vector2, inter, obj->vector2, obj->origin);
 	txy[2] = sqrt(length_squared(diff) - txy[1] * txy[1]);
 	if (txy[1] < 0)

@@ -70,6 +70,9 @@ WHITE	:=	\033[0m
 LIBFT_D	:=	./lib/libft
 LIBFT_F	:=	$(LIBFT_D)/libft.a
 LIBFT_U	:=	https://www.github.com/Alphacharge/mylibft
+LIBVEC_D	:=	./lib/libvec
+LIBVEC_F	:=	$(LIBVEC_D)/libvec.a
+LIBVEC_U	:=	https://www.github.com/Alphacharge/libvec
 
 MLX42_D	:=	./lib/MLX42
 ifeq ($(OS), Darwin)
@@ -84,11 +87,11 @@ LSAN_D	:=	./lib/LeakSanitizer
 LSAN_F	:=	$(LSAN_D)/liblsan.a
 LSAN_U	:=	https://www.github.com/mhahnFr/LeakSanitizer
 
-LIB		:=	-L $(LIBFT_D) -l ft -L $(MLX42_BD) -l mlx42
+LIB		:=	-L $(LIBFT_D) -l ft -L $(LIBVEC_D) -l vec -L $(MLX42_BD) -l mlx42
 
 ###			###			HEADER			###			###
 INC_D	:=	./inc
-INC_F	:=	-I $(INC_D) -I $(LIBFT_D) -I $(MLX42_D)/include/MLX42
+INC_F	:=	-I $(INC_D) -I $(LIBFT_D) -I $(LIBVEC_D) -I $(MLX42_D)/include/MLX42
 
 #Linux/Mac Compability for Leaksanitizer
 ifeq ($(OS), Darwin)
@@ -123,10 +126,10 @@ endif
 #make lsan is downloading lsan if its not.
 #every make will be with lsan until a clean occurs.
 
-all: message $(LIBFT_F) $(MLX42_F)
+all: message $(LIBFT_F) $(LIBVEC_F) $(MLX42_F)
 	@$(MAKE) -j $(NAME)
 
-lsan: clean_lsan $(OBJ_D) $(LIBFT_F) $(MLX42_F) $(LSAN_F)
+lsan: clean_lsan $(OBJ_D) $(LIBFT_F) $(LIBVEC_F) $(MLX42_F) $(LSAN_F)
 	@$(MAKE) -j $(NAME)
 
 $(NAME): $(OBJ_D) $(OBJ_F)
@@ -147,6 +150,13 @@ ifneq ($(shell test -d $(LIBFT_D) && echo exists), exists)
 	@git clone -q --branch v1.0.0 --recurse-submodules $(LIBFT_U) $(LIBFT_D)
 endif
 	@$(MAKE) -j -C $(LIBFT_D)
+
+$(LIBVEC_F):
+ifneq ($(shell test -d $(LIBVEC_D) && echo exists), exists)
+	@echo "$(GREEN)Clone libvec ...$(WHITE)"
+	@git clone -q --recurse-submodules $(LIBVEC_U) $(LIBVEC_D)
+endif
+	@$(MAKE) -j -C $(LIBVEC_D)
 
 $(MLX42_F):
 ifneq ($(shell test -d $(MLX42_D) && echo exists), exists)
@@ -185,6 +195,7 @@ clean:
 	@rm -rf $(OBJ_D)
 	@rm -f $(LSAN_F)
 	@make fclean -C $(LIBFT_D)
+	@make fclean -C $(LIBVEC_D)
 
 fclean: clean
 #	@rm -rf $(MLX42_BD)
