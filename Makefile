@@ -52,7 +52,6 @@ SRC_F	+=	ray.c ray_utils.c
 SRC_F	+=	hard_shadow.c soft_shadow.c render.c hit_object.c
 SRC_F	+=	threads.c
 SRC_F	+=	free.c random.c
-SRC_F	+=	vector.c arithmetics.c unit_vector.c vector_ops.c
 
 ###			###			OBJECTS			###			###
 OBJ_D	:=	./obj

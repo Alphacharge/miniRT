@@ -12,13 +12,6 @@
 
 #include "miniRT.h"
 
-bool	equal_vector(t_vec a, t_vec b)
-{
-	if (a.x == b.x && a.y == b.y && a.z == b.z)
-		return (true);
-	return (false);
-}
-
 static t_vec	calc_corner(t_cam *cam)
 {
 	t_vec	corner;
@@ -75,16 +68,16 @@ void	get_next_cam(t_data *data)
 
 	tmp = data->obj;
 	while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
-				!equal_vector(tmp->origin, data->cam->origin))))
+				!are_equal_vectors(tmp->origin, data->cam->origin))))
 		tmp = tmp->next;
 	while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
-				equal_vector(tmp->origin, data->cam->origin))))
+				are_equal_vectors(tmp->origin, data->cam->origin))))
 		tmp = tmp->next;
 	if (tmp == NULL)
 	{
 		tmp = data->obj;
 		while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
-				equal_vector(tmp->origin, data->cam->origin))))
+				are_equal_vectors(tmp->origin, data->cam->origin))))
 			tmp = tmp->next;
 	}
 	if (!no_further_cam(tmp))

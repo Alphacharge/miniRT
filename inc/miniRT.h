@@ -206,10 +206,6 @@ t_ray		*set_ray(t_ray *ray, t_cam *cam, double col, double row);
 t_ray		*random_ray(t_ray *ray, t_cam *cam, int col, int row);
 t_ray		*cam_ray(t_cam *cam);
 
-//VECTOR UTILS
-bool		equal_vector(t_vec a, t_vec b);
-t_vec		abs_vector(t_vec color);
-
 //HIT_OBJECTS
 bool		hit_sphere(t_ray *ray, t_obj *obj);
 bool		hit_plane(t_ray *ray, t_obj *obj);
