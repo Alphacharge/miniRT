@@ -24,7 +24,17 @@ static t_data	*init_data(void)
 	data->mlx = NULL;
 	data->img = NULL;
 	data->cam = NULL;
+	data->lines = 0;
 	return (data);
+}
+static void	print_objs(t_obj **obj) {
+	int	i;
+
+	i = 0;
+	while (obj && obj[i]) {
+		printf("Object type: %d\n", obj[i]->type);
+		i++;
+	}
 }
 
 t_data	*parse(int argc, char **argv)
@@ -35,9 +45,12 @@ t_data	*parse(int argc, char **argv)
 	data->map = check_input(argc, argv);
 	if (data->map == NULL)
 		return (cleanup(data, 0), NULL);
-	data->obj = create_obj(data->map);
+	data->obj = ft_calloc(data->lines + 1, sizeof(t_obj*));
 	if (data->obj == NULL)
 		return (cleanup(data, 0), NULL);
+	if (create_obj(data) < 0)
+		return (cleanup(data, 0), NULL);
+	print_objs(data->obj);
 	printf("Parsing done.\n");
 	return (data);
 }
@@ -49,7 +62,7 @@ int	main(int argc, char **argv)
 	data = parse(argc, argv);
 	if (data == NULL)
 		return (EXIT_FAILURE);
-	if (mlx_setup(data->obj, data) != 0)
+	if (mlx_setup(data) != 0)
 		return (cleanup(data, 1), EXIT_FAILURE);
 	data->cam = setup_cam(data->obj, data->width, data->height);
 	if (data->cam == NULL)

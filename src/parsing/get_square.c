@@ -56,32 +56,25 @@ static void	decide_vectors(t_obj *obj, int dir, t_obj *var)
 	decide_len_hei(obj, dir, var);
 }
 
-void	get_square(t_obj *obj, int dir)
+void	get_square(t_obj *obj, t_obj *obj_r, int dir)
 {
-	t_obj	*obj_c;
-	t_obj	*tmp;
 	t_obj	var;
 
 	ft_memset(&var, 0, sizeof(t_obj));
-	obj_c = ft_calloc(1, sizeof(t_obj));
-	if (obj && obj_c)
+	if (obj && obj_r)
 	{
-		obj_c->type = SQUA;
+		obj_r->type = SQUA;
 		decide_vectors(obj, dir, &var);
-		obj_c->origin = add_vector(obj->origin, \
+		obj_r->origin = add_vector(obj->origin, \
 					factor_mult_vector(var.vector, var.width / 2));
-		obj_c->vector = unit_vector(\
-					subtract_vector(obj_c->origin, obj->origin));
-		obj_c->vector2 = unit_vector(var.vector2);
-		obj_c->radius = var.radius;
-		obj_c->width = var.hei_fov;
-		obj_c->reflection = var.reflection;
-		obj_c->color = new_vector(obj->color.x, obj->color.y, obj->color.z);
-		tmp = obj;
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = obj_c;
+		obj_r->vector = unit_vector(\
+					subtract_vector(obj->origin, obj->origin));
+		obj_r->vector2 = unit_vector(var.vector2);
+		obj_r->radius = var.radius;
+		obj_r->width = var.hei_fov;
+		obj_r->reflection = var.reflection;
+		obj_r->color = new_vector(obj->color.x, obj->color.y, obj->color.z);
 	}
 	else
-		print_syntax_error(obj_c, "Square");
+		print_syntax_error(obj_r, "Square");
 }

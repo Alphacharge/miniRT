@@ -48,8 +48,6 @@ void	get_cyl(t_obj *obj, char **split)
 			obj->type = -1;
 			return ;
 		}
-		get_circle(obj, obj->vector);
-		get_circle(obj, invert_vector(obj->vector));
 	}
 	else
 		print_syntax_error(obj, "Cylinder");

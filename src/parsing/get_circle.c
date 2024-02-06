@@ -12,14 +12,10 @@
 
 #include "miniRT.h"
 
-void	get_circle(t_obj *obj, t_vec vec)
+void	get_circle(t_obj *obj, t_obj *obj_c, t_vec vec)
 {
-	t_obj	*obj_c;
-	t_obj	*tmp;
 	t_vec	v;
 
-	v = new_vector(0, 0, 0);
-	obj_c = ft_calloc(1, sizeof(t_obj));
 	if (obj && obj_c)
 	{
 		obj_c->type = CIRCLE;
@@ -28,10 +24,6 @@ void	get_circle(t_obj *obj, t_vec vec)
 		obj_c->vector = unit_vector(new_vector(vec.x, vec.y, vec.z));
 		obj_c->radius = obj->radius;
 		obj_c->color = new_vector(obj->color.x, obj->color.y, obj->color.z);
-		tmp = obj;
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = obj_c;
 	}
 	else
 		print_syntax_error(obj_c, "Circle");

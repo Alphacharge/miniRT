@@ -28,20 +28,26 @@ void	rect_check(t_obj *obj, char **split)
 	}
 }
 
-void	create_squares(t_obj *obj)
+void	create_squares(t_obj *obj, t_obj *obj_r, int square)
 {
-	get_square(obj, 1);
-	get_square(obj, -1);
-	get_square(obj, 2);
-	get_square(obj, -2);
-	get_square(obj, 3);
-	get_square(obj, -3);
+	if (square == 2)
+		get_square(obj, obj_r, 1);
+	else if (square == 3)
+		get_square(obj, obj_r, -1);
+	else if (square == 4)
+		get_square(obj, obj_r, 2);
+	else if (square == 5)
+		get_square(obj, obj_r, -2);
+	else if (square == 6)
+		get_square(obj, obj_r, 3);
+	else if (square == 7)
+		get_square(obj, obj_r, -3);
 }
 
-void	get_rect(t_obj *obj, char **split)
+void	get_rect(t_obj *obj, t_obj *obj_r, char **split, int square)
 {
-	if (obj && split && split[1] && split[2] && split[3] && split[4] \
-		&& split[5] && split[6] && split[7] && split[8])
+	if (square == 1 && obj && split && split[1] && split[2] && split[3] \
+		&& split[4] && split[5] && split[6] && split[7] && split[8])
 	{
 		rect_check(obj, split);
 		if (obj->type != -1)
@@ -62,8 +68,10 @@ void	get_rect(t_obj *obj, char **split)
 			obj->type = -1;
 			return ;
 		}
-		create_squares(obj);
+		// create_squares(obj, square);
 	}
+	else if (square > 1 && square < 8)
+		create_squares(obj, obj_r, square);
 	else
 		print_syntax_error(obj, "Rectangle");
 }

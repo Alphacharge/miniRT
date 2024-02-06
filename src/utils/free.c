@@ -16,5 +16,6 @@ void	*ft_free(void *pointer)
 {
 	if (pointer != NULL)
 		free(pointer);
-	return (NULL);
+	pointer = NULL;
+	return (pointer);
 }

@@ -13,17 +13,19 @@
 #include "miniRT.h"
 
 /*Combines all ambient lighting of the scene.*/
-t_vec	get_ambient_lighting(t_obj *obj)
+t_vec	get_ambient_lighting(t_obj **obj)
 {
 	t_vec	ambient;
+	int		i;
 
+	i = 0;
 	ambient = new_vector(0, 0, 0);
-	while (obj != NULL)
+	while (obj && obj[i])
 	{
-		if (obj->type == AMBI)
+		if (obj[i]->type == AMBI)
 			ambient = add_vector(ambient, \
-				factor_mult_vector(obj->color, obj->width));
-		obj = obj->next;
+				factor_mult_vector(obj[i]->color, obj[i]->width));
+		i++;
 	}
 	return (ambient);
 }

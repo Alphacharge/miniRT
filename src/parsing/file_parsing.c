@@ -96,12 +96,27 @@ static void	count_lines(t_map *map)
 		if (line != NULL)
 			ft_free(line);
 	}
+	map->lines = i;
 	map->file = ft_calloc(i + 1, sizeof(char *));
 	if (map->file != NULL)
 		map->file[i] = NULL;
 	else
 		map->file = NULL;
 	close(map->fd);
+}
+
+static void	add_multi_obj_lines(t_map *map) {
+	int	i;
+
+	i = 0;
+	while (map && map->file && map->file[i] != NULL)
+	{
+		if (ft_strncmp(map->file[i], "CY", 2))
+			map->lines += 3;
+		if (ft_strncmp(map->file[i], "RECT", 4))
+			map->lines += 6;
+		i++;
+	}
 }
 
 /*Validate the input and call parsing*/
@@ -131,5 +146,6 @@ t_map	*check_input(int argc, char **argv)
 	if (map->file == NULL)
 		return (free_map(map), error_message(9), NULL);
 	validate_lines(map);
+	add_multi_obj_lines(map);
 	return (map);
 }

@@ -29,7 +29,7 @@ t_vec	lambert_color(\
 	return (color);
 }
 
-t_vec	ray_at_light(t_ray *ray, t_obj *obj, t_obj *light)
+t_vec	ray_at_light(t_ray *ray, t_obj **obj, t_obj *light)
 {
 	t_ray		bounce;
 

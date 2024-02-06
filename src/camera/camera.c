@@ -32,22 +32,24 @@ static t_vec	calc_corner(t_cam *cam)
 	return (corner);
 }
 
-t_cam	*setup_cam(t_obj	*obj, int width, int height)
+t_cam	*setup_cam(t_obj **obj, int width, int height)
 {
 	t_cam	*cam;
 	t_vec	down;
+	int		i;
 
+	i = 0;
 	down = new_vector(0, 1, 0);
 	cam = ft_calloc(1, sizeof(t_cam));
 	if (cam == NULL)
 		return (error_message(13), NULL);
-	while (obj && obj->type != CAM)
-		obj = obj->next;
-	if (obj == NULL)
+	while (obj && obj[i] && obj[i]->type != CAM)
+		i++;
+	if (obj[i] == NULL)
 		return (error_message(14), ft_free(cam), NULL);
-	cam->origin = obj->origin;
-	cam->focal_length = width / (2 * tan(obj->hei_fov / 2));
-	cam->direction = unit_vector(obj->vector);
+	cam->origin = obj[i]->origin;
+	cam->focal_length = width / (2 * tan(obj[i]->hei_fov / 2));
+	cam->direction = unit_vector(obj[i]->vector);
 	cam->horizontal = unit_vector(cross_vector(down, cam->direction));
 	cam->horizontal = factor_mult_vector(cam->horizontal, width);
 	cam->vertical = unit_vector(cross_vector(cam->direction, cam->horizontal));
@@ -64,32 +66,32 @@ bool	no_further_cam(t_obj *obj)
 	{
 		if (obj && obj->type == CAM)
 			return (false);
-		obj = obj->next;
+		obj++;
 	}
 	return (true);
 }
 
 void	get_next_cam(t_data *data)
 {
-	t_obj	*tmp;
+	int	i;
 
-	tmp = data->obj;
-	while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
-				!equal_vector(tmp->origin, data->cam->origin))))
-		tmp = tmp->next;
-	while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
-				equal_vector(tmp->origin, data->cam->origin))))
-		tmp = tmp->next;
-	if (tmp == NULL)
+	i = 0;
+	while (data && data->obj && data->obj[i] && ((data->obj[i]->type != CAM) || (data->obj[i]->type == CAM && \
+				!equal_vector(data->obj[i]->origin, data->cam->origin))))
+		i++;
+	while (data->obj[i] != NULL && ((data->obj[i]->type != CAM) || (data->obj[i]->type == CAM && \
+				equal_vector(data->obj[i]->origin, data->cam->origin))))
+		i++;
+	if (data->obj[i] == NULL)
 	{
-		tmp = data->obj;
-		while (tmp != NULL && ((tmp->type != CAM) || (tmp->type == CAM && \
-				equal_vector(tmp->origin, data->cam->origin))))
-			tmp = tmp->next;
+		i = 0;
+		while (data->obj[i] != NULL && ((data->obj[i]->type != CAM) || (data->obj[i]->type == CAM && \
+				equal_vector(data->obj[i]->origin, data->cam->origin))))
+			i++;
 	}
-	if (!no_further_cam(tmp))
+	if (!no_further_cam(data->obj[i]))
 	{
 		ft_free(data->cam);
-		data->cam = setup_cam(tmp, data->mlx->width, data->mlx->height);
+		data->cam = setup_cam(&data->obj[i], data->mlx->width, data->mlx->height);
 	}
 }

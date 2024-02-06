@@ -21,26 +21,26 @@ bool	hit_light(t_ray *ray, t_obj *obj)
 }
 
 /*Checks if the ray hit any object in the linked list.*/
-bool	hit_object(t_ray *ray, t_obj *obj)
+bool	hit_object(t_ray *ray, t_obj **obj)
 {
 	bool	hit_anything;
 
 	hit_anything = false;
-	while (obj != NULL)
+	while (obj && *obj)
 	{
-		if (obj->type == SPHERE && hit_sphere(ray, obj) == true)
+		if ((*obj)->type == SPHERE && hit_sphere(ray, *obj) == true)
 			hit_anything = true;
-		else if (obj->type == LIGHT && hit_light(ray, obj) == true)
+		else if ((*obj)->type == LIGHT && hit_light(ray, *obj) == true)
 			hit_anything = true;
-		else if (obj->type == PLN && hit_plane(ray, obj) == true)
+		else if ((*obj)->type == PLN && hit_plane(ray, *obj) == true)
 			hit_anything = true;
-		else if (obj->type == CYL && hit_cylinder(ray, obj) == true)
+		else if ((*obj)->type == CYL && hit_cylinder(ray, *obj) == true)
 			hit_anything = true;
-		else if (obj->type == CIRCLE && hit_circle(ray, obj) == true)
+		else if ((*obj)->type == CIRCLE && hit_circle(ray, *obj) == true)
 			hit_anything = true;
-		else if (obj->type == SQUA && hit_square(ray, obj) == true)
+		else if ((*obj)->type == SQUA && hit_square(ray, *obj) == true)
 			hit_anything = true;
-		obj = obj->next;
+		obj++;
 	}
 	return (hit_anything);
 }

@@ -28,18 +28,20 @@ mlx_image_t	*img_setup(mlx_t *mlx)
 	return (img);
 }
 
-int	mlx_setup(t_obj *obj, t_data *data)
+int	mlx_setup(t_data *data)
 {
 	mlx_t	*mlx;
+	int		i;
 
-	while (obj && obj->type != RES)
-		obj = obj->next;
+	i = 0;
+	while (data && data->obj && data->obj[i] && data->obj[i]->type != RES)
+		i++;
 	data->width = WIDTH;
 	data->height = HEIGHT;
-	if (obj != NULL)
+	if (data->obj && data->obj[i])
 	{
-		data->width = obj->radius;
-		data->height = obj->hei_fov;
+		data->width = data->obj[i]->radius;
+		data->height = data->obj[i]->hei_fov;
 	}
 	if (MLX == false)
 		return (0);

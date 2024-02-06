@@ -42,24 +42,13 @@ void	escape(t_data *data)
 		mlx_close_window(data->mlx);
 }
 
-void	clean_obj(t_obj *obj)
+void	clean_obj(t_obj **obj, int lines)
 {
-	t_obj	*tmp;
+	int	i;
 
-	if (obj == NULL)
-		return ;
-	if (obj && obj->next == NULL)
-	{
-		ft_free(obj);
-		return ;
-	}
-	tmp = obj->next;
-	while (obj && tmp)
-	{
-		ft_free(obj);
-		obj = tmp;
-		tmp = tmp->next;
-	}
+	i = 0;
+	while (obj && obj[i] && i < lines)
+		ft_free(obj[i++]);
 	ft_free(obj);
 }
 
@@ -82,7 +71,7 @@ void	free_map(t_map *map)
 void	cleanup(t_data *data, int lvl)
 {
 	if (lvl > 0)
-		clean_obj(data->obj);
+		clean_obj(data->obj, data->map->lines);
 	if (lvl > 1 && MLX == true)
 		mlx_terminate(data->mlx);
 	if (lvl > 2)

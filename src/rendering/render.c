@@ -21,11 +21,11 @@ void	put_pixel(mlx_image_t *img, int x, int y, t_vec color)
 }
 
 /*Returns first light object.*/
-t_obj	*first_light(t_obj *list)
+t_obj	*first_light(t_obj **list)
 {
-	while (list != NULL && list->type != LIGHT)
-		list = list->next;
-	return (list);
+	while (list && *list && (*list)->type != LIGHT)
+		list++;
+	return (*list);
 }
 
 /*Will calculate the scene with stochastic sampling, GI and soft shadows.*/

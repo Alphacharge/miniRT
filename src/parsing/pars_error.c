@@ -16,7 +16,8 @@ const char	*g_color[4] = {"Red", "Green", "Blue"};
 
 void	print_syntax_error(t_obj *obj, char *str)
 {
-	obj->type = -1;
+	if (obj)
+		obj->type = -1;
 	printf("%s Syntax Error\n", str);
 }
 

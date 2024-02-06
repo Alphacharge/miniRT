@@ -43,7 +43,7 @@ t_vec	gradient(t_ray *ray)
 	return (add_vector(top_color, bottom_color));
 }
 
-t_vec	bounce_color(t_ray *ray, t_ray	*bounce, t_obj *obj, int depth)
+t_vec	bounce_color(t_ray *ray, t_ray	*bounce, t_obj **obj, int depth)
 {
 	t_vec	target;
 	t_vec	hemisphere_normal;
@@ -59,7 +59,7 @@ t_vec	bounce_color(t_ray *ray, t_ray	*bounce, t_obj *obj, int depth)
 	return (ray_color(bounce, obj, depth));
 }
 
-t_vec	bouncecolor_average(t_ray *ray, t_obj *obj, int depth)
+t_vec	bouncecolor_average(t_ray *ray, t_obj **obj, int depth)
 {
 	t_ray	bounce;
 	t_vec	color;
@@ -80,7 +80,7 @@ t_vec	bouncecolor_average(t_ray *ray, t_obj *obj, int depth)
 	return (color);
 }
 
-t_vec	ray_color(t_ray *ray, t_obj *obj, int depth)
+t_vec	ray_color(t_ray *ray, t_obj **obj, int depth)
 {
 	if (depth <= 0)
 		return (new_vector(0, 0, 0));

@@ -45,7 +45,7 @@
 # define SAMPLES		10000		//0 means endless progressive sampling
 
 //Debugging
-# define MLX 1
+# define MLX 0
 
 # define COL "Color"
 # define POS "Position"
@@ -91,7 +91,6 @@ typedef struct s_obj
 	t_vec			vector;
 	t_vec			vector2;
 	t_vec			color;
-	struct s_obj	*next;
 }					t_obj;
 
 typedef struct s_ray
@@ -117,6 +116,7 @@ typedef struct s_camera
 typedef struct s_map
 {
 	int		fd;
+	int		lines;
 	char	**file;
 }			t_map;
 
@@ -137,9 +137,10 @@ typedef struct s_data
 	mlx_image_t		*img;
 	t_cam			*cam;
 	t_map			*map;
-	t_obj			*obj;
+	t_obj			**obj;
 	int				width;
 	int				height;
+	int				lines;
 	t_thread		threads[NOT];
 }					t_data;
 
@@ -151,7 +152,7 @@ int			ft_isspace(int c);
 int			theend(char *s);
 char		*kill_nltb(char *line);
 int			first_iscomment(char *line);
-t_obj		*create_obj(t_map *map);
+int			create_obj(t_data *data);
 char		**ft_split_p(char *s, char c);
 void		get_reso(t_obj *obj, char **split);
 void		get_cam(t_obj *obj, char **split);
@@ -160,9 +161,9 @@ void		get_light(t_obj *obj, char **split);
 void		get_sphere(t_obj *obj, char **split);
 void		get_pln(t_obj *obj, char **split);
 void		get_cyl(t_obj *obj, char **split);
-void		get_circle(t_obj *obj, t_vec vec);
-void		get_rect(t_obj *obj, char **split);
-void		get_square(t_obj *obj, int dir);
+void		get_circle(t_obj *obj, t_obj *obj_c, t_vec vec);
+void		get_rect(t_obj *obj, t_obj *obj_r, char **split, int square);
+void		get_square(t_obj *obj, t_obj *obj_r, int dir);
 double		ft_atof(char *nbr);
 void		pre_check(t_obj *obj, char *str, int type, char *tocheck);
 int			pre_field_check(char *line);
@@ -180,12 +181,12 @@ bool		is_no_rt_file(char *argv);
 
 //RENDERING
 void		*thread_routine(void *threads);
-bool		hit_object(t_ray *ray, t_obj *obj);
+bool		hit_object(t_ray *ray, t_obj **obj);
 t_vec		gradient(t_ray *ray);
 
 //MLX
 void		my_keyhook(mlx_key_data_t keydata, void *param);
-int			mlx_setup(t_obj *obj, t_data *data);
+int			mlx_setup(t_data *data);
 void		run_mlx(t_data *data);
 
 //MULTITHREADING
@@ -197,7 +198,7 @@ int			new_thread_run(t_data *data);
 //ERROR
 void		ft_error(t_data *data, int ecase);
 void		error_message(int ecase);
-void		clean_obj(t_obj *obj);
+void		clean_obj(t_obj **obj, int lines);
 void		cleanup(t_data *data, int lvl);
 void		escape(t_data *data);
 void		free_map(t_map *map);
@@ -205,8 +206,8 @@ void		free_map(t_map *map);
 //RAY UTILS
 t_ray		bounce_ray(t_ray *original);
 bool		front_facing(t_vec ray_direction, t_vec face_normal);
-t_vec		ray_color(t_ray *ray, t_obj *obj, int depth);
-t_vec		ray_at_light(t_ray *ray, t_obj *obj, t_obj *light);
+t_vec		ray_color(t_ray *ray, t_obj **obj, int depth);
+t_vec		ray_at_light(t_ray *ray, t_obj **obj, t_obj *light);
 t_vec		point_at(t_ray ray, double t);
 t_ray		*set_ray(t_ray *ray, t_cam *cam, double col, double row);
 t_ray		*random_ray(t_ray *ray, t_cam *cam, int col, int row);
@@ -241,7 +242,7 @@ bool		hit_square(t_ray *ray, t_obj *obj);
 double		t_to_plane(t_vec obj_n, t_vec obj_o, t_vec ray_n, t_vec ray_o);
 
 //CAMERA
-t_cam		*setup_cam(t_obj *obj, int width, int height);
+t_cam		*setup_cam(t_obj **obj, int width, int height);
 void		refresh_cam(t_data *data, int casse);
 void		get_next_cam(t_data *data);
 
