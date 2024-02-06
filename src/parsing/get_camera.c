@@ -22,7 +22,7 @@ void	get_cam(t_obj *obj, char **split)
 		if (obj->type != -1)
 			obj->type = CAM;
 		obj->origin = insert_pos_vec(split[1], obj->type, POS);
-		obj->vector = unit_vector(insert_pos_vec(split[2], obj->type, ORI));
+		obj->vector = normalize_vector(insert_pos_vec(split[2], obj->type, ORI));
 		obj->hei_fov = ft_atof(split[3]);
 		if (invalid_vector(obj->origin) || invalid_vector(obj->vector) || \
 			obj->hei_fov > 180.0 || obj->hei_fov <= 0.0)

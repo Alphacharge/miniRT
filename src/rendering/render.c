@@ -50,11 +50,11 @@ void	soft_shadow(t_thread *thread, t_ray *ray, t_vec *pixels, t_data *data)
 		{
 			color = new_vector(0, 0, 0);
 			ray = random_ray(ray, data->cam, col, row);
-			pixels[i] = factor_mult_vector(pixels[i], thread->runs);
-			color = add_vector(pixels[i], ray_color(ray, data->obj, MAX_DEPTH));
-			color = factor_div_vector(color, thread->runs + 1);
+			pixels[i] = multiply_vector_by_scalar(pixels[i], thread->runs);
+			color = add_vectors(pixels[i], ray_color(ray, data->obj, MAX_DEPTH));
+			color = divide_vector_by_scalar(color, thread->runs + 1);
 			pixels[i++] = color;
-			color = add_vector(color, thread->ambient);
+			color = add_vectors(color, thread->ambient);
 			// if (thread->id == 1)
 				// color = new_vector(255,255,255);
 			put_pixel(data->img, col, row, color);
@@ -84,7 +84,7 @@ void	hard_shadow(t_thread *thread, t_ray *ray, t_vec ambient, t_vec *pixels)
 			color = ray_at_light(ray, thread->data->obj, \
 				first_light(thread->data->obj));
 			pixels[i++] = color;
-			color = add_vector(color, ambient);
+			color = add_vectors(color, ambient);
 			put_pixel(thread->data->img, col, row, color);
 			col += NOT;
 		}

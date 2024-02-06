@@ -19,11 +19,11 @@ double	t_to_plane(t_vec obj_n, t_vec obj_o, t_vec ray_n, t_vec ray_o)
 	double	dis;
 	double	t;
 
-	ortho = scalar_vector(obj_n, ray_n);
+	ortho = dot_product(obj_n, ray_n);
 	if (ortho == 0)
 		return (0);
-	pln_d = scalar_vector(obj_o, obj_n);
-	dis = scalar_vector(obj_n, ray_o);
+	pln_d = dot_product(obj_o, obj_n);
+	dis = dot_product(obj_n, ray_o);
 	t = (pln_d - dis) / ortho;
 	if (t < T_MIN || t > T_MAX)
 		return (0);

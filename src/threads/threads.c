@@ -21,8 +21,8 @@ t_vec	get_ambient_lighting(t_obj *obj)
 	while (obj != NULL)
 	{
 		if (obj->type == AMBI)
-			ambient = add_vector(ambient, \
-				factor_mult_vector(obj->color, obj->width));
+			ambient = add_vectors(ambient, \
+				multiply_vector_by_scalar(obj->color, obj->width));
 		obj = obj->next;
 	}
 	return (ambient);

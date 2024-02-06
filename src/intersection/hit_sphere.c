@@ -33,8 +33,8 @@ static bool	closest_sphere(t_ray *ray, t_obj *obj, double t)
 	ray->closest_t = t;
 	ray->closest_object = obj;
 	ray->normal = point_at(*ray, t);
-	ray->normal = subtract_vector(ray->normal, obj->origin);
-	ray->normal = factor_div_vector(ray->normal, obj->radius);
+	ray->normal = subtract_vectors(ray->normal, obj->origin);
+	ray->normal = divide_vector_by_scalar(ray->normal, obj->radius);
 	return (true);
 }
 
@@ -47,10 +47,10 @@ bool	hit_sphere(t_ray *ray, t_obj *obj)
 	double	length;
 
 	origin_center = new_vector(0, 0, 0);
-	origin_center = subtract_vector(ray->origin, obj->origin);
+	origin_center = subtract_vectors(ray->origin, obj->origin);
 	length = length_vector(ray->direction);
 	a = length * length;
-	b = scalar_vector(origin_center, ray->direction);
+	b = dot_product(origin_center, ray->direction);
 	length = length_vector(origin_center);
 	discriminant = b * b - ((a * length * length) - \
 		(obj->radius * obj->radius));

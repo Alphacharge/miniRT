@@ -23,7 +23,7 @@ void	get_pln(t_obj *obj, char **split)
 		if (obj->type != -1)
 			obj->type = PLN;
 		obj->origin = insert_pos_vec(split[1], obj->type, POS);
-		obj->vector = unit_vector(insert_pos_vec(split[2], obj->type, ORI));
+		obj->vector = normalize_vector(insert_pos_vec(split[2], obj->type, ORI));
 		obj->radius = ft_atof(split[2]);
 		obj->color = insert_color(split[3], obj->type);
 		obj->reflection = ft_atof(split[4]);

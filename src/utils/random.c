@@ -12,27 +12,6 @@
 
 #include "miniRT.h"
 
-int	xorshift_random(int seed)
-{
-	seed ^= seed >> 17;
-	seed ^= seed << 5;
-	seed ^= seed << 13;
-	return (seed);
-}
-
-int	lcg_random(unsigned int seed)
-{
-	const unsigned int	a = (unsigned int)1664525;
-	const unsigned int	c = (unsigned int)1013904227;
-
-	return ((int)(a * seed + c));
-}
-
-int	xslcg_random(unsigned int seed)
-{
-	return (xorshift_random(seed) ^ lcg_random(seed));
-}
-
 /*This function expects a seed of about 1.000.000.000 length.*/
 int	three_digits(unsigned int seed)
 {
