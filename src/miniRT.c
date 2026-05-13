@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#ifdef USE_CUDA
+# include "rtx.h"
+#endif
 
 static t_data	*init_data(void)
 {
@@ -54,10 +57,16 @@ int	main(int argc, char **argv)
 	data->cam = setup_cam(data->obj, data->width, data->height);
 	if (data->cam == NULL)
 		return (cleanup(data, 2), EXIT_FAILURE);
+#ifdef USE_CUDA
+	printf("Starting CUDA GPU rendering.\n");
+	if (cuda_render_loop(data) != 0)
+		return (cleanup(data, 3), EXIT_FAILURE);
+#else
 	printf("Starting threads.\n");
 	if (create_threads(data) != 0)
 		return (cleanup(data, 3), EXIT_FAILURE);
 	run_mlx(data);
+#endif
 	printf("Freeing memory.\n");
 	escape(data);
 	cleanup(data, 3);

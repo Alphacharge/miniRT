@@ -128,6 +128,41 @@ endif
 all: message $(LIBFT_F) $(LIBVEC_F) $(MLX42_F)
 	@$(MAKE) -j $(NAME)
 
+###			###			CUDA			###			###
+NVCC		:=	nvcc
+NVCCFLAGS	:=	-O2 --compiler-options '-fPIC'
+CUDA_SRC_D	:=	src/rtx
+CUDA_SRC	:=	$(CUDA_SRC_D)/rtx_kernel.cu $(CUDA_SRC_D)/rtx_host.cu
+CUDA_CSRC	:=	$(CUDA_SRC_D)/rtx_convert.c
+CUDA_OBJ_D	:=	./obj_cuda
+CUDA_OBJ	:=	$(CUDA_OBJ_D)/rtx_kernel.o $(CUDA_OBJ_D)/rtx_host.o
+CUDA_COBJ	:=	$(CUDA_OBJ_D)/rtx_convert.o
+CUDA_INC	:=	-I $(CUDA_SRC_D) $(INC_F)
+CUDA_LIB	:=	$(LIB) -lcudart -lstdc++
+CUDA_CFLAGS	:=	$(CFLAGS) -DUSE_CUDA
+
+cuda: message $(LIBFT_F) $(LIBVEC_F) $(MLX42_F)
+	@$(MAKE) -j $(NAME)_cuda
+
+$(NAME)_cuda: $(CUDA_OBJ_D) $(OBJ_D) $(CUDA_OBJ) $(CUDA_COBJ) $(OBJ_F)
+	@$(CC) $(CUDA_CFLAGS) $(INC_F) -I $(CUDA_SRC_D) -c src/miniRT.c -o $(OBJ_D)/miniRT.o
+	$(NVCC) $(NVCCFLAGS) -DUSE_CUDA $(CUDA_INC) -o $(NAME) \
+		$(OBJ_F) $(CUDA_OBJ) $(CUDA_COBJ) $(CUDA_LIB)
+
+$(CUDA_OBJ_D)/%.o: $(CUDA_SRC_D)/%.cu
+	$(NVCC) $(NVCCFLAGS) -DUSE_CUDA $(CUDA_INC) -I $(CUDA_SRC_D) -c $< -o $@
+
+$(CUDA_OBJ_D)/%.o: $(CUDA_SRC_D)/%.c
+	$(CC) $(CUDA_CFLAGS) $(INC_F) -I $(CUDA_SRC_D) -c $< -o $@
+
+$(CUDA_OBJ_D):
+	@mkdir -p $@
+
+cuda_clean:
+	@rm -rf $(CUDA_OBJ_D)
+
+###			###			END CUDA		###			###
+
 lsan: clean_lsan $(OBJ_D) $(LIBFT_F) $(LIBVEC_F) $(MLX42_F) $(LSAN_F)
 	@$(MAKE) -j $(NAME)
 
@@ -198,6 +233,7 @@ clean:
 
 fclean: clean
 #	@rm -rf $(MLX42_BD)
+	@rm -rf $(CUDA_OBJ_D)
 	@rm -f $(NAME)
 	@echo "$(BLUE)--->$(GREEN)Cleaning $(NAME) .....$(WHITE)"
 	@echo "$(RED)All is cleaned$(WHITE)"
@@ -206,4 +242,4 @@ re: fclean all
 
 bonus: all
 
-.PHONY: all fclean clean re lsan bonus clean_lsan
+.PHONY: all fclean clean re lsan bonus clean_lsan cuda cuda_clean
