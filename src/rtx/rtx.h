@@ -21,24 +21,24 @@ extern "C" {
 typedef struct s_gpu_obj
 {
 	int		type;
-	double	radius;
-	double	width;
-	double	hei_fov;
-	double	origin[3];
-	double	vector[3];
-	double	vector2[3];
-	double	color[3];
+	float	radius;
+	float	width;
+	float	hei_fov;
+	float	origin[3];
+	float	vector[3];
+	float	vector2[3];
+	float	color[3];
 }			t_gpu_obj;
 
 /*GPU camera parameters*/
 typedef struct s_gpu_cam
 {
-	double	focal_length;
-	double	origin[3];
-	double	direction[3];
-	double	horizontal[3];
-	double	vertical[3];
-	double	upper_left_corner[3];
+	float	focal_length;
+	float	origin[3];
+	float	direction[3];
+	float	horizontal[3];
+	float	vertical[3];
+	float	upper_left_corner[3];
 }			t_gpu_cam;
 
 /*GPU render configuration*/
@@ -50,9 +50,9 @@ typedef struct s_gpu_config
 	int		soft_shadow;
 	int		bounces;
 	int		sky;
-	double	albedo;
-	double	light_factor;
-	double	ambient[3];
+	float	albedo;
+	float	light_factor;
+	float	ambient[3];
 }			t_gpu_config;
 
 /*Host-side CUDA context*/
@@ -61,8 +61,9 @@ typedef struct s_cuda_ctx
 	t_gpu_obj		*d_objects;
 	t_gpu_cam		*d_cam;
 	t_gpu_config	*d_config;
-	double			*d_pixels;
-	double			*d_accum;
+	float			*d_pixels;
+	float			*d_accum;
+	unsigned int	*d_rgba;
 	int				num_objects;
 	int				sample_count;
 }					t_cuda_ctx;

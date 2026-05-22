@@ -6,12 +6,13 @@
 /*   By: rbetz <rbetz@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 10:00:00 by rbetz             #+#    #+#             */
-/*   Updated: 2026/05/13 10:00:00 by rbetz            ###   ########.fr       */
+/*   Updated: 2026/05/22 10:00:00 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <cuda_runtime.h>
 #include <time.h>
 
@@ -26,8 +27,12 @@ extern "C" {
 /* Declared in rtx_kernel.cu */
 extern "C"
 __global__ void render_kernel(t_gpu_obj *objs, int num_objs,
-	t_gpu_cam *cam, t_gpu_config *cfg, double *accum, double *pixels,
+	t_gpu_cam *cam, t_gpu_config *cfg, float *accum, float *pixels,
 	int sample_count, unsigned int base_seed);
+
+extern "C"
+__global__ void pixels_to_rgba_kernel(float *pixels, unsigned int *rgba,
+	int num_pixels);
 
 #define CUDA_CHECK(call) do { \
 	cudaError_t err = call; \
@@ -86,8 +91,9 @@ extern "C" int	cuda_init(t_data *data, t_cuda_ctx **ctx_out)
 		sizeof(t_gpu_obj) * ctx->num_objects));
 	CUDA_CHECK(cudaMalloc(&ctx->d_cam, sizeof(t_gpu_cam)));
 	CUDA_CHECK(cudaMalloc(&ctx->d_config, sizeof(t_gpu_config)));
-	CUDA_CHECK(cudaMalloc(&ctx->d_pixels, sizeof(double) * num_pixels * 3));
-	CUDA_CHECK(cudaMalloc(&ctx->d_accum, sizeof(double) * num_pixels * 3));
+	CUDA_CHECK(cudaMalloc(&ctx->d_pixels, sizeof(float) * num_pixels * 3));
+	CUDA_CHECK(cudaMalloc(&ctx->d_accum, sizeof(float) * num_pixels * 3));
+	CUDA_CHECK(cudaMalloc(&ctx->d_rgba, sizeof(unsigned int) * num_pixels));
 
 	/* Copy data to device */
 	CUDA_CHECK(cudaMemcpy(ctx->d_objects, h_objs,
@@ -98,7 +104,7 @@ extern "C" int	cuda_init(t_data *data, t_cuda_ctx **ctx_out)
 		sizeof(t_gpu_config), cudaMemcpyHostToDevice));
 
 	/* Zero accumulation buffer */
-	CUDA_CHECK(cudaMemset(ctx->d_accum, 0, sizeof(double) * num_pixels * 3));
+	CUDA_CHECK(cudaMemset(ctx->d_accum, 0, sizeof(float) * num_pixels * 3));
 
 	ctx->sample_count = 0;
 	free(h_objs);
@@ -111,7 +117,6 @@ extern "C" int	cuda_init(t_data *data, t_cuda_ctx **ctx_out)
 extern "C" int	cuda_render(t_cuda_ctx *ctx, t_data *data)
 {
 	int		num_pixels;
-	double	*h_pixels;
 	dim3	block(16, 16);
 	dim3	grid;
 
@@ -121,51 +126,30 @@ extern "C" int	cuda_render(t_cuda_ctx *ctx, t_data *data)
 
 	unsigned int base_seed = (unsigned int)time(NULL) + ctx->sample_count * 7919;
 
-	/* Launch kernel */
+	/* Launch render kernel */
 	render_kernel<<<grid, block>>>(
 		ctx->d_objects, ctx->num_objects,
 		ctx->d_cam, ctx->d_config,
 		ctx->d_accum, ctx->d_pixels,
 		ctx->sample_count, base_seed
 	);
+
+	/* Launch RGBA conversion kernel on GPU (no CPU pixel loop!) */
+	int rgba_threads = 256;
+	int rgba_blocks = (num_pixels + rgba_threads - 1) / rgba_threads;
+	pixels_to_rgba_kernel<<<rgba_blocks, rgba_threads>>>(
+		ctx->d_pixels, ctx->d_rgba, num_pixels
+	);
+
 	CUDA_CHECK(cudaGetLastError());
 	CUDA_CHECK(cudaDeviceSynchronize());
 
-	/* Copy pixels back */
-	h_pixels = (double *)malloc(sizeof(double) * num_pixels * 3);
-	if (!h_pixels)
-		return 1;
-	CUDA_CHECK(cudaMemcpy(h_pixels, ctx->d_pixels,
-		sizeof(double) * num_pixels * 3, cudaMemcpyDeviceToHost));
+	/* Copy RGBA directly into MLX image buffer */
+	CUDA_CHECK(cudaMemcpy(data->img->pixels, ctx->d_rgba,
+		sizeof(unsigned int) * num_pixels, cudaMemcpyDeviceToHost));
 
-	/* Write to MLX image with gamma correction */
-	for (int y = 0; y < data->height; y++)
-	{
-		for (int x = 0; x < data->width; x++)
-		{
-			int idx = (y * data->width + x) * 3;
-			double r = h_pixels[idx + 0];
-			double g = h_pixels[idx + 1];
-			double b = h_pixels[idx + 2];
-			/* Clamp */
-			if (r > 1.0) r = 1.0; else if (r < 0.0) r = 0.0;
-			if (g > 1.0) g = 1.0; else if (g < 0.0) g = 0.0;
-			if (b > 1.0) b = 1.0; else if (b < 0.0) b = 0.0;
-			/* Gamma correction */
-			const double gamma_val = 2.2;
-			r = pow(r, 1.0 / gamma_val);
-			g = pow(g, 1.0 / gamma_val);
-			b = pow(b, 1.0 / gamma_val);
-			int ri = (int)(r * 255.0);
-			int gi = (int)(g * 255.0);
-			int bi = (int)(b * 255.0);
-			uint32_t color = (ri << 24) | (gi << 16) | (bi << 8) | 255;
-			mlx_put_pixel(data->img, x, y, color);
-		}
-	}
-	free(h_pixels);
 	ctx->sample_count++;
-	if (ctx->sample_count % 10 == 0)
+	if (ctx->sample_count % 25 == 0)
 		printf("CUDA: Sample %d done\n", ctx->sample_count);
 	return 0;
 }
@@ -184,6 +168,8 @@ extern "C" void	cuda_cleanup(t_cuda_ctx *ctx)
 		cudaFree(ctx->d_pixels);
 	if (ctx->d_accum)
 		cudaFree(ctx->d_accum);
+	if (ctx->d_rgba)
+		cudaFree(ctx->d_rgba);
 	free(ctx);
 }
 
